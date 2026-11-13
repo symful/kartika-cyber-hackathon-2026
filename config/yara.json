@@ -1,0 +1,110 @@
+{
+  "version": 1,
+  "rules": [
+    {
+      "name": "pe_executable",
+      "description": "Berkas diawali header MZ, indikasi executable Windows.",
+      "severity": "medium",
+      "tags": ["portable-executable"],
+      "condition": "all",
+      "strings": [{ "type": "hex", "value": "4D5A" }]
+    },
+    {
+      "name": "pe_dos_stub",
+      "description": "Stub DOS khas executable Windows ditemukan di dalam berkas.",
+      "severity": "high",
+      "tags": ["portable-executable", "masquerade"],
+      "condition": "all",
+      "strings": [{ "type": "text", "value": "This program cannot be run in DOS mode" }]
+    },
+    {
+      "name": "powershell_download",
+      "description": "Perintah PowerShell dengan unduhan jarak jauh.",
+      "severity": "high",
+      "tags": ["execution", "download"],
+      "condition": "all",
+      "strings": [
+        { "type": "text", "value": "powershell", "nocase": true },
+        { "type": "text", "value": "downloadstring", "nocase": true }
+      ]
+    },
+    {
+      "name": "certutil_decode",
+      "description": "Penyalahgunaan certutil untuk mendekode muatan.",
+      "severity": "high",
+      "tags": ["defense-evasion"],
+      "condition": "all",
+      "strings": [
+        { "type": "text", "value": "certutil", "nocase": true },
+        { "type": "text", "value": "-decode", "nocase": true }
+      ]
+    },
+    {
+      "name": "office_macro_autoopen",
+      "description": "Makro Office dengan AutoOpen dan kode VBA.",
+      "severity": "high",
+      "tags": ["macro", "execution"],
+      "condition": "any",
+      "strings": [
+        { "type": "text", "value": "AutoOpen", "nocase": true, "wide": true },
+        { "type": "text", "value": "Document_Open", "nocase": true, "wide": true },
+        { "type": "text", "value": "vbaProject.bin", "nocase": true }
+      ]
+    },
+    {
+      "name": "credential_harvest_page",
+      "description": "Halaman HTML dengan form dan input kata sandi, pola pengumpulan kredensial.",
+      "severity": "medium",
+      "tags": ["phishing", "credential-access"],
+      "condition": "all",
+      "strings": [
+        { "type": "text", "value": "<form", "nocase": true },
+        { "type": "text", "value": "type=\"password\"", "nocase": true }
+      ]
+    },
+    {
+      "name": "embedded_base64_blob",
+      "description": "Blok base64 panjang yang umum dipakai untuk menyamarkan muatan.",
+      "severity": "low",
+      "tags": ["obfuscation"],
+      "condition": "all",
+      "strings": [{ "type": "regex", "value": "[A-Za-z0-9+/]{160,}={0,2}" }]
+    },
+    {
+      "name": "webshell_markers",
+      "description": "Penanda webshell pada berkas teks.",
+      "severity": "high",
+      "tags": ["webshell", "persistence"],
+      "condition": "any",
+      "strings": [
+        { "type": "text", "value": "shell_exec", "nocase": true },
+        { "type": "text", "value": "eval(request", "nocase": true },
+        { "type": "text", "value": "cmd.exe /c", "nocase": true }
+      ]
+    },
+    {
+      "name": "pdf_javascript",
+      "description": "PDF memuat JavaScript atau OpenAction otomatis.",
+      "severity": "medium",
+      "tags": ["pdf", "execution"],
+      "condition": "any",
+      "strings": [
+        { "type": "text", "value": "/javascript", "nocase": true },
+        { "type": "text", "value": "/openaction", "nocase": true },
+        { "type": "text", "value": "/launch", "nocase": true }
+      ]
+    },
+    {
+      "name": "ransom_note_language",
+      "description": "Frasa khas catatan tebusan.",
+      "severity": "medium",
+      "tags": ["ransomware"],
+      "condition": "any",
+      "strings": [
+        { "type": "text", "value": "your files have been encrypted", "nocase": true },
+        { "type": "text", "value": "decrypt your files", "nocase": true },
+        { "type": "text", "value": "bitcoin wallet", "nocase": true }
+      ]
+    }
+  ]
+}

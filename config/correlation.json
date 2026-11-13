@@ -1,0 +1,11 @@
+{
+  "thresholds": { "weak": 25, "moderate": 45, "strong": 70 },
+  "temporal": { "nearHours": 72, "nearBonus": 8, "weekHours": 168, "weekBonus": 4 },
+  "specificity": {
+    "dfPenalty": 0.5,
+    "commonDf": 4,
+    "commonWeightCap": 8,
+    "commonOnlyCap": 24
+  },
+  "blindMultiplier": 0.8
+}

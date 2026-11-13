@@ -1,0 +1,79 @@
+{
+  "campaign": "SINYAL-01",
+  "watermark": "FICTIONAL TRAINING DATA - NOT A REAL TNI AD INCIDENT",
+  "domain": "kartika-supply.example",
+  "phish_url": "https://kartika-supply.example/login",
+  "sender": "keuangan@kartika-supply.example",
+  "reply_to": "support@kartika-supply.example",
+  "c2_ip": "203.0.113.77",
+  "credential_ip": "198.51.100.23",
+  "ddos_ip": "192.0.2.55",
+  "ddos_domain": "ddos-target.example",
+  "attachment": "Faktur_Pengadaan_2026.zip",
+  "units": {
+    "alpha": "Satuan Alpha",
+    "bravo": "Satuan Bravo",
+    "center": "Pusat Koordinasi"
+  },
+  "password": "kartika2026",
+  "incidents": [
+    {
+      "code": "INC-2026-001",
+      "title": "Phishing faktur pengadaan",
+      "category": "Phishing",
+      "severity": "high",
+      "status": "investigating",
+      "unit": "Satuan Alpha",
+      "reporter": "Letda A. Pratama",
+      "occurred_at": "2026-11-08T02:14:00Z",
+      "summary": "Email bertema faktur pengadaan dikirim ke staf keuangan. Lampiran berisi halaman pengumpulan kredensial. Domain pengirim bukan domain resmi."
+    },
+    {
+      "code": "INC-2026-002",
+      "title": "Koneksi keluar mencurigakan",
+      "category": "Malware",
+      "severity": "high",
+      "status": "investigating",
+      "unit": "Satuan Bravo",
+      "reporter": "Serma B. Nugraha",
+      "occurred_at": "2026-11-08T06:40:00Z",
+      "summary": "Log proxy mencatat unduhan berkas dari domain yang tidak dikenal, diikuti koneksi TLS berkala ke alamat luar."
+    },
+    {
+      "code": "INC-2026-003",
+      "title": "Percobaan penggunaan kredensial",
+      "category": "Account Compromise",
+      "severity": "medium",
+      "status": "open",
+      "unit": "Satuan Alpha",
+      "reporter": "Serka C. Wibowo",
+      "occurred_at": "2026-11-09T01:05:00Z",
+      "summary": "Percobaan login gagal berulang dari alamat luar terhadap layanan surel, beberapa jam setelah laporan phishing pertama."
+    },
+    {
+      "code": "INC-2026-004",
+      "title": "Banjir lalu lintas pada situs publik",
+      "category": "DDoS",
+      "severity": "critical",
+      "status": "contained",
+      "unit": "Satuan Bravo",
+      "reporter": "Serma B. Nugraha",
+      "occurred_at": "2026-11-11T13:20:00Z",
+      "summary": "Lonjakan permintaan dari satu alamat sumber. Tidak ditemukan indikator yang sama dengan kasus phishing."
+    }
+  ],
+  "case": {
+    "name": "Star Blizzard (SEABORGIUM / Callisto / TA446)",
+    "advisory": "CISA AA23-341A, 7 Desember 2023",
+    "source_url": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-341a",
+    "license": "UK Crown Copyright; CISA public advisory. Digunakan untuk rekonstruksi pelatihan.",
+    "description": "Profil kampanye, taktik, dan pemetaan teknik diambil dari advisory publik. Nilai indikator pada dataset demo ini adalah sintetis dan ditandai sebagai data latihan.",
+    "techniques": ["T1566.002", "T1566.001", "T1583.001", "T1539", "T1550.004", "T1078", "T1114.002", "T1114.003"]
+  },
+  "tasks": [
+    { "incident_code": "INC-2026-001", "title": "Blokir domain pada DNS internal", "assignee": "Letda A. Pratama", "status": "done", "due_at": "2026-11-08T10:00:00Z" },
+    { "incident_code": "INC-2026-001", "title": "Reset kredensial staf keuangan", "assignee": "Serka C. Wibowo", "status": "in_progress", "due_at": "2026-11-09T10:00:00Z" },
+    { "incident_code": "INC-2026-002", "title": "Isolasi host yang menghubungi alamat luar", "assignee": "Serma B. Nugraha", "status": "open", "due_at": "2026-11-08T14:00:00Z" },
+    { "incident_code": "INC-2026-003", "title": "Tinjau log autentikasi 24 jam terakhir", "assignee": "Letda A. Pratama", "status": "open", "due_at": "2026-11-09T12:00:00Z" }
+  ]
+}

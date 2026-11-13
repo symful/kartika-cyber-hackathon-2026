@@ -1,0 +1,31 @@
+{
+  "name": "rantai",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "typecheck": "tsc --noEmit",
+    "preview": "npm run build && wrangler dev",
+    "onprem": "npm run build && tsx server/onprem.ts",
+    "db:local": "wrangler d1 execute rantai --local --file=worker/schema.sql",
+    "deploy": "npm run build && wrangler deploy"
+  },
+  "dependencies": {
+    "@hono/node-server": "^2.1.8",
+    "fflate": "^0.8.2",
+    "hono": "^4.9.2",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "tsx": "^4.23.15"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.0",
+    "wrangler": "^4.30.0"
+  }
+}

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<title>RANTAI — Thumbnail 1200x630</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    font-family: Inter, system-ui, sans-serif; color: #e6edf3; background: #0a0d11;
+    background-image:
+      radial-gradient(700px 420px at 12% 0%, rgba(35, 60, 105, .55), transparent 60%),
+      radial-gradient(600px 500px at 100% 100%, rgba(246, 183, 60, .12), transparent 55%),
+      linear-gradient(rgba(79,140,255,.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(79,140,255,.045) 1px, transparent 1px);
+    background-size: auto, auto, 48px 48px, 48px 48px;
+    padding: 54px 64px; display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .top { display: flex; align-items: center; gap: 14px; }
+  .mark {
+    width: 46px; height: 46px; border-radius: 13px; display: grid; place-items: center;
+    background: linear-gradient(150deg, #4f8cff, #2f6bd6); color: #1a1206;
+    box-shadow: 0 10px 30px -10px rgba(79,140,255,.8);
+  }
+  .wordmark { font-weight: 800; letter-spacing: .18em; font-size: 19px; }
+  .tag { font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: #7d90ad; margin-top: 2px; }
+  .badge {
+    margin-left: auto; font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+    border: 1px solid rgba(79,140,255,.35); color: #4f8cff; background: rgba(79,140,255,.08);
+    padding: 7px 13px; border-radius: 999px; font-weight: 600;
+  }
+  h1 { font-size: 62px; line-height: 1.02; letter-spacing: -.045em; margin: 0; font-weight: 800; max-width: 720px; }
+  h1 em { color: #4f8cff; font-style: normal; }
+  .sub { font-size: 18px; color: #9fb0ca; margin-top: 16px; max-width: 660px; line-height: 1.5; }
+  .chips { display: flex; gap: 8px; margin-top: 22px; flex-wrap: wrap; }
+  .chip {
+    font-family: "JetBrains Mono", monospace; font-size: 10.5px; color: #8b98a8;
+    border: 1px solid #222b36; background: #11161d; padding: 5px 10px; border-radius: 7px;
+  }
+  .bottom { display: flex; align-items: flex-end; justify-content: space-between; }
+  .disclaimer { font-size: 11px; color: #6f819e; max-width: 620px; line-height: 1.5; }
+  .viz { display: flex; align-items: center; gap: 16px; }
+  .score {
+    width: 132px; height: 132px; border-radius: 50%; display: grid; place-items: center;
+    border: 2px solid rgba(255,107,107,.6);
+    background: radial-gradient(circle at 50% 40%, rgba(255,107,107,.14), transparent 65%);
+  }
+  .score b { display: block; font-size: 38px; line-height: 1; color: #ff6b6b; letter-spacing: -.03em; }
+  .score span { font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #9fb0ca; }
+  .stack { display: flex; flex-direction: column; gap: 7px; }
+  .node {
+    font-family: "JetBrains Mono", monospace; font-size: 10px; color: #b9c8de;
+    border: 1px solid #223352; background: #0c1526; padding: 6px 10px; border-radius: 8px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: #3dd6c4; }
+  .dot.amber { background: #4f8cff; }
+  .dot.red { background: #ff6b6b; }
+</style>
+</head>
+<body>
+  <div class="top">
+    <div class="mark">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3l7.5 3v5.2c0 4.7-3.1 8.3-7.5 10.3-4.4-2-7.5-5.6-7.5-10.3V6L12 3z"/>
+      </svg>
+    </div>
+    <div>
+      <div class="wordmark">RANTAI</div>
+      <div class="tag">Incident Evidence &amp; Coordination</div>
+    </div>
+    <div class="badge">Kategori Penangkalan</div>
+  </div>
+
+  <div>
+    <h1>Satu laporan.<br />Bukti yang <em>terverifikasi</em>.</h1>
+    <div class="sub">Korelasi insiden lintas satuan, kronologi yang bisa diaudit, dan pertukaran indikator tanpa membuka bukti mentah.</div>
+    <div class="chips">
+      <span class="chip">SHA-256 manifest</span>
+      <span class="chip">hash-linked audit</span>
+      <span class="chip">Ed25519 checkpoint</span>
+      <span class="chip">STIX 2.1</span>
+      <span class="chip">blinded matching</span>
+    </div>
+  </div>
+
+  <div class="bottom">
+    <div class="disclaimer">
+      Prototipe untuk Kartika Cyber Hackathon 2026. Data pelatihan sintetis; profil kampanye merujuk pada advisory publik CISA AA23-341A.
+    </div>
+    <div class="viz">
+      <div class="stack">
+        <div class="node"><span class="dot amber"></span>INC-2026-001 · Alpha</div>
+        <div class="node"><span class="dot"></span>INC-2026-002 · Bravo</div>
+        <div class="node"><span class="dot red"></span>INC-2026-004 · no match</div>
+      </div>
+      <div class="score"><div><b>100</b><span>strong</span></div></div>
+    </div>
+  </div>
+</body>
+</html>
