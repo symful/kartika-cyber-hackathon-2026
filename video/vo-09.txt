@@ -1,0 +1,1 @@
+Pada data demo, laporan satu dan dua berskor seratus karena berbagi hash lampiran, domain, URL, dan berdekatan dalam waktu. Dua pasangan lain berskor lima puluh delapan dan dua puluh delapan. Laporan keempat sengaja tidak terhubung sama sekali. Angka nol itu sama pentingnya dengan angka seratus.

@@ -1,0 +1,1 @@
+Setiap insiden punya satu berkas kasus. Di dalamnya ada profil kampanye beserta teknik ATT&CK yang dipetakan, metadata laporan, dan komposisi indikator. Semua angka diambil dari berkas yang benar-benar diunggah.

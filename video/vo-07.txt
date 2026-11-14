@@ -1,0 +1,1 @@
+Passport artefak merangkum semuanya: hasil analisis statis, aturan yang cocok, alasan verdict, dan chain of custody. Setiap penanganan, transfer, dan penerimaan menambah satu mata rantai yang bisa diperiksa ulang.

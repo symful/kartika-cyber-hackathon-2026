@@ -5,6 +5,11 @@
 <p align="center">Kartika Cyber Hackathon 2026 · Kategori Penangkalan</p>
 
 <p align="center">
+  Aplikasi live: <a href="https://rantai.careday17.workers.dev">rantai.careday17.workers.dev</a> ·
+  Kode sumber: <a href="https://github.com/symful/kartika-cyber-hackathon-2026">symful/kartika-cyber-hackathon-2026</a>
+</p>
+
+<p align="center">
   <a href="#fitur">Fitur</a> ·
   <a href="#tangkapan-layar">Tangkapan layar</a> ·
   <a href="#menjalankan">Menjalankan</a> ·

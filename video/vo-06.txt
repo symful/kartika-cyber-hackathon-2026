@@ -1,0 +1,1 @@
+Ini bagian inti. Setiap berkas yang diunggah dihitung hash-nya, diparse, lalu dianalisis tanpa dieksekusi. Magic bytes, entropi, aturan bergaya YARA, dan batas keamanan arsip berjalan di sini. Jika berkas yang sama muncul di kasus lain, sistem menandainya.

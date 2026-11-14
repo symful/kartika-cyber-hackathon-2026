@@ -1,0 +1,1 @@
+Di halaman integritas, koordinator bisa memverifikasi rantai, membuat checkpoint, dan menguji manipulasi. Ubah satu entri, dan verifikasi akan menunjuk tepat entri yang rusak. Pulihkan, dan rantai kembali hijau.

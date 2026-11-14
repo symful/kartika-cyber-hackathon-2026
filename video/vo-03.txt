@@ -1,0 +1,1 @@
+Setiap satuan masuk dengan akunnya sendiri. Alpha, Bravo, dan koordinator. Sesi disimpan di basis data dengan masa berlaku delapan jam, dan setiap tindakan tercatat pada rantai audit.

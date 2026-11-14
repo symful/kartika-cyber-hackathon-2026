@@ -1,0 +1,179 @@
+{
+  "title": "RANTAI",
+  "subtitle": "Incident Evidence & Coordination Platform",
+  "event": "Kartika Cyber Hackathon 2026 · Kategori Penangkalan",
+  "live": "rantai.careday17.workers.dev",
+  "repo": "github.com/symful/kartika-cyber-hackathon-2026",
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "KARTIKA CYBER HACKATHON 2026 · KATEGORI PENANGKALAN",
+      "headline": ["Satu laporan.", "Bukti yang terverifikasi.", "Satu gambaran bersama."],
+      "lede": "RANTAI menyatukan laporan insiden lintas satuan tanpa memindahkan bukti mentah.",
+      "notes": "Perkenalkan diri dan tim. Satu kalimat inti: RANTAI menghubungkan laporan yang hari ini berdiri sendiri, dan menjaga bukti tetap bisa dipercaya."
+    },
+    {
+      "layout": "statement",
+      "eyebrow": "MASALAH",
+      "headline": ["Laporan insiden tersebar", "di banyak satuan."],
+      "body": [
+        "Setiap laporan berdiri sendiri, disimpan di satuan masing-masing.",
+        "Bukti sulit dibuktikan utuh setelah berpindah tangan.",
+        "Koordinasi berjalan lewat pesan dan spreadsheet, tanpa jejak keputusan."
+      ],
+      "notes": "Tegaskan bahwa masalahnya bukan mendeteksi serangan baru. Masalahnya adalah menghubungkan temuan yang sudah ada."
+    },
+    {
+      "layout": "statement",
+      "eyebrow": "CELAH YANG BELUM DIJAWAB",
+      "headline": ["Bukan deteksi.", "Korelasi, integritas, akuntabilitas."],
+      "body": [
+        "Menghubungkan temuan yang sudah ada tanpa memindahkan bukti mentah.",
+        "Membuktikan berkas tidak berubah sejak diterima.",
+        "Mencatat siapa memutuskan apa, dan atas dasar bukti mana."
+      ],
+      "notes": "Tiga kata ini menjadi kerangka seluruh presentasi: korelasi, integritas, akuntabilitas."
+    },
+    {
+      "layout": "flow",
+      "eyebrow": "ALUR",
+      "headline": ["RANTAI dalam satu alur"],
+      "steps": [
+        "Laporan masuk",
+        "Bukti di-sidik-jari",
+        "Indikator diekstrak",
+        "Korelasi dihitung",
+        "Kronologi disusun",
+        "Respons dicatat",
+        "Laporan diekspor"
+      ],
+      "notes": "Satu alur dari laporan sampai ekspor. Tidak ada langkah yang melewati pencatatan audit."
+    },
+    {
+      "layout": "shots",
+      "eyebrow": "TAMPILAN",
+      "headline": ["Produk yang berjalan hari ini"],
+      "images": [
+        {"path": "docs/screenshots/02-dashboard.png", "caption": "Ringkasan operasi"},
+        {"path": "docs/screenshots/04-incident-detail.png", "caption": "Detail insiden"},
+        {"path": "docs/screenshots/09-correlation-graph.png", "caption": "Graf kampanye"}
+      ],
+      "notes": "Semua tangkapan layar diambil dari prototipe yang berjalan, bukan mockup. Data pelatihan sintetis."
+    },
+    {
+      "layout": "diagram",
+      "eyebrow": "ARSITEKTUR",
+      "headline": ["Satu Worker, satu basis data"],
+      "image": "docs/diagrams/architecture.svg",
+      "caption": "Dua jalur deploy berbagi antarmuka EvidenceStorage yang sama.",
+      "bullets": [
+        "Cloudflare Worker + D1 untuk mode terkelola.",
+        "Node + node:sqlite untuk lingkungan offline / air-gap.",
+        "Tanpa layanan eksternal, tanpa panggilan keluar saat runtime."
+      ],
+      "notes": "Keputusan sadar: tidak ada dependensi runtime eksternal, supaya bisa berjalan di lingkungan satuan yang terisolasi."
+    },
+    {
+      "layout": "scores",
+      "eyebrow": "MESIN KORELASI",
+      "headline": ["Skor kekuatan bukti, bukan probabilitas"],
+      "rows": [
+        {"pair": "INC-2026-001 ↔ INC-2026-002", "score": 100, "band": "Kuat", "basis": "hash lampiran sama, domain, URL, kedekatan waktu", "color": "accent"},
+        {"pair": "INC-2026-001 ↔ INC-2026-003", "score": 58, "band": "Sedang", "basis": "email pengirim, domain, waktu", "color": "orange"},
+        {"pair": "INC-2026-002 ↔ INC-2026-003", "score": 28, "band": "Lemah", "basis": "domain saja", "color": "gold"},
+        {"pair": "INC-2026-004 ↔ semua", "score": 0, "band": "Tidak ada", "basis": "tidak ada indikator bersama", "color": "faint"}
+      ],
+      "formula": "w = base / (1 + 0.5 × (df − 1))",
+      "bullets": [
+        "Indikator umum dibatasi 2 poin per indikator dan 8 poin per pasangan.",
+        "Tanpa indikator spesifik, total ditahan di bawah ambang lemah 25.",
+        "Angka 0 membuktikan mesin tidak memaksakan temuan."
+      ],
+      "notes": "Tekankan baris terakhir: sistem sengaja menghasilkan 0. Itu bukti presisi, bukan kegagalan."
+    },
+    {
+      "layout": "diagram",
+      "eyebrow": "INTEGRITAS BUKTI",
+      "headline": ["Rantai hash-linked dan checkpoint Ed25519"],
+      "image": "docs/diagrams/integrity-chain.svg",
+      "caption": "H_i = SHA256(H_(i−1) ‖ canonical_json(E_i)), ditutup tanda tangan perangkat.",
+      "bullets": [
+        "Manifest laporan memuat SHA-256 tiap berkas dan Merkle root.",
+        "Chain of custody per artefak diurutkan per rowid.",
+        "Batasnya jujur: rantai membuktikan konsistensi, bukan keaslian berkas sebelum diunggah."
+      ],
+      "notes": "Jangan menaikkan klaim. Rantai membuktikan catatan konsisten, bukan bahwa berkas asli sejak awal."
+    },
+    {
+      "layout": "statement",
+      "eyebrow": "PRIVASI LINTAS SATUAN",
+      "headline": ["Cocok tanpa membuka nilai"],
+      "body": [
+        "Indikator yang tidak dibagikan tetap dapat dicocokkan lewat HMAC-SHA256.",
+        "Nilai mentah tidak pernah dikirim ke satuan lain.",
+        "Rotasi kunci menyimpan hash generasi sebelumnya agar perbandingan lama tidak langsung putus."
+      ],
+      "formula": "blind = HMAC-SHA256(secret, \"v{version}:\" + kind + \":\" + norm)",
+      "notes": "Batasnya: pencocokan buta mengungkap kesamaan, bukan nilai. Kunci adalah rahasia organisasi, bukan salt publik."
+    },
+    {
+      "layout": "ladder",
+      "eyebrow": "MODEL KEAMANAN",
+      "headline": ["Satu fungsi, lima tingkat presedensi"],
+      "steps": [
+        {"n": "1", "text": "Satuan pemilik atau koordinator — boleh, tetap tercatat di audit.", "tone": "ok"},
+        {"n": "2", "text": "share_scope restricted — selalu ditolak lintas satuan.", "tone": "no"},
+        {"n": "3", "text": "TLP RED dan AMBER+STRICT — selalu ditolak; approval tidak mengalahkan larangan.", "tone": "no"},
+        {"n": "4", "text": "TLP AMBER — perlu approval aktif dan belum kedaluwarsa.", "tone": "warn"},
+        {"n": "5", "text": "TLP GREEN dan CLEAR — boleh, tetap tunduk pada langkah 2.", "tone": "ok"}
+      ],
+      "bullets": [
+        "Dipaksi oleh unduhan, passport, laporan, dan ekspor — bukan hanya UI.",
+        "CSRF double-submit, sesi HttpOnly 8 jam, rate limit login 5/20 per 5 menit."
+      ],
+      "notes": "Poin kunci: aturan ini ditegakkan di server. UI tidak bisa melewatinya."
+    },
+    {
+      "layout": "proof",
+      "eyebrow": "BUKTI UJI",
+      "headline": ["Yang bisa ditunjukkan hari ini"],
+      "metrics": [
+        {"value": "24", "label": "pemeriksaan keamanan", "note": "verify.ps1 — seluruhnya lulus"},
+        {"value": "48", "label": "butir uji frontend", "note": "Chrome & Firefox, 0 pelanggaran WCAG 2 A/AA"},
+        {"value": "1.000", "label": "precision & recall", "note": "400 insiden, 900 pasangan benar, 600 negatif"},
+        {"value": "0.000", "label": "false positive rate", "note": "tanpa tautan silang CDN maupun hosting"}
+      ],
+      "bullets": [
+        "Uji manipulasi rantai: entri yang diubah terdeteksi tepat di nomornya.",
+        "ZIP bomb ditolak oleh batas keamanan arsip.",
+        "Kasus jujur: hash sama pada kampanye tak terkait masih terhubung — dilaporkan, bukan disembunyikan."
+      ],
+      "notes": "Angka-angka ini bisa dijalankan ulang oleh juri. Sebutkan keterbatasan hash-only secara terbuka."
+    },
+    {
+      "layout": "statement",
+      "eyebrow": "KELAYAKAN",
+      "headline": ["Bisa dipakai besok, bukan tahun depan"],
+      "body": [
+        "Satu perintah deploy. Berjalan sepenuhnya offline bila diperlukan.",
+        "Batas 900 KB per berkas pada D1; 50 MB pada filesystem. Produksi memakai object storage.",
+        "Sudah berjalan di rantai.careday17.workers.dev dengan data demo."
+      ],
+      "bullets": [
+        "Peta jalan: parser EVTX/pcap, notifikasi approval, rate limiter terdistribusi.",
+        "Sengaja di luar cakupan: sandbox dinamis, impor aturan YARA eksternal, STIX import."
+      ],
+      "notes": "Jujur soal batas D1 dan apa yang belum ada. Roadmap harus terlihat realistis."
+    },
+    {
+      "layout": "close",
+      "eyebrow": "PENUTUP",
+      "headline": ["RANTAI mendukung Kartika CSIRT,", "bukan menggantikannya."],
+      "body": [
+        "Menyatukan laporan lintas satuan, menjaga bukti tetap bisa dipercaya, dan membuat keputusan analis bisa dipertanggungjawabkan."
+      ],
+      "attribution": "Profil kampanye merujuk pada advisory publik CISA AA23-341A (Star Blizzard). Seluruh indikator dan insiden pada demo bersifat sintetis.",
+      "notes": "Tutup dengan ajakan: satu kampanye pelatihan bersama untuk menguji alur lintas satuan."
+    }
+  ]
+}

@@ -1,0 +1,142 @@
+[
+  {
+    "kind": "title",
+    "bg": "navy",
+    "headline": ["Satu laporan.", "Bukti yang terverifikasi.", "Satu gambaran bersama."],
+    "sub": "RANTAI menyatukan laporan insiden lintas satuan tanpa memindahkan bukti mentah.",
+    "vo": "Laporan insiden hampir tidak pernah datang lengkap, dan hampir tidak pernah datang sendiri. Satu satuan melaporkan email phishing. Satuan lain melaporkan koneksi keluar yang mencurigakan. Tanpa cara membandingkan bukti, keduanya tetap dua berkas yang tidak pernah bertemu. RANTAI menghubungkan keduanya, tanpa memindahkan bukti mentah antar satuan."
+  },
+  {
+    "kind": "bullets",
+    "bg": "paper",
+    "kicker": "Ringkasan",
+    "title": "Yang RANTAI jaga",
+    "bullets": [
+      "Setiap berkas bukti diberi sidik jari SHA-256 dan manifest Merkle.",
+      "Indikator disimpan bersama asal barisnya, bukan sebagai nilai lepas.",
+      "Pencocokan lintas satuan memakai HMAC tanpa membuka nilai mentah.",
+      "Setiap tindakan masuk rantai audit hash-linked dengan checkpoint Ed25519.",
+      "Kebijakan TLP, cakupan berbagi, dan approval ditegakkan di server."
+    ],
+    "vo": "Ada lima hal yang dijaga RANTAI. Setiap berkas bukti diberi sidik jari SHA-256 dan manifest Merkle. Indikator disimpan bersama asal barisnya. Pencocokan lintas satuan memakai HMAC, sehingga nilai mentah tidak pernah dikirim. Setiap tindakan tercatat pada rantai audit hash-linked dengan checkpoint Ed25519. Dan semua kebijakan akses ditegakkan di server, bukan hanya disembunyikan di antarmuka."
+  },
+  {
+    "kind": "shot",
+    "bg": "paper",
+    "image": "docs/screenshots/01-login.png",
+    "title": "Masuk ke ruang kerja",
+    "caption": "Tiga akun satuan: Alpha, Bravo, dan koordinator.",
+    "vo": "Setiap satuan masuk dengan akunnya sendiri. Alpha, Bravo, dan koordinator. Sesi disimpan di basis data dengan masa berlaku delapan jam, dan setiap tindakan tercatat pada rantai audit."
+  },
+  {
+    "kind": "shot",
+    "bg": "paper",
+    "image": "docs/screenshots/02-dashboard.png",
+    "title": "Ringkasan operasi",
+    "caption": "Matriks severity kali status dan sebaran band korelasi dalam satu pandangan.",
+    "highlight": [0.675, 0.405, 0.315, 0.275],
+    "vo": "Halaman ringkasan memberi gambaran satu kampanye: jumlah insiden, indikator, temuan terbuka, dan prioritas. Severity dibagi per tingkat, tren laporan mengikuti waktu kejadian, dan matriks severity kali status memperlihatkan mana yang masih terbuka dan mana yang sudah ditangani."
+  },
+  {
+    "kind": "shot",
+    "bg": "paper",
+    "image": "docs/screenshots/03-incident-list.png",
+    "title": "Daftar laporan",
+    "caption": "Cari, saring menurut severity, dan lihat skor korelasi tertinggi per laporan.",
+    "highlight": [0.165, 0.215, 0.815, 0.285],
+    "vo": "Semua laporan lintas satuan muncul di satu daftar, lengkap dengan skor korelasi tertinggi. Pencarian dan filter severity bekerja di sisi server, sehingga jumlah yang tampil selalu sesuai dengan yang benar-benar boleh dilihat oleh satuan itu."
+  },
+  {
+    "kind": "shot",
+    "bg": "paper",
+    "image": "docs/screenshots/04-incident-detail.png",
+    "title": "Detail insiden",
+    "caption": "Profil kampanye, pemetaan ATT&CK, dan komposisi indikator menurut jenis.",
+    "highlight": [0.165, 0.395, 0.665, 0.175],
+    "vo": "Setiap insiden punya satu berkas kasus. Di dalamnya ada profil kampanye beserta teknik ATT&CK yang dipetakan, metadata laporan, dan komposisi indikator. Semua angka diambil dari berkas yang benar-benar diunggah."
+  },
+  {
+    "kind": "shot",
+    "bg": "paper",
+    "image": "docs/screenshots/05-evidence-vault.png",
+    "title": "Bukti dan integritasnya",
+    "caption": "Unggah multi-berkas, status verifikasi, hash, dan penanda duplikat lintas kasus.",
+    "vo": "Ini bagian inti. Setiap berkas yang diunggah dihitung hash-nya, diparse, lalu dianalisis tanpa dieksekusi. Magic bytes, entropi, aturan bergaya YARA, dan batas keamanan arsip berjalan di sini. Jika berkas yang sama muncul di kasus lain, sistem menandainya."
+  },
+  {
+    "kind": "shot",
+    "bg": "paper",
+    "image": "docs/screenshots/06-evidence-passport.png",
+    "title": "Passport artefak",
+    "caption": "Static analysis, aturan yang cocok, verdict, dan chain of custody.",
+    "vo": "Passport artefak merangkum semuanya: hasil analisis statis, aturan yang cocok, alasan verdict, dan chain of custody. Setiap penanganan, transfer, dan penerimaan menambah satu mata rantai yang bisa diperiksa ulang."
+  },
+  {
+    "kind": "diagram",
+    "bg": "paper",
+    "image": "video/diagram-png/correlation-pipeline.png",
+    "title": "Mesin korelasi",
+    "caption": "Ingest, normalisasi, bobot spesifisitas, lalu band keputusan.",
+    "vo": "Korelasi bekerja deterministik. Berkas diparse, indikator diekstrak, lalu dinormalisasi terhadap defang, homoglyph Kiril, dan label IDN. Setiap indikator diberi bobot yang menurun jika muncul di banyak insiden. Hasilnya dipetakan ke band: kuat, sedang, lemah, atau dibuang di bawah dua puluh lima."
+  },
+  {
+    "kind": "diagram",
+    "bg": "paper",
+    "image": "video/diagram-png/score-bands.png",
+    "title": "Skor pada data demo",
+    "caption": "100, 58, 28, dan 0 — angka nol sama pentingnya dengan angka seratus.",
+    "vo": "Pada data demo, laporan satu dan dua berskor seratus karena berbagi hash lampiran, domain, URL, dan berdekatan dalam waktu. Dua pasangan lain berskor lima puluh delapan dan dua puluh delapan. Laporan keempat sengaja tidak terhubung sama sekali. Angka nol itu sama pentingnya dengan angka seratus."
+  },
+  {
+    "kind": "shot",
+    "bg": "paper",
+    "image": "docs/screenshots/09-correlation-graph.png",
+    "title": "Graf kampanye",
+    "caption": "Simpul insiden dan indikator bersama. Yang tidak terkait tetap terpisah.",
+    "vo": "Graf memperlihatkan kampanye sebagai satu jaringan. Simpul insiden terhubung lewat indikator bersama, dan laporan yang tidak punya kaitan tetap berdiri sendiri. Korelasi adalah petunjuk penyelidikan, bukan bukti atribusi."
+  },
+  {
+    "kind": "shot",
+    "bg": "paper",
+    "image": "docs/screenshots/08-access-approvals.png",
+    "title": "Akses dan TLP",
+    "caption": "Approval tidak mengalahkan larangan: TLP:RED tetap tertutup.",
+    "vo": "Bukti mentah lintas satuan memerlukan persetujuan koordinator dengan masa berlaku tiga hari. Tetapi approval tidak mengalahkan larangan. TLP merah dan artefak restricted tetap tertutup, dan laporan serta ekspor mengikuti aturan yang sama."
+  },
+  {
+    "kind": "diagram",
+    "bg": "paper",
+    "image": "video/diagram-png/integrity-chain.png",
+    "title": "Integritas bukti",
+    "caption": "Rantai audit, checkpoint Ed25519, custody artefak, dan manifest Merkle.",
+    "vo": "Rantai audit memakai pola yang sederhana: setiap entri adalah hash dari entri sebelumnya ditambah isi entri itu sendiri. Checkpoint Ed25519 menandatangani kepala rantai, sehingga penyuntingan ulang seluruh rantai tetap terdeteksi. Jujur soal batasnya: rantai membuktikan konsistensi catatan, bukan keaslian berkas sebelum diunggah."
+  },
+  {
+    "kind": "shot",
+    "bg": "paper",
+    "image": "docs/screenshots/10-audit-integrity.png",
+    "title": "Verifikasi dan uji manipulasi",
+    "caption": "Ubah satu entri, dan verifikasi menunjuk tepat entri yang rusak.",
+    "highlight": [0.175, 0.175, 0.32, 0.255],
+    "vo": "Di halaman integritas, koordinator bisa memverifikasi rantai, membuat checkpoint, dan menguji manipulasi. Ubah satu entri, dan verifikasi akan menunjuk tepat entri yang rusak. Pulihkan, dan rantai kembali hijau."
+  },
+  {
+    "kind": "diagram",
+    "bg": "paper",
+    "image": "video/diagram-png/architecture.png",
+    "title": "Arsitektur",
+    "caption": "Satu UI React, dua jalur deploy: Worker dengan D1, atau Node dengan SQLite.",
+    "vo": "Semuanya berjalan pada satu Worker dan satu basis data. Tidak ada layanan eksternal dan tidak ada panggilan keluar saat runtime. Untuk lingkungan terisolasi, aplikasi yang sama bisa dijalankan di Node dengan SQLite lokal dan penyimpanan bukti di filesystem."
+  },
+  {
+    "kind": "closing",
+    "bg": "navy",
+    "headline": ["RANTAI mendukung Kartika CSIRT,", "bukan menggantikannya."],
+    "lines": [
+      "Menyatukan laporan lintas satuan, menjaga bukti tetap bisa dipercaya, dan membuat keputusan analis bisa dipertanggungjawabkan.",
+      "Seluruh data pada demo adalah data pelatihan sintetis. Profil kampanye merujuk pada advisory publik CISA AA23-341A."
+    ],
+    "links": ["rantai.careday17.workers.dev", "github.com/symful/kartika-cyber-hackathon-2026"],
+    "vo": "RANTAI tidak menggantikan Kartika CSIRT. Ia menambahkan kemampuan yang belum ada: menyatukan laporan lintas satuan, menjaga bukti tetap bisa dipercaya, dan membuat keputusan analis bisa dipertanggungjawabkan. Terima kasih."
+  }
+]

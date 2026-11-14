@@ -1,0 +1,1 @@
+Graf memperlihatkan kampanye sebagai satu jaringan. Simpul insiden terhubung lewat indikator bersama, dan laporan yang tidak punya kaitan tetap berdiri sendiri. Korelasi adalah petunjuk penyelidikan, bukan bukti atribusi.

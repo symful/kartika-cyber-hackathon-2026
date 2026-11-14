@@ -1,0 +1,9 @@
+node_modules/
+out/
+audio/
+deck-preview/
+ab/
+models/
+diagram-png/
+*.log
+__pycache__/

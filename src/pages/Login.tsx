@@ -58,7 +58,14 @@ export default function Login({ onLogin }: { onLogin: (u: User) => void }) {
           <span className="sep">/</span>
           <span className="hide-sm">Kategori Penangkalan</span>
           <span className="sep hide-sm">/</span>
-          <span>D1 lokal / offline</span>
+          <a
+            className="login-cover-link"
+            href="https://github.com/symful/kartika-cyber-hackathon-2026"
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            Kode sumber
+          </a>
         </div>
       </header>
 

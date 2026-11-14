@@ -164,14 +164,24 @@ export default function App() {
 
         <div className="nav-label">Sistem</div>
         <div className="nav">
-          <div className="nav-item" style={{ cursor: "default" }} title="Tidak ada panggilan keluar saat runtime">
+          <div className="nav-item" style={{ cursor: "default" }} title="Cloudflare Worker + D1, tanpa panggilan keluar saat runtime">
             <Icon name="database" size={16} />
-            D1 lokal / offline
+            Cloudflare D1
           </div>
           <div className="nav-item" style={{ cursor: "default" }}>
             <Icon name="key" size={16} />
             Peran: {user.role === "coordinator" ? "Koordinator" : "Analis"}
           </div>
+          <a
+            className="nav-item"
+            href="https://github.com/symful/kartika-cyber-hackathon-2026"
+            target="_blank"
+            rel="noreferrer noopener"
+            title="Kode sumber di GitHub"
+          >
+            <Icon name="link" size={16} />
+            Kode sumber
+          </a>
         </div>
 
         <div className="spine-foot">
