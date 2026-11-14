@@ -114,7 +114,10 @@ menyesuaikan provider: 900 KB pada D1, 50 MB pada filesystem.
 | On-premise | `server/onprem.ts` (server Node, shim D1, provider filesystem) |
 | UI | `src/` |
 
-Tema antarmuka: Carbon Blue (grafit netral, aksen kobalt), seluruhnya token CSS.
+Tema antarmuka: Berkas Operasi, dengan palet putih–navy–biru yang mengikuti referensi konsol
+kerentanan: kanvas putih, panel berbingkai tipis, navigasi navy, dan aksen biru untuk angka,
+tautan, serta aksi utama. Warna severity mengikuti skala merah–oranye–kuning–biru. Font Archivo
+dan IBM Plex Mono di-host sendiri di `public/fonts/`, seluruh warna dan ukuran memakai token CSS.
 
 ### Model keamanan
 
@@ -519,15 +522,24 @@ Ini sengaja dilaporkan sebagai temuan, bukan disembunyikan.
 - `docs/thumbnail.html` dan `docs/thumbnail.png` — thumbnail 1200×630.
 - `docs/demo-script.md` — naskah video 10 menit.
 - `docs/slides-outline.md` — kerangka 12 slide.
+- `docs/frontend-test-report.md` — hasil pengujian frontend dan daftar perbaikan.
 
 ---
 
 ## 11. TODO Tim
 
-Tiga pekerjaan berikut diserahkan ke anggota tim. Tidak ada perubahan API yang diperlukan
-untuk semuanya.
+Tiga pekerjaan berikut diserahkan ke anggota tim. Butir 11.1 dan 11.2 sudah selesai; 11.3
+masih terbuka.
 
-### 11.1 Redesign frontend (prioritas 1)
+### 11.1 Redesign frontend (selesai)
+
+Redesign sudah diterapkan pada `src/` dengan arah visual **Berkas Operasi**: kanvas putih,
+panel berbingkai tipis, navigasi navy, aksen biru untuk angka dan aksi, serta skala severity
+merah–oranye–kuning–biru yang mengikuti referensi. Tipografi Archivo + IBM Plex Mono di-host
+sendiri sehingga tidak ada permintaan font ke layanan eksternal saat runtime. Setiap layar
+memakai token yang sama untuk keadaan loading, kosong, error, sukses, terlarang, dan data panjang.
+Ringkasan memuat donut severity, tren laporan, matriks severity × status, dan sebaran band korelasi;
+tab Ringkasan insiden memuat komposisi indikator menurut jenis.
 
 Batasan yang tidak boleh dilanggar:
 
@@ -544,11 +556,11 @@ Daftar layar dan fungsinya:
 | Layar | Fungsi yang harus tetap ada |
 |---|---|
 | Login | Autentikasi, tombol akun demo, pesan error, status loading, peringatan data sintetis |
-| Dashboard | Empat metrik utama, distribusi severity, status penanganan, laporan terbaru, temuan teratas, status rantai |
+| Dashboard | Empat metrik utama, distribusi severity (donut), tren laporan, matriks severity × status, sebaran band korelasi, status penanganan, laporan terbaru, temuan teratas, status rantai |
 | Daftar insiden | Pencarian teks, filter severity, tombol laporan baru, tabel dengan skor maksimum, navigasi ke detail |
 | Modal laporan baru | Validasi judul, kategori, severity, satuan, waktu, pelapor, uraian; error dari server |
 | Shell detail insiden | Kode, judul, severity, status, label TLP, pemilih status, tombol laporan |
-| Tab Ringkasan | Uraian, profil kampanye dan ATT&CK, ringkasan metadata, indikator akses bukti, temuan terkuat |
+| Tab Ringkasan | Uraian, profil kampanye dan ATT&CK, ringkasan metadata, indikator akses bukti, temuan terkuat, komposisi indikator |
 | Tab Bukti | Dropzone multi-berkas, pilihan share scope, catatan, unggah, manifest, status verifikasi, hash, penanda duplikat lintas kasus, tombol Passport |
 | Panel Passport | Hash dan ukuran, TLP, integritas, static analysis dan verdict, aturan yang cocok, penjelasan, chain of custody, permintaan akses, catatan custody, transfer, penerimaan |
 | Tab Indikator | Filter jenis, pivot ke insiden lain, lifecycle, confidence, toggle berbagi (hanya unit pemilik) |
@@ -565,9 +577,16 @@ Daftar layar dan fungsinya:
 Status yang wajib dirancang untuk setiap layar: loading, kosong, error, sukses, terlarang,
 dan data panjang atau terpotong. Jangan hanya mendesain kondisi normal.
 
-### 11.2 Tes semua fungsi frontend
+### 11.2 Tes semua fungsi frontend (selesai)
 
-Checklist minimum, dijalankan manual sebelum submission:
+Checklist minimum berikut sudah dijalankan lewat browser pada Chrome for Testing 157 dan
+Firefox 152. Hasil lengkap, termasuk 12 perbaikan yang ditemukan saat pengujian, ada di
+[`docs/frontend-test-report.md`](docs/frontend-test-report.md): 48 butir lulus, 0 pelanggaran
+axe-core WCAG 2 A/AA setelah perbaikan, dan tidak ada horizontal scroll pada 320, 768, 1024,
+1440, maupun 720 piksel (setara zoom 200 persen). Data demo dikembalikan ke kondisi awal
+setelah pengujian.
+
+Checklist minimum:
 
 **Autentikasi dan sesi**
 

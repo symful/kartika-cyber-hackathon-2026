@@ -24,6 +24,7 @@ export type IngestInput = {
 
 export type IngestResult = {
   artifactId: string;
+  filename: string;
   sha256: string;
   indicatorCount: number;
   eventCount: number;
@@ -123,6 +124,7 @@ export async function ingestArtifact(db: D1Database, input: IngestInput): Promis
 
   return {
     artifactId,
+    filename: input.filename,
     sha256: sum,
     indicatorCount: parsed.indicators.length,
     eventCount: parsed.events.length,

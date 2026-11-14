@@ -127,6 +127,44 @@ const paths: Record<string, React.ReactNode> = {
       <path d="M15.6 18H11a3 3 0 0 1-3-3v-3" />
     </>
   ),
+  menu: (
+    <>
+      <path d="M3 6h18M3 12h18M3 18h18" />
+    </>
+  ),
+  chain: (
+    <>
+      <path d="M10 13a4.5 4.5 0 0 0 6.4 0l2.1-2.1a4.5 4.5 0 0 0-6.4-6.4L11 5.6" />
+      <path d="M14 11a4.5 4.5 0 0 0-6.4 0l-2.1 2.1a4.5 4.5 0 0 0 6.4 6.4l1.1-1.1" />
+    </>
+  ),
+  database: (
+    <>
+      <ellipse cx="12" cy="5.5" rx="8" ry="3" />
+      <path d="M4 5.5v13c0 1.7 3.6 3 8 3s8-1.3 8-3v-13" />
+      <path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3" />
+    </>
+  ),
+  key: (
+    <>
+      <circle cx="8" cy="15" r="4" />
+      <path d="M11 12l8-8M16 4l4 4M14 9l3 3" />
+    </>
+  ),
+  external: (
+    <>
+      <path d="M14 4h6v6" />
+      <path d="M20 4l-9 9" />
+      <path d="M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5" />
+    </>
+  ),
+  filter: <path d="M3 5h18l-7 8v6l-4 2v-8L3 5z" />,
+  copy: (
+    <>
+      <rect x="9" y="9" width="11" height="11" rx="1.5" />
+      <path d="M15 9V5.5A1.5 1.5 0 0 0 13.5 4h-8A1.5 1.5 0 0 0 4 5.5v8A1.5 1.5 0 0 0 5.5 15H9" />
+    </>
+  ),
 };
 
 export function Icon({ name, size = 18, className = "", style }: { name: string; size?: number; className?: string; style?: React.CSSProperties }) {
@@ -142,10 +180,183 @@ export function Icon({ name, size = 18, className = "", style }: { name: string;
       strokeWidth="1.7"
       strokeLinecap="round"
       strokeLinejoin="round"
+      aria-hidden="true"
+      focusable="false"
     >
       {paths[name] ?? null}
     </svg>
   );
+}
+
+export function Stamp({
+  tone,
+  rotate,
+  large,
+  children,
+  title,
+}: {
+  tone?: "green" | "amber" | "orange" | "ink" | "signal";
+  rotate?: 1 | 2;
+  large?: boolean;
+  children: React.ReactNode;
+  title?: string;
+}) {
+  return (
+    <span
+      className={cls("stamp", tone && tone !== "signal" ? tone : "", rotate === 1 ? "r1" : rotate === 2 ? "r2" : "", large && "lg")}
+      title={title}
+    >
+      {children}
+    </span>
+  );
+}
+
+export function LoadingBlock({
+  label = "Memuat data",
+  stats = false,
+  rows = 5,
+}: {
+  label?: string;
+  stats?: boolean;
+  rows?: number;
+}) {
+  return (
+    <div aria-busy="true" aria-live="polite">
+      {stats && (
+        <div className="sk-row">
+          {[0, 1, 2, 3].map((n) => (
+            <div className="sk-cell" key={n} />
+          ))}
+        </div>
+      )}
+      <div className="skeleton">
+        <div className="sk-line title" />
+        {Array.from({ length: rows }).map((_, i) => (
+          <div className={cls("sk-line", i % 3 === 0 ? "w95" : i % 3 === 1 ? "w80" : "w60")} key={i} />
+        ))}
+      </div>
+      <div className="loading-screen" style={{ minHeight: 0, paddingTop: 16 }}>
+        <span className="spinner" />
+        <span className="mono">{label}</span>
+      </div>
+      <span className="sr-only">{label}</span>
+    </div>
+  );
+}
+
+export function ErrorState({
+  title,
+  message,
+  status,
+  onRetry,
+  children,
+}: {
+  title?: string;
+  message: string;
+  status?: number;
+  onRetry?: () => void;
+  children?: React.ReactNode;
+}) {
+  const heading =
+    status === 403
+      ? "Akses ditolak"
+      : status === 404
+        ? "Berkas tidak ditemukan"
+        : status === 429
+          ? "Permintaan dibatasi"
+          : title ?? "Data gagal dimuat";
+  const explanation =
+    status === 403
+      ? "Kebijakan akses satuan menolak permintaan ini. Bukti mentah lintas satuan tetap tertutup sampai koordinator menyetujui permintaan akses."
+      : status === 404
+        ? "Berkas kasus atau artefak ini tidak tersedia pada basis data lokal. Periksa tautan atau kembali ke daftar insiden."
+        : status === 429
+          ? "Batas percobaan tercapai. Tunggu beberapa menit sebelum mencoba lagi."
+          : "Server tidak mengembalikan data yang diminta. Tidak ada tampilan yang disamarkan: pesan asli dari server dicantumkan di bawah.";
+  return (
+    <div className="error-state" role="alert">
+      {status && <span className="stamp code-stamp">HTTP {status}</span>}
+      <h3>{heading}</h3>
+      <p>{explanation}</p>
+      <p className="mono small" style={{ color: "var(--ink-2)", marginTop: 8, wordBreak: "break-word" }}>
+        {message}
+      </p>
+      <div className="inline" style={{ marginTop: 14 }}>
+        {onRetry && (
+          <button className="btn" onClick={onRetry}>
+            <Icon name="activity" size={14} /> Coba lagi
+          </button>
+        )}
+        {children}
+      </div>
+    </div>
+  );
+}
+
+export function EmptyState({
+  index = "KOSONG",
+  title,
+  children,
+  action,
+}: {
+  index?: string;
+  title: string;
+  children?: React.ReactNode;
+  action?: React.ReactNode;
+}) {
+  return (
+    <div className="empty-state">
+      <div className="empty-index">{index}</div>
+      <h3>{title}</h3>
+      {children && <p>{children}</p>}
+      {action && <div className="inline" style={{ justifyContent: "center" }}>{action}</div>}
+    </div>
+  );
+}
+
+/**
+ * Menahan fokus di dalam panel modal/drawer dan mengembalikannya ke elemen
+ * pemicu saat panel ditutup. Escape memanggil onClose terbaru.
+ */
+export function useFocusTrap<T extends HTMLElement>(
+  ref: React.RefObject<T | null>,
+  onClose?: () => void,
+  initialSelector?: string
+) {
+  const close = React.useRef(onClose);
+  close.current = onClose;
+  React.useEffect(() => {
+    const previous = document.activeElement as HTMLElement | null;
+    if (initialSelector && ref.current) {
+      ref.current.querySelector<HTMLElement>(initialSelector)?.focus();
+    }
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        close.current?.();
+        return;
+      }
+      if (e.key !== "Tab" || !ref.current) return;
+      const nodes = ref.current.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      const list = Array.from(nodes).filter((el) => el.offsetParent !== null);
+      if (list.length === 0) return;
+      const first = list[0];
+      const last = list[list.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      previous?.focus?.();
+    };
+  }, [ref, initialSelector]);
 }
 
 export const cls = (...xs: (string | false | null | undefined)[]) => xs.filter(Boolean).join(" ");

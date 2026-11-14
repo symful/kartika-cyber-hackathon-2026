@@ -176,22 +176,28 @@ api.post("/incidents", async (c) => {
   const u = await requireUser(c);
   if (!u) return c.json({ error: "unauthorized" }, 401);
   const body = await c.req.json().catch(() => ({}));
+  const title = String(body.title ?? "").trim();
+  if (!title) return c.json({ error: "Judul insiden wajib diisi." }, 400);
+  const occurredAt = String(body.occurred_at ?? now());
+  if (!occurredAt || Number.isNaN(new Date(occurredAt).getTime())) {
+    return c.json({ error: "Waktu kejadian tidak valid." }, 400);
+  }
   const count = (await first<{ n: number }>(c.env.DB, `SELECT COUNT(*) AS n FROM incidents`))?.n ?? 0;
   const code = String(body.code ?? `INC-2026-${String(count + 1).padStart(3, "0")}`);
   const id = await Q.createIncident(c.env.DB, {
     code,
-    title: String(body.title ?? "Untitled incident"),
+    title,
     category: String(body.category ?? "Phishing"),
     severity: String(body.severity ?? "medium"),
     status: "open",
     unit: String(body.unit ?? u.unit),
     reporter: String(body.reporter ?? u.name),
     summary: String(body.summary ?? ""),
-    occurred_at: String(body.occurred_at ?? now()),
+    occurred_at: occurredAt,
     created_by: u.username,
   });
   await Q.createEvent(c.env.DB, {
-    incident_id: id, ts: String(body.occurred_at ?? now()), source: "report", kind: "report",
+    incident_id: id, ts: occurredAt, source: "report", kind: "report",
     title: "Incident report filed: " + code, detail: String(body.summary ?? ""),
   });
   await appendAudit(c.env.DB, u.username, "incident.created", "incident", id, {
@@ -302,7 +308,8 @@ api.post("/incidents/:id/artifacts", async (c) => {
   for (const f of files) {
     const limit = c.env.STORE ? 50_000_000 : 900_000;
     if (f.size > limit) {
-      results.push({ filename: f.name, error: `File exceeds ${Math.round(limit / 1_000_000)} MB limit for this storage provider.` });
+      const limitLabel = limit >= 1_000_000 ? `${Math.round(limit / 1_000_000)} MB` : `${Math.round(limit / 1_000)} KB`;
+      results.push({ filename: f.name, error: `File exceeds ${limitLabel} limit for this storage provider.` });
       continue;
     }
     const data = new Uint8Array(await f.arrayBuffer());
