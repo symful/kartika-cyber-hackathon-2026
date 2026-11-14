@@ -5,5 +5,7 @@ deck-preview/
 ab/
 models/
 diagram-png/
+frames/
+public/vo/
 *.log
 __pycache__/
