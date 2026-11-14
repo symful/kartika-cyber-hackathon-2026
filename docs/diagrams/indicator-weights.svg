@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" width="880" height="420" role="img" aria-labelledby="t d">
+  <title id="t">Bobot dasar per jenis indikator</title>
+  <desc id="d">Bar chart bobot dasar: SHA-256 berkas 100, alamat email 45, domain 40, alamat IP 35, URL 30, MD5 25, domain lookalike 20, nama berkas 15. Bobot akhir dibagi faktor spesifisitas.</desc>
+  <style>
+    .bg{fill:#fff}
+    .t-title{font-family:Archivo,Arial,sans-serif;font-size:26px;font-weight:800;fill:#202a36;letter-spacing:-.4px}
+    .t-sub{font-family:Archivo,Arial,sans-serif;font-size:13px;fill:#55647a}
+    .t-lbl{font-family:Archivo,Arial,sans-serif;font-size:12.5px;fill:#202a36}
+    .t-val{font-family:"IBM Plex Mono",Consolas,monospace;font-size:12px;font-weight:600;fill:#202a36}
+    .t-axis{font-family:"IBM Plex Mono",Consolas,monospace;font-size:10px;fill:#637286}
+    .grid{stroke:#e1e5ea;stroke-width:1}
+  </style>
+  <rect class="bg" width="880" height="420"/>
+  <text class="t-title" x="40" y="48">Bobot dasar indikator</text>
+  <text class="t-sub" x="40" y="70">Sebelum penyesuaian spesifisitas. w = base / (1 + 0.5 × (df − 1)).</text>
+
+  <g>
+    <!-- grid -->
+    <line class="grid" x1="290" y1="96" x2="290" y2="366"/>
+    <line class="grid" x1="420" y1="96" x2="420" y2="366"/>
+    <line class="grid" x1="550" y1="96" x2="550" y2="366"/>
+    <line class="grid" x1="680" y1="96" x2="680" y2="366"/>
+    <line class="grid" x1="810" y1="96" x2="810" y2="366"/>
+    <text class="t-axis" x="290" y="384" text-anchor="middle">0</text>
+    <text class="t-axis" x="420" y="384" text-anchor="middle">25</text>
+    <text class="t-axis" x="550" y="384" text-anchor="middle">50</text>
+    <text class="t-axis" x="680" y="384" text-anchor="middle">75</text>
+    <text class="t-axis" x="810" y="384" text-anchor="middle">100</text>
+  </g>
+
+  <!-- bars: scale 5.2 px per unit, x0=290 -->
+  <text class="t-lbl" x="40" y="121">SHA-256 berkas</text>
+  <rect x="290" y="108" width="520" height="18" fill="#1866db"/>
+  <text class="t-val" x="822" y="122">100</text>
+
+  <text class="t-lbl" x="40" y="153">Alamat email</text>
+  <rect x="290" y="140" width="234" height="18" fill="#2f6fc4"/>
+  <text class="t-val" x="536" y="154">45</text>
+
+  <text class="t-lbl" x="40" y="185">Domain</text>
+  <rect x="290" y="172" width="208" height="18" fill="#3d7bc9"/>
+  <text class="t-val" x="510" y="186">40</text>
+
+  <text class="t-lbl" x="40" y="217">Alamat IP</text>
+  <rect x="290" y="204" width="182" height="18" fill="#4a87cf"/>
+  <text class="t-val" x="484" y="218">35</text>
+
+  <text class="t-lbl" x="40" y="249">URL</text>
+  <rect x="290" y="236" width="156" height="18" fill="#5a93d4"/>
+  <text class="t-val" x="458" y="250">30</text>
+
+  <text class="t-lbl" x="40" y="281">MD5</text>
+  <rect x="290" y="268" width="130" height="18" fill="#6d9ed8"/>
+  <text class="t-val" x="432" y="282">25</text>
+
+  <text class="t-lbl" x="40" y="313">Domain lookalike</text>
+  <rect x="290" y="300" width="104" height="18" fill="#84aada"/>
+  <text class="t-val" x="406" y="314">20</text>
+
+  <text class="t-lbl" x="40" y="345">Nama berkas</text>
+  <rect x="290" y="332" width="78" height="18" fill="#9cb8de"/>
+  <text class="t-val" x="380" y="346">15</text>
+</svg>

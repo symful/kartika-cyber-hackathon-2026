@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 460" width="1080" height="460" role="img" aria-labelledby="t d">
+  <title id="t">Alur mesin korelasi RANTAI</title>
+  <desc id="d">Berkas masuk diparse menjadi indikator, dinormalisasi terhadap defang, homoglyph, dan IDN, lalu diberi bobot spesifisitas. Skor pasangan dihitung dan dipetakan ke band: 70 ke atas kuat, 45 sampai 69 sedang, 25 sampai 44 lemah, di bawah 25 dibuang. Keluaran berupa alasan yang bisa dibaca manusia.</desc>
+  <style>
+    .bg{fill:#fff}
+    .stage{fill:#fff;stroke:#cfd6df;stroke-width:1.5}
+    .stage-a{fill:#f2f7ff;stroke:#1866db;stroke-width:1.5}
+    .t-title{font-family:Archivo,Arial,sans-serif;font-size:26px;font-weight:800;fill:#202a36;letter-spacing:-.4px}
+    .t-sub{font-family:Archivo,Arial,sans-serif;font-size:13px;fill:#55647a}
+    .t-node{font-family:Archivo,Arial,sans-serif;font-size:13px;font-weight:700;fill:#202a36}
+    .t-note{font-family:Archivo,Arial,sans-serif;font-size:11px;fill:#55647a}
+    .t-mono{font-family:"IBM Plex Mono",Consolas,monospace;font-size:10.5px;fill:#354152}
+    .flow{stroke:#1866db;stroke-width:1.8;fill:none;marker-end:url(#a)}
+    .flow2{stroke:#8d9aac;stroke-width:1.5;fill:none;marker-end:url(#b)}
+  </style>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1866db"/></marker>
+    <marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8d9aac"/></marker>
+  </defs>
+  <rect class="bg" width="1080" height="460"/>
+  <text class="t-title" x="40" y="52">Mesin korelasi</text>
+  <text class="t-sub" x="40" y="76">Dari berkas mentah ke alasan yang bisa diperiksa analis.</text>
+
+  <!-- Stage 1 -->
+  <rect class="stage" x="40" y="120" width="150" height="92" rx="3"/>
+  <text class="t-node" x="115" y="150" text-anchor="middle">Ingest</text>
+  <text class="t-note" x="115" y="170" text-anchor="middle">.eml .csv .log</text>
+  <text class="t-note" x="115" y="186" text-anchor="middle">.txt .zip</text>
+
+  <path class="flow" d="M190 166 L242 166"/>
+
+  <!-- Stage 2 -->
+  <rect class="stage" x="242" y="120" width="160" height="92" rx="3"/>
+  <text class="t-node" x="322" y="150" text-anchor="middle">Parse</text>
+  <text class="t-note" x="322" y="170" text-anchor="middle">header, baris, entri</text>
+  <text class="t-note" x="322" y="186" text-anchor="middle">arsip (aman)</text>
+
+  <path class="flow" d="M402 166 L454 166"/>
+
+  <!-- Stage 3 -->
+  <rect class="stage-a" x="454" y="110" width="196" height="112" rx="3"/>
+  <text class="t-node" x="552" y="140" text-anchor="middle">Ekstrak &amp; normalisasi</text>
+  <text class="t-mono" x="552" y="162" text-anchor="middle">hxxp · [.] · [at]</text>
+  <text class="t-mono" x="552" y="178" text-anchor="middle">homoglyph Kiril</text>
+  <text class="t-mono" x="552" y="194" text-anchor="middle">label IDN · TLD</text>
+  <text class="t-note" x="552" y="212" text-anchor="middle">sha256, email, domain, ip, url, md5</text>
+
+  <path class="flow" d="M650 166 L702 166"/>
+
+  <!-- Stage 4 -->
+  <rect class="stage" x="702" y="120" width="150" height="92" rx="3"/>
+  <text class="t-node" x="777" y="150" text-anchor="middle">Bobot</text>
+  <text class="t-note" x="777" y="170" text-anchor="middle">spesifisitas df</text>
+  <text class="t-note" x="777" y="186" text-anchor="middle">bonus waktu</text>
+
+  <path class="flow" d="M852 166 L904 166"/>
+
+  <!-- Stage 5 -->
+  <rect class="stage-a" x="904" y="120" width="136" height="92" rx="3"/>
+  <text class="t-node" x="972" y="150" text-anchor="middle">Skor pasangan</text>
+  <text class="t-note" x="972" y="170" text-anchor="middle">0–100</text>
+  <text class="t-note" x="972" y="186" text-anchor="middle">+ alasan</text>
+
+  <!-- Bands -->
+  <text class="t-node" x="40" y="272" style="font-size:12px">Band keputusan</text>
+  <rect x="40" y="288" width="240" height="52" rx="3" fill="#e8f0fe" stroke="#1866db" stroke-width="1.5"/>
+  <text class="t-node" x="58" y="310" style="font-size:12px">Kuat</text>
+  <text class="t-mono" x="58" y="328">≥ 70 · disimpan</text>
+  <text class="t-note" x="256" y="322" text-anchor="end">prioritas</text>
+
+  <rect x="292" y="288" width="240" height="52" rx="3" fill="#fdf3e2" stroke="#8a5810" stroke-width="1.5"/>
+  <text class="t-node" x="310" y="310" style="font-size:12px">Sedang</text>
+  <text class="t-mono" x="310" y="328">45–69 · disimpan</text>
+  <text class="t-note" x="508" y="322" text-anchor="end">tinjau</text>
+
+  <rect x="544" y="288" width="240" height="52" rx="3" fill="#fbf4dc" stroke="#7d5c0f" stroke-width="1.5"/>
+  <text class="t-node" x="562" y="310" style="font-size:12px">Lemah</text>
+  <text class="t-mono" x="562" y="328">25–44 · disimpan</text>
+  <text class="t-note" x="760" y="322" text-anchor="end">petunjuk</text>
+
+  <rect x="796" y="288" width="244" height="52" rx="3" fill="#f7f9fc" stroke="#cfd6df" stroke-width="1.5"/>
+  <text class="t-node" x="814" y="310" style="font-size:12px">Dibuang</text>
+  <text class="t-mono" x="814" y="328">&lt; 25 · tidak tersimpan</text>
+  <text class="t-note" x="1022" y="322" text-anchor="end">kebetulan</text>
+
+  <path class="flow2" d="M972 212 L972 280"/>
+
+  <!-- Output note -->
+  <rect x="40" y="368" width="1000" height="62" rx="3" fill="#f2f7ff" stroke="#1866db" stroke-width="1.5"/>
+  <text class="t-node" x="60" y="394" style="font-size:12.5px">Keluaran</text>
+  <text class="t-note" x="60" y="414">Daftar alasan yang bisa dibaca manusia, tiap alasan menunjuk berkas dan baris asal. Korelasi adalah petunjuk penyelidikan, bukan bukti atribusi.</text>
+</svg>

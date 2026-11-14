@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" width="880" height="430" role="img" aria-labelledby="t d">
+  <title id="t">Skor korelasi yang diharapkan pada data demo</title>
+  <desc id="d">Empat pasangan insiden demo: INC-2026-001 dan INC-2026-002 berskor 100 kategori kuat, INC-2026-001 dan INC-2026-003 berskor 58 kategori sedang, INC-2026-002 dan INC-2026-003 berskor 28 kategori lemah, INC-2026-004 terhadap semua berskor 0 tanpa indikator bersama.</desc>
+  <style>
+    .bg{fill:#fff}
+    .t-title{font-family:Archivo,Arial,sans-serif;font-size:26px;font-weight:800;fill:#202a36;letter-spacing:-.4px}
+    .t-sub{font-family:Archivo,Arial,sans-serif;font-size:13px;fill:#55647a}
+    .t-lbl{font-family:Archivo,Arial,sans-serif;font-size:12.5px;font-weight:600;fill:#202a36}
+    .t-note{font-family:Archivo,Arial,sans-serif;font-size:11px;fill:#55647a}
+    .t-val{font-family:Archivo,Arial,sans-serif;font-size:22px;font-weight:800;fill:#202a36}
+    .t-band{font-family:"IBM Plex Mono",Consolas,monospace;font-size:10px;font-weight:600;fill:#55647a}
+    .grid{stroke:#e1e5ea;stroke-width:1}
+    .t-axis{font-family:"IBM Plex Mono",Consolas,monospace;font-size:10px;fill:#637286}
+  </style>
+  <rect class="bg" width="880" height="430"/>
+  <text class="t-title" x="40" y="48">Skor korelasi pada data demo</text>
+  <text class="t-sub" x="40" y="70">Skor 0–100 adalah kekuatan bukti, bukan probabilitas statistik.</text>
+
+  <g>
+    <line class="grid" x1="300" y1="100" x2="300" y2="362"/>
+    <line class="grid" x1="420" y1="100" x2="420" y2="362"/>
+    <line class="grid" x1="540" y1="100" x2="540" y2="362"/>
+    <line class="grid" x1="660" y1="100" x2="660" y2="362"/>
+    <line class="grid" x1="780" y1="100" x2="780" y2="362"/>
+    <text class="t-axis" x="300" y="384" text-anchor="middle">0</text>
+    <text class="t-axis" x="420" y="384" text-anchor="middle">25</text>
+    <text class="t-axis" x="540" y="384" text-anchor="middle">50</text>
+    <text class="t-axis" x="660" y="384" text-anchor="middle">75</text>
+    <text class="t-axis" x="780" y="384" text-anchor="middle">100</text>
+  </g>
+
+  <!-- bar1 100: scale 4.8, x0=300 -->
+  <text class="t-lbl" x="40" y="122">INC-2026-001 ↔ -002</text>
+  <text class="t-note" x="40" y="138">hash lampiran, domain, URL, waktu</text>
+  <rect x="300" y="106" width="480" height="30" fill="#1866db"/>
+  <text class="t-val" x="792" y="130" fill="#1866db">100</text>
+  <text class="t-band" x="300" y="156">KUAT</text>
+
+  <text class="t-lbl" x="40" y="192">INC-2026-001 ↔ -003</text>
+  <text class="t-note" x="40" y="208">email pengirim, domain, waktu</text>
+  <rect x="300" y="176" width="278" height="30" fill="#a9541f"/>
+  <text class="t-val" x="590" y="200" fill="#a9541f">58</text>
+  <text class="t-band" x="300" y="226">SEDANG</text>
+
+  <text class="t-lbl" x="40" y="262">INC-2026-002 ↔ -003</text>
+  <text class="t-note" x="40" y="278">domain saja</text>
+  <rect x="300" y="246" width="134" height="30" fill="#7d5c0f"/>
+  <text class="t-val" x="446" y="270" fill="#7d5c0f">28</text>
+  <text class="t-band" x="300" y="296">LEMAH</text>
+
+  <text class="t-lbl" x="40" y="322">INC-2026-004 ↔ semua</text>
+  <text class="t-note" x="40" y="338">tanpa indikator bersama</text>
+  <rect x="300" y="306" width="3" height="30" fill="#8d9aac"/>
+  <text class="t-val" x="316" y="330" fill="#637286">0</text>
+  <text class="t-band" x="300" y="356">TIDAK ADA · bukti presisi</text>
+</svg>

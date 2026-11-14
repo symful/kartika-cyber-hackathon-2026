@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 340" width="920" height="340" role="img" aria-labelledby="t d">
+  <title id="t">Hasil benchmark mesin korelasi</title>
+  <desc id="d">Corpus 400 insiden sintetis menghasilkan 900 pasangan benar dan 600 sampel negatif. Precision 1.000, recall 1.000, false positive rate 0.000, tanpa tautan silang domain hosting maupun CDN, waktu hitung 15,5 detik.</desc>
+  <style>
+    .bg{fill:#fff}
+    .t-title{font-family:Archivo,Arial,sans-serif;font-size:26px;font-weight:800;fill:#202a36;letter-spacing:-.4px}
+    .t-sub{font-family:Archivo,Arial,sans-serif;font-size:13px;fill:#55647a}
+    .card{fill:#fff;stroke:#cfd6df;stroke-width:1.5}
+    .card-a{fill:#f2f7ff;stroke:#1866db;stroke-width:1.5}
+    .t-k{font-family:Archivo,Arial,sans-serif;font-size:11px;font-weight:600;fill:#55647a;letter-spacing:.04em}
+    .t-v{font-family:Archivo,Arial,sans-serif;font-size:28px;font-weight:800;fill:#202a36;letter-spacing:-.5px}
+    .t-foot{font-family:Archivo,Arial,sans-serif;font-size:11px;fill:#637286}
+  </style>
+  <rect class="bg" width="920" height="340"/>
+  <text class="t-title" x="40" y="50">Hasil benchmark</text>
+  <text class="t-sub" x="40" y="72">Deterministik pada mesin lokal. Sampel negatif bertingkat, bukan sensus seluruh 79.800 pasangan.</text>
+
+  <rect class="card" x="40" y="96" width="200" height="88" rx="3"/>
+  <text class="t-k" x="60" y="122">INSIDEN</text>
+  <text class="t-v" x="60" y="158">400</text>
+  <text class="t-foot" x="60" y="174">60 klaster × 6 + noise</text>
+
+  <rect class="card" x="256" y="96" width="200" height="88" rx="3"/>
+  <text class="t-k" x="276" y="122">PASANGAN BENAR</text>
+  <text class="t-v" x="276" y="158">900</text>
+  <text class="t-foot" x="276" y="174">seluruh pasangan klaster</text>
+
+  <rect class="card" x="472" y="96" width="200" height="88" rx="3"/>
+  <text class="t-k" x="492" y="122">SAMPEL NEGATIF</text>
+  <text class="t-v" x="492" y="158">600</text>
+  <text class="t-foot" x="492" y="174">hosting, CDN, acak</text>
+
+  <rect class="card-a" x="688" y="96" width="192" height="88" rx="3"/>
+  <text class="t-k" x="708" y="122">WAKTU HITUNG</text>
+  <text class="t-v" x="708" y="158">15,5 s</text>
+  <text class="t-foot" x="708" y="174">satu putaran penuh</text>
+
+  <rect class="card" x="40" y="204" width="260" height="88" rx="3"/>
+  <text class="t-k" x="60" y="230">PRECISION</text>
+  <text class="t-v" x="60" y="266">1.000</text>
+
+  <rect class="card" x="316" y="204" width="260" height="88" rx="3"/>
+  <text class="t-k" x="336" y="230">RECALL</text>
+  <text class="t-v" x="336" y="266">1.000</text>
+
+  <rect class="card" x="592" y="204" width="288" height="88" rx="3"/>
+  <text class="t-k" x="612" y="230">FALSE POSITIVE RATE</text>
+  <text class="t-v" x="612" y="266">0.000</text>
+  <text class="t-foot" x="612" y="282">tautan silang hosting &amp; CDN: 0</text>
+</svg>

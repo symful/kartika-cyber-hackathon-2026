@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 470" width="1040" height="470" role="img" aria-labelledby="t d">
+  <title id="t">Rantai audit hash-linked, checkpoint Ed25519, custody artefak, dan manifest Merkle</title>
+  <desc id="d">Tiga struktur integritas. Rantai audit: setiap entri H_i = SHA256 dari H sebelumnya dan canonical JSON entri, dimulai dari 64 digit nol. Checkpoint Ed25519 menandatangani kepala rantai. Rantai custody per artefak memakai pola hash yang sama. Manifest laporan memuat SHA-256 tiap berkas dan Merkle root untuk verifikasi di luar sistem.</desc>
+  <style>
+    .bg{fill:#fff}
+    .t-title{font-family:Archivo,Arial,sans-serif;font-size:26px;font-weight:800;fill:#202a36;letter-spacing:-.4px}
+    .t-sub{font-family:Archivo,Arial,sans-serif;font-size:13px;fill:#55647a}
+    .t-sec{font-family:"IBM Plex Mono",Consolas,monospace;font-size:10.5px;font-weight:600;fill:#354152;letter-spacing:.08em}
+    .blk{fill:#fff;stroke:#cfd6df;stroke-width:1.5}
+    .blk-a{fill:#f2f7ff;stroke:#1866db;stroke-width:1.5}
+    .blk-v{fill:#e6f4ee;stroke:#2c6f52;stroke-width:1.5}
+    .t-blk{font-family:"IBM Plex Mono",Consolas,monospace;font-size:11px;font-weight:600;fill:#202a36}
+    .t-hash{font-family:"IBM Plex Mono",Consolas,monospace;font-size:9.5px;fill:#55647a}
+    .t-note{font-family:Archivo,Arial,sans-serif;font-size:10.5px;fill:#55647a}
+    .flow{stroke:#1866db;stroke-width:1.6;fill:none;marker-end:url(#a)}
+    .flow-g{stroke:#2c6f52;stroke-width:1.6;fill:none;marker-end:url(#g)}
+  </style>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1866db"/></marker>
+    <marker id="g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2c6f52"/></marker>
+  </defs>
+  <rect class="bg" width="1040" height="470"/>
+  <text class="t-title" x="40" y="48">Tiga struktur integritas</text>
+  <text class="t-sub" x="40" y="70">Rantai membuktikan konsistensi catatan. Keaslian berkas sebelum diunggah adalah tugas prosedur dan manifest.</text>
+
+  <!-- Audit chain -->
+  <text class="t-sec" x="40" y="106">RANTAI AUDIT · H_i = SHA256(H_{i-1} ‖ canonical_json(E_i))</text>
+
+  <rect class="blk" x="40" y="118" width="150" height="68" rx="3"/>
+  <text class="t-blk" x="115" y="142" text-anchor="middle">H₀</text>
+  <text class="t-hash" x="115" y="162" text-anchor="middle">64 digit nol</text>
+
+  <path class="flow" d="M190 152 L232 152"/>
+
+  <rect class="blk-a" x="232" y="118" width="150" height="68" rx="3"/>
+  <text class="t-blk" x="307" y="142" text-anchor="middle">H₁</text>
+  <text class="t-hash" x="307" y="162" text-anchor="middle">E₁: auth.login</text>
+
+  <path class="flow" d="M382 152 L424 152"/>
+
+  <rect class="blk-a" x="424" y="118" width="150" height="68" rx="3"/>
+  <text class="t-blk" x="499" y="142" text-anchor="middle">H₂</text>
+  <text class="t-hash" x="499" y="162" text-anchor="middle">E₂: artifact.upload</text>
+
+  <path class="flow" d="M574 152 L616 152"/>
+
+  <rect class="blk-a" x="616" y="118" width="150" height="68" rx="3"/>
+  <text class="t-blk" x="691" y="142" text-anchor="middle">H_i</text>
+  <text class="t-hash" x="691" y="162" text-anchor="middle">E_i</text>
+
+  <path class="flow" d="M766 152 L808 152"/>
+
+  <rect class="blk-v" x="808" y="118" width="192" height="68" rx="3"/>
+  <text class="t-blk" x="904" y="142" text-anchor="middle">Checkpoint Ed25519</text>
+  <text class="t-hash" x="904" y="162" text-anchor="middle">rantai-checkpoint:v1:seq:hash</text>
+
+  <!-- Custody chain -->
+  <text class="t-sec" x="40" y="226">CUSTODY ARTEFAK · pola hash yang sama per artefak</text>
+
+  <rect class="blk" x="40" y="238" width="158" height="60" rx="3"/>
+  <text class="t-blk" x="119" y="262" text-anchor="middle">collected</text>
+  <text class="t-hash" x="119" y="280" text-anchor="middle">+ hashed</text>
+
+  <path class="flow" d="M198 268 L230 268"/>
+
+  <rect class="blk" x="230" y="238" width="158" height="60" rx="3"/>
+  <text class="t-blk" x="309" y="262" text-anchor="middle">transfer</text>
+  <text class="t-hash" x="309" y="280" text-anchor="middle">pengirim → penerima</text>
+
+  <path class="flow" d="M388 268 L420 268"/>
+
+  <rect class="blk" x="420" y="238" width="158" height="60" rx="3"/>
+  <text class="t-blk" x="499" y="262" text-anchor="middle">received</text>
+  <text class="t-hash" x="499" y="280" text-anchor="middle">tanda tangan penerima</text>
+
+  <path class="flow" d="M578 268 L610 268"/>
+
+  <rect class="blk" x="610" y="238" width="158" height="60" rx="3"/>
+  <text class="t-blk" x="689" y="262" text-anchor="middle">access_granted</text>
+  <text class="t-hash" x="689" y="280" text-anchor="middle">/ denied · note</text>
+
+  <text class="t-note" x="800" y="262">Urut per rowid,</text>
+  <text class="t-note" x="800" y="278">bukan presisi timestamp.</text>
+
+  <!-- Manifest -->
+  <text class="t-sec" x="40" y="338">MANIFEST LAPORAN · verifikasi di luar sistem</text>
+
+  <rect class="blk" x="40" y="350" width="470" height="86" rx="3"/>
+  <text class="t-blk" x="60" y="374">sha256(berkas_1) · sha256(berkas_2) · …</text>
+  <text class="t-hash" x="60" y="394">setiap berkas bukti dihitung ulang</text>
+
+  <path class="flow-g" d="M510 393 L562 393"/>
+
+  <rect class="blk-v" x="562" y="350" width="180" height="86" rx="3"/>
+  <text class="t-blk" x="652" y="382" text-anchor="middle">Merkle root</text>
+  <text class="t-hash" x="652" y="402" text-anchor="middle">disertakan tiap ekspor</text>
+
+  <rect class="blk" x="766" y="350" width="234" height="86" rx="3"/>
+  <text class="t-blk" x="786" y="376">Verifier eksternal</text>
+  <text class="t-note" x="786" y="396">Cocokkan manifest dengan isi berkas,</text>
+  <text class="t-note" x="786" y="412">lalu verifikasi tanda tangan checkpoint.</text>
+</svg>

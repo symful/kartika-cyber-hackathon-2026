@@ -10,7 +10,7 @@ dikembalikan ke kondisi awal setelah pengujian selesai.
 
 | Area | Hasil |
 |---|---|
-| Checklist README 11.2 | 48 butir lulus |
+| Checklist pengujian frontend | 48 butir lulus |
 | Bug atau celah yang ditemukan | 12 |
 | Bug atau celah yang diperbaiki | 12 |
 | Pelanggaran axe-core (WCAG 2 A/AA) setelah perbaikan | 0 |
