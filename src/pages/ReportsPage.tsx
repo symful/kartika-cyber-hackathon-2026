@@ -1,37 +1,54 @@
 import { useEffect, useRef, useState } from "react";
-import { api, download, errorMessage } from "../api";
-import { Icon } from "../ui";
+import { api, download, errorMessage, type ApiError } from "../api";
+import { EmptyState, ErrorState, Icon, LoadingBlock, Stamp } from "../ui";
 import type { BundleExport, Incident, Notify } from "../types";
 
 type PubKey = { algorithm: string; public_key: string; fingerprint: string };
 
 export default function ReportsPage({ notify }: { notify: Notify }) {
-  const [incidents, setIncidents] = useState<Incident[]>([]);
+  const [incidents, setIncidents] = useState<Incident[] | null>(null);
+  const [error, setError] = useState<ApiError | null>(null);
   const [id, setId] = useState("");
   const [pub, setPub] = useState<PubKey | null>(null);
+  const [busy, setBusy] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    api.get<{ incidents: Incident[] }>("/incidents").then((d) => {
-      setIncidents(d.incidents);
-      if (d.incidents[0]) setId(d.incidents[0].id);
-    });
+  function load() {
+    setError(null);
+    setIncidents(null);
+    api.get<{ incidents: Incident[] }>("/incidents")
+      .then((d) => {
+        setIncidents(d.incidents);
+        setId((prev) => prev || d.incidents[0]?.id || "");
+      })
+      .catch((e: ApiError) => {
+        setError(e);
+        notify(errorMessage(e), "error");
+      });
     api.get<PubKey>("/pubkey").then(setPub).catch(() => {});
+  }
+
+  useEffect(() => {
+    load();
   }, []);
 
-  const selected = incidents.find((i) => i.id === id);
+  const selected = incidents?.find((i) => i.id === id);
 
   async function exportBundle() {
+    setBusy(true);
     try {
       const d = await api.post<BundleExport>("/export/bundle");
       download(`rantai-bundle-${new Date().toISOString().slice(0, 10)}.json`, JSON.stringify(d, null, 2));
       notify(`Bundle berisi ${d.bundle.indicators.length} indikator ditandatangani dan diunduh.`, "ok");
     } catch (e) {
       notify(errorMessage(e), "error");
+    } finally {
+      setBusy(false);
     }
   }
 
   async function importBundle(file: File) {
+    setBusy(true);
     try {
       const text = await file.text();
       const d = await api.post<{ code: string; imported: number; leads: number }>("/import/bundle", JSON.parse(text));
@@ -40,83 +57,174 @@ export default function ReportsPage({ notify }: { notify: Notify }) {
       setIncidents(list.incidents);
     } catch (e) {
       notify("Impor gagal: " + errorMessage(e), "error");
+    } finally {
+      setBusy(false);
     }
   }
 
+  async function fetchReport(format: "md" | "json") {
+    if (!id) return;
+    setBusy(true);
+    try {
+      const res = await fetch(`/api/report/${id}?format=${format}`, { credentials: "include" });
+      if (!res.ok) throw new Error(await res.text());
+      const body = format === "json" ? JSON.stringify(await res.json(), null, 2) : await res.text();
+      const ext = format;
+      download(`laporan-${selected?.code ?? "rantai"}.${ext}`, body, format === "json" ? "application/json" : "text/markdown");
+      notify(`Laporan ${format.toUpperCase()} diunduh.`, "ok");
+    } catch (e) {
+      notify(errorMessage(e), "error");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  if (error) return <ErrorState status={error.status} message={error.message} onRetry={load} />;
+  if (!incidents) return <LoadingBlock label="Menyiapkan meja ekspor" rows={6} />;
+
   return (
-    <div className="fade-up">
-      <div style={{ marginBottom: 16 }}>
-        <div style={{ fontSize: 18, fontWeight: 700, letterSpacing: "-0.02em" }}>Ekspor & laporan</div>
-        <div className="muted small">Keluaran untuk dewan juri, atasan, atau arsip satuan.</div>
-      </div>
-
-      <div className="grid grid-2">
-        <div className="card">
-          <div className="card-head"><div><div className="card-title">Laporan forensik</div><div className="card-sub">Manifest, kronologi, korelasi, dan audit</div></div></div>
-          <div className="card-body">
-            <div className="field">
-              <label>Pilih insiden</label>
-              <select className="select" value={id} onChange={(e) => setId(e.target.value)}>
-                {incidents.map((i) => <option key={i.id} value={i.id}>{i.code} · {i.title}</option>)}
-              </select>
-            </div>
-            {selected && (
-              <div className="chip-row" style={{ marginTop: 12 }}>
-                <span className="chip"><span className="k">satuan</span> {selected.unit}</span>
-                <span className="chip"><span className="k">berkas</span> {selected.artifact_count}</span>
-                <span className="chip"><span className="k">indikator</span> {selected.indicator_count}</span>
-                <span className="chip"><span className="k">korelasi</span> {selected.lead_count}</span>
-              </div>
-            )}
-            <div className="inline" style={{ marginTop: 16 }}>
-              <button className="btn primary" onClick={() => window.open(`/api/report/${id}?format=html`, "_blank")} disabled={!id}>
-                <Icon name="file" size={15} /> Buka & cetak PDF
-              </button>
-              <button className="btn" onClick={async () => {
-                const md = await fetch(`/api/report/${id}?format=md`, { credentials: "include" }).then((r) => r.text());
-                download(`laporan-${selected?.code ?? "rantai"}.md`, md, "text/markdown");
-              }} disabled={!id}>
-                <Icon name="download" size={15} /> Markdown
-              </button>
-              <button className="btn" onClick={async () => {
-                const j = await fetch(`/api/report/${id}?format=json`, { credentials: "include" }).then((r) => r.json());
-                download(`laporan-${selected?.code ?? "rantai"}.json`, JSON.stringify(j, null, 2));
-              }} disabled={!id}>
-                <Icon name="download" size={15} /> JSON
-              </button>
-            </div>
-            <div className="disclaimer" style={{ marginTop: 14 }}>
-              <Icon name="alert" size={15} />
-              <span>Gunakan dialog cetak peramban untuk menyimpan sebagai PDF. Dokumen menyertakan pernyataan bahwa korelasi bukan bukti atribusi.</span>
-            </div>
-          </div>
+    <div>
+      <div className="page-bar">
+        <div className="page-lede">
+          Keluaran untuk dewan juri, atasan, atau arsip satuan. Setiap laporan membawa manifest SHA-256,
+          alasan korelasi, dan hasil verifikasi rantai.
         </div>
-
-        <div className="card">
-          <div className="card-head"><div><div className="card-title">Interoperabilitas</div><div className="card-sub">STIX 2.1 dan bundle offline bertanda tangan</div></div></div>
-          <div className="card-body" style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-            <a className="btn" href="/api/export/stix"><Icon name="globe" size={15} /> Unduh bundel STIX 2.1</a>
-            <button className="btn" onClick={exportBundle}><Icon name="layers" size={15} /> Ekspor bundle satuan</button>
-            <button className="btn" onClick={() => fileRef.current?.click()}><Icon name="upload" size={15} /> Impor bundle dari satuan lain</button>
-            <input
-              ref={fileRef} type="file" accept="application/json" style={{ display: "none" }}
-              onChange={(e) => { const f = e.target.files?.[0]; if (f) importBundle(f); e.target.value = ""; }}
-            />
-            <div className="small faint" style={{ marginTop: 4 }}>
-              Bundle ditandatangani Ed25519 dan hanya memuat indikator yang dibagikan. Cocok untuk satuan yang tidak terhubung internet.
-            </div>
-            {pub && (
-              <div className="card" style={{ padding: 12, marginTop: 6 }}>
-                <div className="small faint">Kunci publik perangkat</div>
-                <div className="hash" style={{ marginTop: 4 }}>{pub.public_key}</div>
-                <div className="faint small mono" style={{ marginTop: 4 }}>fingerprint {pub.fingerprint}</div>
-              </div>
-            )}
-          </div>
+        <div className="actions">
+          <span className="mono faint small">Siap cetak / STIX 2.1 / bundle offline</span>
         </div>
       </div>
 
-      <div className="section-title"><h2>Ringkasan keluaran</h2><div className="line" /></div>
+      {incidents.length === 0 ? (
+        <EmptyState
+          index="TANPA BERKAS"
+          title="Belum ada laporan untuk diekspor"
+          action={<button className="btn" onClick={load}>Muat ulang</button>}
+        >
+          Buat laporan insiden terlebih dahulu. Ekspor akan tersedia setelah ada berkas kasus.
+        </EmptyState>
+      ) : (
+        <div className="grid dash-split">
+          <div className="card">
+            <div className="card-head">
+              <div>
+                <div className="card-title">Laporan forensik</div>
+                <div className="card-sub">Manifest, kronologi, korelasi, dan audit</div>
+              </div>
+              <div className="card-actions">
+                <Stamp tone="ink" rotate={1}>Siap cetak</Stamp>
+              </div>
+            </div>
+            <div className="card-body">
+              <div className="field">
+                <label htmlFor="report-incident">Pilih insiden</label>
+                <select id="report-incident" className="select" value={id} onChange={(e) => setId(e.target.value)}>
+                  {incidents.map((i) => <option key={i.id} value={i.id}>{i.code} / {i.title}</option>)}
+                </select>
+              </div>
+
+              {selected && (
+                <>
+                  <div className="chip-row" style={{ marginTop: 10 }}>
+                    <span className="chip"><span className="k">satuan</span> {selected.unit}</span>
+                    <span className="chip"><span className="k">berkas</span> {selected.artifact_count}</span>
+                    <span className="chip"><span className="k">indikator</span> {selected.indicator_count}</span>
+                    <span className="chip"><span className="k">korelasi</span> {selected.lead_count}</span>
+                  </div>
+
+                  <div className="section-title"><h2>Format keluaran</h2></div>
+                  <div className="stack" style={{ gap: 6 }}>
+                    <div className="pivot-row">
+                      <span className="mono" style={{ color: "var(--accent)", minWidth: 46 }}>HTML</span>
+                      <div style={{ flex: 1 }}>
+                        <div className="small" style={{ fontWeight: 600 }}>Dokumen siap cetak</div>
+                        <div className="faint small">Buka di tab baru, lalu simpan sebagai PDF dari dialog cetak.</div>
+                      </div>
+                      <button className="btn sm" onClick={() => window.open(`/api/report/${id}?format=html`, "_blank")} disabled={!id}>
+                        <Icon name="external" size={12} /> Buka
+                      </button>
+                    </div>
+                    <div className="pivot-row">
+                      <span className="mono" style={{ color: "var(--accent)", minWidth: 46 }}>MD</span>
+                      <div style={{ flex: 1 }}>
+                        <div className="small" style={{ fontWeight: 600 }}>Markdown</div>
+                        <div className="faint small">Untuk catatan investigasi dan wiki internal.</div>
+                      </div>
+                      <button className="btn sm" onClick={() => fetchReport("md")} disabled={!id || busy}>
+                        <Icon name="download" size={12} /> Unduh
+                      </button>
+                    </div>
+                    <div className="pivot-row">
+                      <span className="mono" style={{ color: "var(--accent)", minWidth: 46 }}>JSON</span>
+                      <div style={{ flex: 1 }}>
+                        <div className="small" style={{ fontWeight: 600 }}>Data terstruktur</div>
+                        <div className="faint small">Objek lengkap untuk diproses ulang oleh alat lain.</div>
+                      </div>
+                      <button className="btn sm" onClick={() => fetchReport("json")} disabled={!id || busy}>
+                        <Icon name="download" size={12} /> Unduh
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="disclaimer" style={{ marginTop: 14 }}>
+                    <Icon name="alert" size={15} />
+                    <span>
+                      Gunakan dialog cetak peramban untuk menyimpan PDF. Dokumen menyertakan pernyataan
+                      bahwa korelasi bukan bukti atribusi.
+                    </span>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+
+          <div className="card">
+            <div className="card-head">
+              <div>
+                <div className="card-title">Interoperabilitas</div>
+                <div className="card-sub">STIX 2.1 dan bundle offline bertanda tangan</div>
+              </div>
+            </div>
+            <div className="card-body" style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              <a className="btn block" href="/api/export/stix">
+                <Icon name="globe" size={14} /> Unduh bundel STIX 2.1
+              </a>
+              <button className="btn block" onClick={exportBundle} disabled={busy}>
+                <Icon name="layers" size={14} /> Ekspor bundle satuan
+              </button>
+              <button className="btn block" onClick={() => fileRef.current?.click()} disabled={busy}>
+                <Icon name="upload" size={14} /> Impor bundle dari satuan lain
+              </button>
+              <input
+                ref={fileRef}
+                type="file"
+                accept="application/json"
+                style={{ display: "none" }}
+                onChange={(e) => {
+                  const f = e.target.files?.[0];
+                  if (f) importBundle(f);
+                  e.target.value = "";
+                }}
+              />
+              <div className="faint small" style={{ marginTop: 4 }}>
+                Bundle ditandatangani Ed25519 dan hanya memuat indikator yang dibagikan. Cocok untuk
+                satuan yang tidak terhubung internet.
+              </div>
+
+              {pub && (
+                <div className="card" style={{ padding: 12, marginTop: 6, boxShadow: "none", background: "var(--paper-3)" }}>
+                  <div className="small faint">Kunci publik perangkat</div>
+                  <div className="hash" style={{ marginTop: 4 }}>{pub.public_key}</div>
+                  <div className="faint small mono" style={{ marginTop: 4 }}>fingerprint {pub.fingerprint}</div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="section-title">
+        <h2>Ringkasan keluaran</h2>
+      </div>
       <div className="grid grid-3">
         {[
           { icon: "file", title: "Laporan forensik", body: "HTML siap cetak, Markdown, dan JSON. Memuat manifest SHA-256, Merkle root, kronologi, alasan korelasi, dan hasil verifikasi rantai." },

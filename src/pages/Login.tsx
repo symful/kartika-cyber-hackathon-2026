@@ -1,143 +1,221 @@
 import { useState } from "react";
 import { api, errorMessage } from "../api";
-import { Icon } from "../ui";
+import { Icon, Stamp } from "../ui";
 import type { LoginResponse, User } from "../types";
+
+const demo = [
+  { user: "alpha", pass: "kartika2026", label: "Letda A. Pratama", unit: "Satuan Alpha", role: "Analis" },
+  { user: "bravo", pass: "kartika2026", label: "Serma B. Nugraha", unit: "Satuan Bravo", role: "Analis" },
+  { user: "koordinator", pass: "kartika2026", label: "Kolonel K. Hartono", unit: "Pusat Koordinasi", role: "Koordinator" },
+];
 
 export default function Login({ onLogin }: { onLogin: (u: User) => void }) {
   const [username, setUsername] = useState("alpha");
   const [password, setPassword] = useState("kartika2026");
   const [error, setError] = useState("");
-  const [busy, setBusy] = useState(false);
+  const [errorStatus, setErrorStatus] = useState<number | undefined>(undefined);
+  const [busy, setBusy] = useState<string | null>(null);
 
-  async function submit(e?: React.FormEvent) {
-    e?.preventDefault();
-    setBusy(true);
+  async function signIn(user: string, pass: string, source: string) {
+    setBusy(source);
     setError("");
+    setErrorStatus(undefined);
     try {
-      const d = await api.post<LoginResponse>("/login", { username, password });
+      const d = await api.post<LoginResponse>("/login", { username: user, password: pass });
       onLogin(d.user);
     } catch (err) {
-      setError(errorMessage(err) || "Gagal masuk.");
+      setError(errorMessage(err) || "Gagal masuk. Periksa nama pengguna dan kata sandi.");
+      setErrorStatus((err as { status?: number }).status);
     } finally {
-      setBusy(false);
+      setBusy(null);
     }
   }
 
-  const demo = [
-    { user: "alpha", label: "Letda A. Pratama", unit: "Satuan Alpha", role: "Analis" },
-    { user: "bravo", label: "Serma B. Nugraha", unit: "Satuan Bravo", role: "Analis" },
-    { user: "koordinator", label: "Kolonel K. Hartono", unit: "Pusat Koordinasi", role: "Koordinator" },
-  ];
+  function submit(e?: React.FormEvent) {
+    e?.preventDefault();
+    if (!username.trim() || !password) {
+      setError("Nama pengguna dan kata sandi wajib diisi.");
+      setErrorStatus(undefined);
+      return;
+    }
+    signIn(username.trim(), password, "form");
+  }
 
   return (
-    <div className="login-wrap">
-      <div className="login-art">
+    <div className="login">
+      <header className="login-cover">
         <div className="brand">
           <div className="brand-mark">
-            <Icon name="shield" size={19} />
+            <Icon name="chain" size={18} />
           </div>
           <div>
             <div className="brand-name">RANTAI</div>
-            <div className="brand-sub">Incident Evidence · Coordination</div>
+            <div className="brand-sub">Berkas bukti &amp; koordinasi insiden</div>
           </div>
         </div>
+        <div className="login-cover-meta">
+          <span>Kartika Cyber Hackathon 2026</span>
+          <span className="sep">/</span>
+          <span className="hide-sm">Kategori Penangkalan</span>
+          <span className="sep hide-sm">/</span>
+          <span>D1 lokal / offline</span>
+        </div>
+      </header>
 
-        <div>
-          <h1 className="login-title">
-            Satu laporan.<br />
-            Bukti yang <em>terverifikasi</em>.<br />
-            Satu gambaran bersama.
+      <div className="login-body">
+        <section className="login-hero" aria-labelledby="login-headline">
+          <h1 id="login-headline">
+            Bukti tetap di satuannya.
+            <br />
+            Temuannya bertemu di sini.
           </h1>
-          <div className="login-points">
-            <div className="login-point">
-              <Icon name="fingerprint" size={16} />
-              <span>Setiap berkas bukti memiliki SHA-256 dan manifest Merkle.</span>
-            </div>
-            <div className="login-point">
-              <Icon name="link" size={16} />
-              <span>Indikator yang sama menghubungkan laporan dari satuan berbeda.</span>
-            </div>
-            <div className="login-point">
-              <Icon name="lock" size={16} />
-              <span>Bukti mentah tetap di satuan. Hanya indikator yang disetujui dibagikan.</span>
-            </div>
-            <div className="login-point">
-              <Icon name="activity" size={16} />
-              <span>Rantai audit hash-linked dengan checkpoint Ed25519.</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="disclaimer">
-          <Icon name="alert" size={16} />
-          <span>
-            Data pelatihan sintetis. Profil kampanye merujuk pada advisory publik CISA AA23-341A.
-            Bukan insiden TNI AD yang sebenarnya.
-          </span>
-        </div>
-      </div>
-
-      <div className="login-form">
-        <div className="login-box">
-          <h2 style={{ margin: "0 0 4px", fontSize: 20, letterSpacing: "-0.02em" }}>Masuk ke ruang kerja</h2>
-          <p className="muted small" style={{ margin: "0 0 22px" }}>
-            Gunakan akun satuan Anda. Setiap tindakan tercatat pada rantai audit.
+          <p className="lede">
+            RANTAI mencocokkan indikator antar laporan, menjaga setiap hash dan asal-usulnya, lalu
+            mencatat setiap tindakan pada <b>rantai audit hash-linked</b> yang bisa diperiksa ulang.
           </p>
 
-          <form onSubmit={submit} className="field" style={{ gap: 14 }}>
-            <div className="field">
-              <label>Nama pengguna</label>
-              <input className="input" value={username} onChange={(e) => setUsername(e.target.value)} autoComplete="username" />
+          <div
+            className="chain-figure"
+            role="img"
+            aria-label="Contoh korelasi: laporan Satuan Alpha dan Satuan Bravo berbagi hash berkas yang sama, menghasilkan temuan berskor 100."
+          >
+            <div className="chain-figure-head">
+              <span>Manifest korelasi / SINYAL-01</span>
+              <span>Contoh alur</span>
             </div>
-            <div className="field">
-              <label>Kata sandi</label>
-              <input
-                className="input"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                autoComplete="current-password"
-              />
-            </div>
-            {error && (
-              <div className="badge red" style={{ padding: "8px 10px", borderRadius: 8 }}>
-                {error}
+            <div className="chain-rows">
+              <div className="chain-row">
+                <span className="chain-node" />
+                <span className="chain-unit">Alpha</span>
+                <span className="chain-file">faktur-pengadaan.eml</span>
+                <span className="chain-hash">9f2c…a17d</span>
               </div>
-            )}
-            <button className="btn primary" style={{ padding: "10px 16px" }} disabled={busy}>
-              {busy ? <span className="spinner" /> : <Icon name="arrow" size={16} />}
-              Masuk
-            </button>
-          </form>
+              <div className="chain-row">
+                <span className="chain-node" />
+                <span className="chain-unit">Bravo</span>
+                <span className="chain-file">koneksi-keluar.log</span>
+                <span className="chain-hash">9f2c…a17d</span>
+              </div>
+              <div className="chain-row">
+                <span className="chain-node" />
+                <span className="chain-unit">Pusat</span>
+                <span className="chain-file">laporan-002.json</span>
+                <span className="chain-hash">3 indikator</span>
+              </div>
+            </div>
+            <div className="chain-result">
+              <div className="chain-score">100</div>
+              <div>
+                <div className="label">Hash lampiran sama</div>
+                <div className="pair">INC-2026-001 ↔ INC-2026-002</div>
+              </div>
+              <span className="stamp green stamp-verified r1">Terverifikasi</span>
+            </div>
+          </div>
 
-          <div className="section-title" style={{ margin: "26px 0 10px" }}>
-            <h2>Akun demo</h2>
-            <div className="line" />
+          <div className="login-hero-foot">
+            <Stamp tone="amber" rotate={2}>Data sintetis</Stamp>
+            <p>
+              Lingkungan pelatihan. Profil kampanye merujuk pada advisory publik CISA AA23-341A
+              (Star Blizzard); bukan insiden TNI AD yang sebenarnya.
+            </p>
           </div>
-          <div className="demo-users">
-            {demo.map((d) => (
-              <button
-                key={d.user}
-                className="demo-user"
-                onClick={() => {
-                  setUsername(d.user);
-                  setPassword("kartika2026");
-                  setTimeout(() => submit(), 0);
-                }}
-              >
-                <div className="avatar">{d.label.split(" ").map((x) => x[0]).slice(0, 2).join("")}</div>
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ fontSize: 12.5, fontWeight: 600 }}>{d.label}</div>
-                  <div className="faint small">{d.unit} · {d.role}</div>
+        </section>
+
+        <section className="login-panel" aria-labelledby="login-title">
+          <div className="login-box">
+            <h2 id="login-title">Masuk ke ruang kerja</h2>
+            <p className="sub">Gunakan akun satuan Anda. Setiap tindakan tercatat pada rantai audit.</p>
+
+            <form onSubmit={submit} className="login-form" noValidate>
+              <div className="field">
+                <label htmlFor="username">Nama pengguna</label>
+                <input
+                  id="username"
+                  className="input"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  autoComplete="username"
+                  autoCapitalize="none"
+                  spellCheck={false}
+                  disabled={busy !== null}
+                />
+              </div>
+              <div className="field">
+                <label htmlFor="password">Kata sandi</label>
+                <input
+                  id="password"
+                  className="input"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  autoComplete="current-password"
+                  disabled={busy !== null}
+                />
+              </div>
+
+              {error && (
+                <div className="login-error" role="alert">
+                  <span className="mono-tag">{errorStatus ? `HTTP ${errorStatus}` : "GAGAL"}</span>
+                  <span>
+                    {error}
+                    {errorStatus === 429 && (
+                      <span style={{ display: "block", marginTop: 3 }}>
+                        Tunggu lima menit sebelum mencoba lagi. Batas ini juga berlaku per alamat IP.
+                      </span>
+                    )}
+                  </span>
                 </div>
-                <span className="badge neutral mono">{d.user}</span>
+              )}
+
+              <button className="btn primary lg block" type="submit" disabled={busy !== null}>
+                {busy === "form" ? <span className="spinner" /> : <Icon name="arrow" size={15} />}
+                {busy === "form" ? "Memeriksa sesi" : "Masuk"}
               </button>
-            ))}
+            </form>
+
+            <div className="login-divider">Akun demo</div>
+            <div className="demo-users">
+              {demo.map((d) => (
+                <button
+                  key={d.user}
+                  type="button"
+                  className="demo-user"
+                  disabled={busy !== null}
+                  onClick={() => {
+                    setUsername(d.user);
+                    setPassword(d.pass);
+                    signIn(d.user, d.pass, d.user);
+                  }}
+                >
+                  <div className="avatar">{d.label.split(" ").map((x) => x[0]).slice(0, 2).join("")}</div>
+                  <div style={{ minWidth: 0 }}>
+                    <div className="name">{d.label}</div>
+                    <div className="meta">
+                      {d.unit} / {d.role}
+                    </div>
+                  </div>
+                  <span className="user-tag">
+                    {busy === d.user ? <span className="spinner" /> : d.user}
+                  </span>
+                </button>
+              ))}
+            </div>
+            <p className="faint small" style={{ marginTop: 12 }}>
+              Kata sandi demo: <span className="mono">kartika2026</span>
+            </p>
+
+            <div className="login-synthetic">
+              <Stamp tone="amber" rotate={2}>Data sintetis</Stamp>
+              <span>Lingkungan pelatihan. Bukan insiden TNI AD yang sebenarnya.</span>
+            </div>
+
+            <div className="login-meta">
+              <span>RANTAI v1.0</span>
+              <span>Sesi 8 jam / cookie HttpOnly</span>
+            </div>
           </div>
-          <p className="faint small" style={{ marginTop: 14 }}>
-            Kata sandi demo: <span className="mono">kartika2026</span>
-          </p>
-        </div>
+        </section>
       </div>
     </div>
   );

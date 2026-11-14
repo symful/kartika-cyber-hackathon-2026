@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<title>RANTAI — thumbnail</title>
+<style>
+  @font-face {
+    font-family: "Archivo";
+    src: url("../public/fonts/archivo-latin.woff2") format("woff2");
+    font-weight: 100 900;
+    font-stretch: 62% 125%;
+    font-display: block;
+  }
+  @font-face {
+    font-family: "IBM Plex Mono";
+    src: url("../public/fonts/plex-mono-400.woff2") format("woff2");
+    font-weight: 400;
+    font-display: block;
+  }
+  @font-face {
+    font-family: "IBM Plex Mono";
+    src: url("../public/fonts/plex-mono-500.woff2") format("woff2");
+    font-weight: 500;
+    font-display: block;
+  }
+  @font-face {
+    font-family: "IBM Plex Mono";
+    src: url("../public/fonts/plex-mono-600.woff2") format("woff2");
+    font-weight: 600;
+    font-display: block;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    background: #ffffff; color: #202a36;
+    font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .canvas { width: 1200px; height: 630px; display: flex; flex-direction: column; position: relative; }
+  .top {
+    height: 74px; flex: none; background: #2c3644; color: #ffffff;
+    display: flex; align-items: center; padding: 0 44px; gap: 24px;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .mark {
+    width: 34px; height: 34px; border: 1px solid transparent; border-radius: 3px; background: #1866db;
+    display: grid; place-items: center;
+  }
+  .mark svg { width: 19px; height: 19px; }
+  .name { font-size: 19px; font-weight: 720; letter-spacing: .16em; font-stretch: 88%; line-height: 1; }
+  .sub { font-family: "IBM Plex Mono", monospace; font-size: 8.5px; letter-spacing: .12em; text-transform: uppercase; color: #aab6c5; margin-top: 4px; }
+  .event { margin-left: auto; font-family: "Archivo", sans-serif; font-size: 10px; letter-spacing: .01em; color: #aab6c5; display: flex; gap: 12px; }
+  .event .sep { color: #5a6a7e; }
+  main { flex: 1; display: grid; grid-template-columns: 1.35fr .9fr; gap: 46px; padding: 40px 44px 26px; min-height: 0; }
+  .left { min-width: 0; display: flex; flex-direction: column; }
+  h1 {
+    margin: 0; font-size: 44px; line-height: .99; letter-spacing: -.045em;
+    font-weight: 690; font-stretch: 91%; max-width: 660px;
+  }
+  h1 span { display: block; }
+  .lede { margin: 16px 0 0; font-size: 13.5px; line-height: 1.55; color: #55647a; max-width: 54ch; }
+  .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 20px; }
+  .creed {
+    margin-top: auto; border-left: 2px solid #1866db; padding-left: 12px; max-width: 58ch;
+    font-size: 11.5px; line-height: 1.55; color: #354152;
+  }
+  .tag {
+    border: 1px solid #cfd6df; background: #f7f9fc; color: #354152;
+    font-family: "IBM Plex Mono", monospace; font-size: 8.5px; padding: 3px 7px;
+  }
+  .right { display: flex; align-items: center; justify-content: flex-end; min-width: 0; }
+  .manifest { width: 100%; max-width: 430px; border: 1px solid #cfd6df; border-radius: 3px; background: #ffffff; }
+  .mhead {
+    display: flex; justify-content: space-between; gap: 10px; padding: 7px 11px;
+    border-bottom: 1px solid #e1e5ea; background: #f7f9fc; font-family: "IBM Plex Mono", monospace;
+    font-size: 8px; letter-spacing: .06em; text-transform: uppercase; color: #637286;
+  }
+  .rows { position: relative; }
+  .rows::before { content: ""; position: absolute; left: 18px; top: 18px; bottom: 18px; width: 1px; background: #cfd6df; }
+  .row {
+    display: grid; grid-template-columns: 9px 56px minmax(0, 1fr) auto; gap: 8px;
+    align-items: center; padding: 8px 11px 8px 14px; border-bottom: 1px solid #e1e5ea;
+  }
+  .node { width: 7px; height: 7px; border: 1px solid #1866db; background: #ffffff; border-radius: 50%; z-index: 1; }
+  .unit { font-family: "IBM Plex Mono", monospace; font-size: 8px; letter-spacing: .05em; text-transform: uppercase; color: #55647a; }
+  .file { font-family: "IBM Plex Mono", monospace; font-size: 9.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .hash { font-family: "IBM Plex Mono", monospace; font-size: 8.5px; color: #637286; white-space: nowrap; }
+  .result { display: grid; grid-template-columns: 66px 1fr auto; gap: 10px; align-items: center; padding: 11px 12px; background: #f2f7ff; border-top: 1px solid #cfd6df; }
+  .score { font-size: 36px; font-weight: 690; line-height: .9; letter-spacing: -.05em; font-stretch: 82%; color: #1866db; }
+  .rlabel { font-family: "IBM Plex Mono", monospace; font-size: 7.5px; letter-spacing: .1em; text-transform: uppercase; color: #637286; }
+  .rpair { font-size: 9.5px; font-weight: 650; margin-top: 3px; }
+  .stamp {
+    border: 1px solid #2c6f52; color: #2c6f52; font-family: "IBM Plex Mono", monospace;
+    font-size: 8px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+    padding: 4px 7px; white-space: nowrap;
+    box-shadow: none;
+  }
+  footer {
+    height: 48px; flex: none; border-top: 1px solid #e1e5ea;
+    display: flex; align-items: center; gap: 16px; padding: 0 44px;
+    font-family: "IBM Plex Mono", monospace; font-size: 8px; letter-spacing: .04em;
+    color: #637286;
+  }
+  footer .stamp { transform: scale(.95); transform-origin: left center; }
+  footer em { font-style: normal; color: #202a36; }
+</style>
+</head>
+<body>
+<div class="canvas">
+  <header class="top">
+    <div class="brand">
+      <div class="mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.7" stroke-linecap="round">
+          <path d="M10 13a4.5 4.5 0 0 0 6.4 0l2.1-2.1a4.5 4.5 0 0 0-6.4-6.4L11 5.6" />
+          <path d="M14 11a4.5 4.5 0 0 0-6.4 0l-2.1 2.1a4.5 4.5 0 0 0 6.4 6.4l1.1-1.1" />
+        </svg>
+      </div>
+      <div>
+        <div class="name">RANTAI</div>
+        <div class="sub">Bukti &amp; koordinasi insiden</div>
+      </div>
+    </div>
+    <div class="event">
+      <span>Kartika Cyber Hackathon 2026</span><span class="sep">/</span>
+      <span>Kategori Penangkalan</span><span class="sep">/</span>
+      <span>D1 lokal / offline</span>
+    </div>
+  </header>
+
+  <main>
+    <div class="left">
+      <div class="intro">
+        <h1>Bukti tetap di satuannya. <span>Temuannya bertemu di sini.</span></h1>
+        <p class="lede">
+          Setiap berkas bukti diberi sidik jari SHA-256. Setiap indikator menyimpan asal-usulnya.
+          Setiap tindakan masuk ke rantai audit hash-linked yang bisa diperiksa ulang.
+        </p>
+      </div>
+      <div class="tags">
+        <span class="tag">SHA-256 manifest</span>
+        <span class="tag">hash-linked audit</span>
+        <span class="tag">Ed25519 checkpoint</span>
+        <span class="tag">STIX 2.1</span>
+        <span class="tag">blinded matching</span>
+      </div>
+      <div class="creed">
+        Bukti mentah tidak berpindah. Yang dibagikan adalah indikator yang disetujui,
+        beserta asal-usul dan jejak custody-nya.
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="manifest">
+        <div class="mhead"><span>Manifest korelasi / SINYAL-01</span><span>Contoh alur</span></div>
+        <div class="rows">
+          <div class="row">
+            <span class="node"></span><span class="unit">Alpha</span>
+            <span class="file">faktur-pengadaan.eml</span><span class="hash">9f2c…a17d</span>
+          </div>
+          <div class="row">
+            <span class="node"></span><span class="unit">Bravo</span>
+            <span class="file">koneksi-keluar.log</span><span class="hash">9f2c…a17d</span>
+          </div>
+          <div class="row">
+            <span class="node"></span><span class="unit">Pusat</span>
+            <span class="file">laporan-002.json</span><span class="hash">3 indikator</span>
+          </div>
+        </div>
+        <div class="result">
+          <div class="score">100</div>
+          <div>
+            <div class="rlabel">Hash lampiran sama</div>
+            <div class="rpair">INC-2026-001 ↔ INC-2026-002</div>
+          </div>
+          <div class="stamp">Terverifikasi</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <span class="stamp" style="color:#8a5810;border-color:#8a5810">Data sintetis</span>
+    <span>Data pelatihan sintetis. Profil kampanye merujuk pada advisory publik <em>CISA AA23-341A</em>. Bukan insiden TNI AD yang sebenarnya.</span>
+  </footer>
+</div>
+</body>
+</html>
