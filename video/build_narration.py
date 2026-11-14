@@ -1,12 +1,14 @@
-"""Full narration render with F5-TTS Indonesian fine-tune v2.
+"""Build narration with per-sentence timing, then derive visual cues from it.
 
-Loads the model once, generates every scene from video/scenes.json, masters each
-track, and emits timing.json for Remotion. CPU-only, so this is meant to run as a
-background job.
+The core fix: visuals must be triggered by *when a sentence is spoken*, not by a
+scene's total duration. This script synthesises every sentence separately, measures
+its exact duration, and emits cues.json mapping each named cue to a frame offset
+inside its scene.
 
-Reference voice: `ref_prabowo` (male, formal oratorical) — the register a security
-brief is usually delivered in. F5 clones prosody from the clip, which is what makes
-the delivery carry intonation instead of reading flat.
+Output:
+  video/cues.json        per-scene cue -> frame map (consumed by Remotion)
+  video/timing.json      scene frame counts (consumed by the composition)
+  video/out/vo-NN.wav    mastered scene tracks
 """
 from __future__ import annotations
 
@@ -16,13 +18,11 @@ import sys
 import time
 from pathlib import Path
 
-import numpy as np
 import soundfile as sf
 import torch
 
+
 def _patch_torchaudio():
-    """torchaudio 2.15 routes load() through torchcodec, which needs FFmpeg DLLs
-    that are absent on this machine. soundfile reads the same WAVs."""
     import torchaudio
 
     def _load(path, *args, **kwargs):
@@ -42,14 +42,15 @@ REF_WAV = VIDEO / "models" / "f5-indo" / "ref_prabowo.wav"
 REF_TEXT = "Selamat pagi, salam sejahtera bagi kita sekalian."
 
 OUT = VIDEO / "out"
-RAW = VIDEO / "audio" / "f5-raw"
+RAW = VIDEO / "audio" / "sent"
 OUT.mkdir(parents=True, exist_ok=True)
 RAW.mkdir(parents=True, exist_ok=True)
 
 FPS = 30
-TAIL = 0.55
-LEAD_IN = 0.35
 SR = 48000
+LEAD = 0.30          # silence before the first sentence
+SENT_GAP = 0.18      # pause between sentences
+TAIL = 0.75          # breathing room after the last sentence
 
 MASTER = ",".join([
     f"aresample={SR}",
@@ -70,86 +71,93 @@ def ff(args, desc):
         raise SystemExit(f"ffmpeg failed ({desc}):\n{r.stderr}")
 
 
-def duration(path: Path) -> float:
+def dur(path: Path) -> float:
     r = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration",
                         "-of", "csv=p=0", str(path)], capture_output=True, text=True, check=True)
     return float(r.stdout.strip())
 
 
 def main():
-    scenes = json.loads((VIDEO / "scenes.json").read_text(encoding="utf-8"))
+    spec = json.loads((VIDEO / "narration-short.json").read_text(encoding="utf-8"))
+    scenes = spec["scenes"]
+    speed = float(spec.get("speed", 1.0))
+    print(f"speed: {speed}", flush=True)
+
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    print(f"device: {device}", flush=True)
 
     from f5_tts.api import F5TTS
 
-    print("loading F5-TTS (cpu)...", flush=True)
-    t0 = time.time()
-    f5 = F5TTS(
-        model="F5TTS_v1_Base",
-        ckpt_file=str(MODEL),
-        vocab_file=str(VOCAB),
-        device="cpu",
-        use_ema=True,
-    )
-    print(f"model ready in {time.time()-t0:.1f}s", flush=True)
+    print("loading F5-TTS ...", flush=True)
+    f5 = F5TTS(model="F5TTS_v1_Base", ckpt_file=str(MODEL), vocab_file=str(VOCAB),
+               device=device, use_ema=True)
 
-    timing = []
-    for i, sc in enumerate(scenes, 1):
-        raw = RAW / f"raw-{i:02d}.wav"
-        if raw.exists() and raw.stat().st_size > 1000:
-            print(f"[{i:02d}] cached, skipping synthesis", flush=True)
-        else:
-            print(f"[{i:02d}] synthesising ({len(sc['vo'])} chars)...", flush=True)
-            t = time.time()
-            f5.infer(
-                ref_file=str(REF_WAV),
-                ref_text=REF_TEXT,
-                gen_text=sc["vo"],
-                file_wave=str(raw),
-                speed=1.0,
-                show_info=lambda *a, **k: None,
-            )
-            print(f"[{i:02d}] done in {time.time()-t:.0f}s", flush=True)
+    timing, cues_out = [], []
 
-        mastered = OUT / f"vo-{i:02d}.wav"
-        ff(["-i", str(raw), "-af", MASTER, "-ar", str(SR), "-ac", "1", str(mastered)], "master")
+    for si, sc in enumerate(scenes, 1):
+        cue_frames: dict[str, int] = {}
+        parts: list[Path] = []
 
-        d = duration(mastered)
-        frames = round((d + TAIL) * FPS)
-        timing.append({
-            "index": i,
-            "kind": sc["kind"],
-            "frames": frames,
-            "seconds": round(frames / FPS, 3),
-            "audio": f"vo-{i:02d}.wav",
-        })
-        print(f"[{i:02d}] {frames}f  {frames/FPS:.2f}s", flush=True)
+        # Lead-in silence so the first cue is not on frame 0.
+        lead = RAW / f"s{si:02d}_lead.wav"
+        ff(["-f", "lavfi", "-i", f"anullsrc=r={SR}:cl=mono", "-t", f"{LEAD}", str(lead)], "lead")
+        parts.append(lead)
 
-    total = sum(t["frames"] for t in timing)
+        t = LEAD
+        for k, s in enumerate(sc["sentences"]):
+            raw = RAW / f"s{si:02d}_{k:02d}.wav"
+            if not raw.exists() or raw.stat().st_size < 2000:
+                print(f"[{si:02d}.{k}] synth: {s['text'][:44]}...", flush=True)
+                t0 = time.time()
+                f5.infer(ref_file=str(REF_WAV), ref_text=REF_TEXT, gen_text=s["text"],
+                         file_wave=str(raw), speed=speed, show_info=lambda *a, **kw: None)
+                print(f"       {time.time()-t0:.0f}s", flush=True)
+            d = dur(raw)
+
+            cue_frames[s["cue"]] = round(t * FPS)
+            parts.append(raw)
+            t += d
+
+            gap = RAW / "_gap.wav"
+            ff(["-f", "lavfi", "-i", f"anullsrc=r={SR}:cl=mono", "-t", f"{SENT_GAP}", str(gap)], "gap")
+            parts.append(gap)
+            t += SENT_GAP
+
+        total = t + TAIL
+        frames = round(total * FPS)
+
+        # Concatenate this scene's sentences, then master as one track.
+        lst = RAW / f"list{si:02d}.txt"
+        lst.write_text("\n".join(f"file '{p.as_posix()}'" for p in parts), encoding="utf-8")
+        joined = RAW / f"joined{si:02d}.wav"
+        ff(["-f", "concat", "-safe", "0", "-i", str(lst), "-ar", str(SR), "-ac", "1", str(joined)], "concat")
+
+        tail = RAW / "_tail.wav"
+        ff(["-f", "lavfi", "-i", f"anullsrc=r={SR}:cl=mono", "-t", f"{TAIL}", str(tail)], "tail")
+        lst2 = RAW / f"list2-{si:02d}.txt"
+        lst2.write_text(f"file '{joined.as_posix()}'\nfile '{tail.as_posix()}'", encoding="utf-8")
+        padded = RAW / f"padded{si:02d}.wav"
+        ff(["-f", "concat", "-safe", "0", "-i", str(lst2), "-ar", str(SR), "-ac", "1", str(padded)], "pad")
+
+        mastered = OUT / f"vo-{si:02d}.wav"
+        ff(["-i", str(padded), "-af", MASTER, "-ar", str(SR), "-ac", "1", str(mastered)], "master")
+        ff(["-i", str(mastered), "-af",
+            f"apad=whole_dur={frames/FPS:.6f},atrim=0:{frames/FPS:.6f}",
+            "-ar", str(SR), "-ac", "1", str(mastered.with_suffix(".pad.wav"))], "fit")
+        (mastered.with_suffix(".pad.wav")).replace(mastered)
+
+        timing.append({"index": si, "kind": sc["kind"], "frames": frames,
+                       "seconds": round(frames / FPS, 3), "audio": f"vo-{si:02d}.wav"})
+        cues_out.append({"index": si, "kind": sc["kind"], "frames": frames, "cues": cue_frames})
+        print(f"[{si:02d}] {sc['kind']:<12} {len(sc['sentences'])} sentences  {frames}f  {frames/FPS:6.2f}s", flush=True)
+
+    total_frames = sum(t["frames"] for t in timing)
     (VIDEO / "timing.json").write_text(
-        json.dumps({"fps": FPS, "totalFrames": total, "scenes": timing}, indent=2),
-        encoding="utf-8",
-    )
+        json.dumps({"fps": FPS, "totalFrames": total_frames, "scenes": timing}, indent=2), encoding="utf-8")
+    (VIDEO / "cues.json").write_text(
+        json.dumps({"fps": FPS, "scenes": cues_out}, indent=2), encoding="utf-8")
 
-    # Pad each track to its exact budget so the concatenated voice stays in sync.
-    parts = VIDEO / "audio" / "_pad"
-    parts.mkdir(parents=True, exist_ok=True)
-    padded = []
-    for t in timing:
-        src = OUT / t["audio"]
-        dst = parts / f"pad-{t['index']:02d}.wav"
-        secs = t["frames"] / FPS
-        ff(["-i", str(src), "-af",
-            f"apad=whole_dur={secs:.6f},atrim=0:{secs:.6f}",
-            "-ar", str(SR), "-ac", "1", str(dst)], "pad")
-        padded.append(dst)
-
-    lst = parts / "list.txt"
-    lst.write_text("\n".join(f"file '{p.as_posix()}'" for p in padded), encoding="utf-8")
-    ff(["-f", "concat", "-safe", "0", "-i", str(lst), "-ar", str(SR), "-ac", "1",
-        str(OUT / "voice-full.wav")], "concat")
-
-    print(f"TOTAL {total} frames = {total/FPS/60:.2f} min", flush=True)
-    print("narration render complete", flush=True)
+    print(f"\nTOTAL {total_frames} frames = {total_frames/FPS/60:.2f} min", flush=True)
 
 
 if __name__ == "__main__":

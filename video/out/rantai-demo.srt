@@ -1,0 +1,521 @@
+1
+00:00:00,300 --> 00:00:04,067
+Laporan insiden hampir tidak pernah datang
+lengkap.
+
+2
+00:00:04,067 --> 00:00:07,133
+Dan hampir tidak pernah datang sendirian.
+
+3
+00:00:07,133 --> 00:00:13,133
+Satu satuan melaporkan email phishing, satuan
+lain melaporkan koneksi keluar yang
+mencurigakan.
+
+4
+00:00:14,033 --> 00:00:20,033
+Tanpa cara membandingkan bukti, keduanya tetap
+dua berkas yang tidak pernah bertemu.
+
+5
+00:00:20,167 --> 00:00:26,167
+RANTAI mencocokkan indikator antar laporan,
+dan menemukan bahwa keduanya adalah satu
+kampanye yang sama.
+
+6
+00:00:27,700 --> 00:00:32,533
+Kecocokan itu diberi skor kekuatan bukti, dari
+nol sampai seratus.
+
+7
+00:00:32,533 --> 00:00:38,533
+Ini RANTAI, platform bukti dan koordinasi
+insiden untuk Kartika Cyber Hackathon 2026.
+
+8
+00:00:39,767 --> 00:00:42,833
+Masalahnya bukan kekurangan alat deteksi.
+
+9
+00:00:42,833 --> 00:00:48,833
+Setiap satuan punya laporan sendiri, tersimpan
+sendiri, dan sering kali tidak pernah
+dibandingkan dengan laporan satuan lain.
+
+10
+00:00:51,867 --> 00:00:54,867
+Yang hilang adalah benang penghubungnya.
+
+11
+00:00:54,867 --> 00:01:00,867
+Bukti sulit dibuktikan tetap utuh setelah
+berpindah tangan, karena tidak ada catatan
+siapa memegangnya dan kapan.
+
+12
+00:01:03,033 --> 00:01:09,033
+Koordinasi berjalan lewat pesan dan
+spreadsheet, sehingga keputusan analis tidak
+meninggalkan jejak yang bisa diperiksa ulang.
+
+13
+00:01:12,133 --> 00:01:18,133
+Tiga hal itulah yang RANTAI coba jawab:
+korelasi, integritas, dan akuntabilitas.
+
+14
+00:01:19,000 --> 00:01:21,300
+Kita mulai dari halaman masuk.
+
+15
+00:01:21,300 --> 00:01:26,767
+Setiap satuan memakai akunnya sendiri: Alpha,
+Bravo, dan koordinator pusat.
+
+16
+00:01:26,767 --> 00:01:32,767
+Peran akun menentukan tombol apa yang muncul,
+tetapi keputusan akhir tetap di server.
+
+17
+00:01:32,967 --> 00:01:38,967
+Sesi disimpan di basis data dengan masa
+berlaku delapan jam, dan cookie bersifat
+HttpOnly.
+
+18
+00:01:39,500 --> 00:01:45,500
+Setiap login menjadi entri pertama pada rantai
+audit yang nanti kita periksa.
+
+19
+00:01:46,167 --> 00:01:51,300
+Halaman ringkasan memberi gambaran satu
+kampanye dalam satu pandangan.
+
+20
+00:01:51,300 --> 00:01:57,300
+Empat metrik utama: jumlah laporan, indikator
+yang terekstrak, temuan yang belum diputuskan,
+dan prioritas yang perlu dieskalasi.
+
+21
+00:02:00,600 --> 00:02:06,600
+Distribusi severity memperlihatkan komposisi
+ancaman, bukan sekadar jumlah laporan.
+
+22
+00:02:06,633 --> 00:02:12,633
+Tren laporan mengikuti waktu kejadian,
+sehingga lonjakan terlihat sebagai lonjakan,
+bukan sebagai total yang menumpuk.
+
+23
+00:02:15,167 --> 00:02:21,167
+Matriks severity kali status menjawab
+pertanyaan yang paling sering ditanyakan
+pimpinan: apa yang masih terbuka dan apa yang
+sudah ditangani.
+
+24
+00:02:25,333 --> 00:02:30,633
+Sebaran band korelasi memperlihatkan seberapa
+kuat bukti yang kita punya.
+
+25
+00:02:30,633 --> 00:02:36,633
+Dan status rantai audit selalu tampil, karena
+integritas bukan halaman terpisah, tetapi
+bagian dari ringkasan harian.
+
+26
+00:02:40,167 --> 00:02:44,300
+Ini bagian paling penting dari RANTAI:
+penanganan bukti.
+
+27
+00:02:44,300 --> 00:02:50,300
+Berkas diunggah sekaligus banyak, dengan
+pilihan cakupan berbagi dan catatan analis.
+
+28
+00:02:50,433 --> 00:02:56,433
+Setiap berkas dihitung hash-nya saat diterima,
+lalu dihitung ulang dari isi yang tersimpan.
+
+29
+00:02:57,033 --> 00:03:01,233
+Kalau kedua nilai cocok, statusnya menjadi
+terverifikasi.
+
+30
+00:03:01,233 --> 00:03:07,233
+Kalau berkas yang sama pernah muncul di kasus
+lain, sistem menandainya sebagai duplikat
+lintas kasus.
+
+31
+00:03:08,567 --> 00:03:14,567
+Analisis statis berjalan tanpa mengeksekusi
+berkas: magic bytes, entropi, aturan bergaya
+YARA, dan batas keamanan arsip.
+
+32
+00:03:18,267 --> 00:03:20,333
+Sekarang mesin korelasinya.
+
+33
+00:03:20,333 --> 00:03:24,467
+Pertama, berkas masuk: email, CSV, log, teks,
+dan arsip.
+
+34
+00:03:24,467 --> 00:03:27,967
+Berkas diparse: header, baris, dan entri
+arsip.
+
+35
+00:03:27,967 --> 00:03:33,967
+Indikator diekstrak lalu dinormalisasi,
+termasuk defang, homoglyph Kiril, dan label
+IDN.
+
+36
+00:03:34,367 --> 00:03:39,800
+Setiap indikator diberi bobot yang menurun
+kalau muncul di banyak insiden.
+
+37
+00:03:39,800 --> 00:03:43,933
+Hasil akhirnya satu skor pasangan beserta
+daftar alasan.
+
+38
+00:03:43,933 --> 00:03:47,000
+Skor di atas tujuh puluh masuk band kuat.
+
+39
+00:03:47,000 --> 00:03:51,533
+Empat puluh lima sampai enam puluh sembilan
+masuk band sedang.
+
+40
+00:03:51,533 --> 00:03:55,733
+Dua puluh lima sampai empat puluh empat masuk
+band lemah.
+
+41
+00:03:55,733 --> 00:04:00,100
+Di bawah dua puluh lima dibuang, karena
+dianggap kebetulan.
+
+42
+00:04:00,100 --> 00:04:06,100
+Ini yang membedakan RANTAI dari pencarian teks
+biasa: setiap angka bisa
+dipertanggungjawabkan.
+
+43
+00:04:07,967 --> 00:04:10,733
+Pada data demo, hasilnya seperti ini.
+
+44
+00:04:10,733 --> 00:04:16,300
+Skor nol sampai seratus adalah kekuatan bukti,
+bukan probabilitas statistik.
+
+45
+00:04:16,300 --> 00:04:22,300
+Laporan satu dan dua berskor seratus, karena
+berbagi hash lampiran, domain, URL, dan
+berdekatan dalam waktu.
+
+46
+00:04:24,100 --> 00:04:30,100
+Laporan satu dan tiga berskor lima puluh
+delapan: email pengirim, domain, dan waktu.
+
+47
+00:04:30,233 --> 00:04:35,767
+Laporan dua dan tiga berskor dua puluh
+delapan, karena hanya berbagi domain.
+
+48
+00:04:35,767 --> 00:04:40,700
+Dan laporan keempat, percobaan DDoS, berskor
+nol terhadap semuanya.
+
+49
+00:04:40,700 --> 00:04:46,700
+Angka nol itu sama pentingnya dengan angka
+seratus. Ia membuktikan mesin tidak memaksakan
+temuan.
+
+50
+00:04:48,767 --> 00:04:53,733
+Sekarang bagian yang paling sering
+disalahpahami: persetujuan akses.
+
+51
+00:04:53,733 --> 00:04:58,667
+Bravo mengajukan permintaan untuk membuka
+bukti mentah milik Alpha.
+
+52
+00:04:58,667 --> 00:05:04,667
+Alasannya dicatat: tinjauan forensik lampiran
+email, dengan masa berlaku tiga hari.
+
+53
+00:05:04,700 --> 00:05:07,567
+Koordinator menyetujui permintaan itu.
+
+54
+00:05:07,567 --> 00:05:10,133
+Tetapi approval bukan izin mutlak.
+
+55
+00:05:10,133 --> 00:05:16,133
+Urutannya begini: satuan pemilik atau
+koordinator selalu boleh, dan tetap tercatat
+di audit.
+
+56
+00:05:16,833 --> 00:05:21,467
+Artefak dengan cakupan restricted selalu
+ditolak lintas satuan.
+
+57
+00:05:21,467 --> 00:05:26,933
+TLP merah dan amber plus strict juga selalu
+ditolak, meskipun ada approval.
+
+58
+00:05:26,933 --> 00:05:32,000
+TLP amber memerlukan approval yang masih aktif
+dan belum kedaluwarsa.
+
+59
+00:05:32,000 --> 00:05:38,000
+Dan TLP hijau atau clear boleh dibuka lintas
+satuan, tetapi tetap tunduk pada aturan
+restricted tadi.
+
+60
+00:05:40,367 --> 00:05:43,000
+Lapisan terakhir adalah integritas.
+
+61
+00:05:43,000 --> 00:05:49,000
+Rantai audit memakai pola sederhana: setiap
+entri adalah hash dari entri sebelumnya,
+ditambah isi entri itu sendiri.
+
+62
+00:05:51,400 --> 00:05:56,367
+Entri pertama memakai enam puluh empat digit
+nol sebagai nilai awal.
+
+63
+00:05:56,367 --> 00:06:02,367
+Karena setiap entri menunjuk entri sebelumnya,
+mengubah satu entri akan memutus seluruh
+rantai setelahnya.
+
+64
+00:06:04,067 --> 00:06:10,067
+Verifikasi menghitung ulang dari awal, dan
+melaporkan nomor entri pertama yang rusak.
+
+65
+00:06:10,233 --> 00:06:16,233
+Pemeriksaan itu tetap bekerja meskipun basis
+data disunting langsung, melewati penulis
+audit.
+
+66
+00:06:17,000 --> 00:06:22,900
+Dan checkpoint Ed25519 membandingkan kepala
+rantai dengan tanda tangan perangkat.
+
+67
+00:06:22,900 --> 00:06:26,233
+Pada kondisi normal, statusnya terverifikasi.
+
+68
+00:06:26,233 --> 00:06:31,800
+Sekarang kita ubah satu entri. Verifikasi
+menunjuk tepat entri yang berubah.
+
+69
+00:06:31,800 --> 00:06:37,800
+Kita pulihkan, dan rantai kembali hijau. Jujur
+soal batasnya: rantai membuktikan konsistensi
+catatan, bukan keaslian berkas sebelum
+diunggah.
+
+70
+00:06:43,000 --> 00:06:45,433
+Arsitekturnya sengaja sederhana.
+
+71
+00:06:45,433 --> 00:06:51,333
+Jalur pertama memakai Cloudflare: React di
+depan, Worker berbasis Hono di tengah.
+
+72
+00:06:51,333 --> 00:06:54,067
+Bundel statis dilayani sebagai aset.
+
+73
+00:06:54,067 --> 00:06:56,833
+Worker menangani API dan autentikasi.
+
+74
+00:06:56,833 --> 00:07:02,733
+Basis datanya D1, yang menyimpan artefak
+sebagai BLOB dan mencatat seluruh audit.
+
+75
+00:07:02,733 --> 00:07:07,800
+Kriptografinya memakai WebCrypto: SHA-256,
+HMAC, PBKDF2, dan Ed25519.
+
+76
+00:07:07,800 --> 00:07:12,067
+Jalur kedua untuk lingkungan terisolasi: Node
+dengan Hono.
+
+77
+00:07:12,067 --> 00:07:15,433
+Frontend yang sama dilayani dari proses Node.
+
+78
+00:07:15,433 --> 00:07:21,433
+Basis datanya SQLite lokal lewat node:sqlite,
+dengan shim yang memenuhi antarmuka D1.
+
+79
+00:07:21,600 --> 00:07:25,733
+Bukti disimpan di filesystem, bukan di dalam
+basis data.
+
+80
+00:07:25,733 --> 00:07:31,733
+Batas unggahnya lima puluh megabita, jauh
+lebih longgar daripada sembilan ratus kilobita
+di D1.
+
+81
+00:07:32,633 --> 00:07:38,133
+Keduanya memakai antarmuka EvidenceStorage
+yang sama: put, get, dan delete.
+
+82
+00:07:38,133 --> 00:07:44,133
+Satu Worker, satu basis data, tanpa layanan
+eksternal dan tanpa panggilan keluar saat
+runtime.
+
+83
+00:07:46,000 --> 00:07:50,067
+Semua klaim itu bisa diperiksa, bukan hanya
+dipamerkan.
+
+84
+00:07:50,067 --> 00:07:56,067
+Dua puluh empat pemeriksaan keamanan
+dijalankan terhadap server yang hidup, dan
+seluruhnya lulus.
+
+85
+00:07:57,100 --> 00:08:03,100
+Empat puluh delapan butir uji frontend
+dijalankan di Chrome dan Firefox, tanpa
+pelanggaran aksesibilitas WCAG.
+
+86
+00:08:05,067 --> 00:08:11,067
+Benchmark korelasi memakai empat ratus insiden
+sintetis, sembilan ratus pasangan benar, dan
+enam ratus sampel negatif.
+
+87
+00:08:13,567 --> 00:08:19,133
+Hasilnya precision dan recall satu koma nol,
+dengan false positive rate nol.
+
+88
+00:08:19,133 --> 00:08:25,033
+Uji manipulasi rantai menunjukkan entri yang
+diubah terdeteksi tepat di nomornya.
+
+89
+00:08:25,033 --> 00:08:28,233
+ZIP bomb ditolak oleh batas keamanan arsip.
+
+90
+00:08:28,233 --> 00:08:34,233
+Dan satu kasus kami laporkan apa adanya: hash
+yang sama pada kampanye tidak terkait masih
+terhubung dengan skor seratus.
+
+91
+00:08:37,967 --> 00:08:39,900
+Soal kelayakan penerapan.
+
+92
+00:08:39,900 --> 00:08:45,900
+Deploy cukup satu perintah, dan aplikasi bisa
+berjalan sepenuhnya offline bila diperlukan.
+
+93
+00:08:46,433 --> 00:08:52,433
+Untuk jumlah berkas yang besar, BLOB di D1
+perlu diganti object storage, dan basis data
+hanya menyimpan hash serta pointer.
+
+94
+00:08:55,333 --> 00:09:01,333
+Yang sengaja belum ada: sandbox dinamis, impor
+aturan YARA eksternal, dan impor STIX.
+
+95
+00:09:01,500 --> 00:09:07,500
+Peta jalannya jelas: parser EVTX dan pcap,
+notifikasi approval, dan rate limiter
+terdistribusi.
+
+96
+00:09:08,400 --> 00:09:14,400
+Semua itu tidak mengubah kontrak API, sehingga
+prototipe hari ini bisa tumbuh tanpa ditulis
+ulang.
+
+97
+00:09:16,567 --> 00:09:19,567
+RANTAI tidak menggantikan Kartika CSIRT.
+
+98
+00:09:19,567 --> 00:09:22,567
+Ia menambahkan kemampuan yang belum ada.
+
+99
+00:09:22,567 --> 00:09:28,567
+Menyatukan laporan lintas satuan, menjaga
+bukti tetap bisa dipercaya, dan membuat
+keputusan analis bisa dipertanggungjawabkan.
+
+100
+00:09:31,667 --> 00:09:37,667
+Prototipe dapat dicoba di rantai dot careday17
+dot workers dot dev, dan kode sumbernya
+terbuka.
+
+101
+00:09:38,567 --> 00:09:44,567
+Seluruh data pada demo adalah data pelatihan
+sintetis, dan profil kampanye merujuk pada
+advisory publik CISA. Terima kasih.

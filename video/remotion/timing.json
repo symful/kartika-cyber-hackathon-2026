@@ -1,118 +1,97 @@
 {
   "fps": 30,
-  "totalFrames": 9964,
+  "totalFrames": 17646,
   "scenes": [
     {
       "index": 1,
-      "kind": "title",
-      "frames": 792,
-      "seconds": 26.4,
+      "kind": "coldopen",
+      "frames": 1184,
+      "seconds": 39.467,
       "audio": "vo-01.wav"
     },
     {
       "index": 2,
-      "kind": "bullets",
-      "frames": 959,
-      "seconds": 31.967,
+      "kind": "problem",
+      "frames": 1177,
+      "seconds": 39.233,
       "audio": "vo-02.wav"
     },
     {
       "index": 3,
       "kind": "shot",
-      "frames": 494,
-      "seconds": 16.467,
+      "frames": 815,
+      "seconds": 27.167,
       "audio": "vo-03.wav"
     },
     {
       "index": 4,
       "kind": "shot",
-      "frames": 600,
-      "seconds": 20.0,
+      "frames": 1620,
+      "seconds": 54.0,
       "audio": "vo-04.wav"
     },
     {
       "index": 5,
       "kind": "shot",
-      "frames": 486,
-      "seconds": 16.2,
+      "frames": 1143,
+      "seconds": 38.1,
       "audio": "vo-05.wav"
     },
     {
       "index": 6,
-      "kind": "shot",
-      "frames": 527,
-      "seconds": 17.567,
+      "kind": "pipeline",
+      "frames": 1491,
+      "seconds": 49.7,
       "audio": "vo-06.wav"
     },
     {
       "index": 7,
-      "kind": "shot",
-      "frames": 695,
-      "seconds": 23.167,
+      "kind": "scores",
+      "frames": 1224,
+      "seconds": 40.8,
       "audio": "vo-07.wav"
     },
     {
       "index": 8,
-      "kind": "shot",
-      "frames": 501,
-      "seconds": 16.7,
+      "kind": "tlp",
+      "frames": 1548,
+      "seconds": 51.6,
       "audio": "vo-08.wav"
     },
     {
       "index": 9,
-      "kind": "diagram",
-      "frames": 778,
-      "seconds": 25.933,
+      "kind": "integrity",
+      "frames": 1879,
+      "seconds": 62.633,
       "audio": "vo-09.wav"
     },
     {
       "index": 10,
-      "kind": "diagram",
-      "frames": 707,
-      "seconds": 23.567,
+      "kind": "architecture",
+      "frames": 1890,
+      "seconds": 63.0,
       "audio": "vo-10.wav"
     },
     {
       "index": 11,
-      "kind": "shot",
-      "frames": 520,
-      "seconds": 17.333,
+      "kind": "proof",
+      "frames": 1559,
+      "seconds": 51.967,
       "audio": "vo-11.wav"
     },
     {
       "index": 12,
-      "kind": "shot",
-      "frames": 530,
-      "seconds": 17.667,
+      "kind": "feasible",
+      "frames": 1158,
+      "seconds": 38.6,
       "audio": "vo-12.wav"
     },
     {
       "index": 13,
-      "kind": "diagram",
-      "frames": 731,
-      "seconds": 24.367,
-      "audio": "vo-13.wav"
-    },
-    {
-      "index": 14,
-      "kind": "shot",
-      "frames": 552,
-      "seconds": 18.4,
-      "audio": "vo-14.wav"
-    },
-    {
-      "index": 15,
-      "kind": "diagram",
-      "frames": 560,
-      "seconds": 18.667,
-      "audio": "vo-15.wav"
-    },
-    {
-      "index": 16,
       "kind": "closing",
-      "frames": 532,
-      "seconds": 17.733,
-      "audio": "vo-16.wav"
+      "frames": 958,
+      "seconds": 31.933,
+      "audio": "vo-13.wav"
     }
   ]
 }

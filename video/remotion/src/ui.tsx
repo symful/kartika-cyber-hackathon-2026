@@ -3,6 +3,7 @@ import {
   AbsoluteFill,
   interpolate,
   spring,
+  staticFile,
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
@@ -210,7 +211,7 @@ export const BrowserFrame: React.FC<{
       </div>
     </div>
     <div style={{ position: "relative", overflow: "hidden" }}>
-      <img src={src} style={{ width: "100%", display: "block" }} />
+      <img src={staticFile(src)} style={{ width: "100%", display: "block" }} />
       {children}
     </div>
   </div>

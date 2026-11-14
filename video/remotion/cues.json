@@ -1,0 +1,197 @@
+{
+  "fps": 30,
+  "scenes": [
+    {
+      "index": 1,
+      "kind": "coldopen",
+      "frames": 1184,
+      "cues": {
+        "card0": 9,
+        "card1": 122,
+        "card2": 214,
+        "lines": 421,
+        "score": 605,
+        "label": 831,
+        "cta": 976
+      }
+    },
+    {
+      "index": 2,
+      "kind": "problem",
+      "frames": 1177,
+      "cues": {
+        "h1": 9,
+        "body1": 101,
+        "h2": 372,
+        "body2": 462,
+        "body3": 707,
+        "rule": 980
+      }
+    },
+    {
+      "index": 3,
+      "kind": "shot",
+      "frames": 815,
+      "cues": {
+        "title": 9,
+        "frame": 78,
+        "accounts": 242,
+        "session": 428,
+        "audit": 624
+      }
+    },
+    {
+      "index": 4,
+      "kind": "shot",
+      "frames": 1620,
+      "cues": {
+        "title": 9,
+        "metrics": 163,
+        "severity": 442,
+        "trend": 623,
+        "matrix": 879,
+        "bands": 1184,
+        "chain": 1343
+      }
+    },
+    {
+      "index": 5,
+      "kind": "shot",
+      "frames": 1143,
+      "cues": {
+        "title": 9,
+        "upload": 133,
+        "hash": 317,
+        "verify": 515,
+        "dupe": 641,
+        "analysis": 861
+      }
+    },
+    {
+      "index": 6,
+      "kind": "pipeline",
+      "frames": 1491,
+      "cues": {
+        "title": 9,
+        "s0": 71,
+        "s1": 195,
+        "s2": 300,
+        "s3": 492,
+        "s4": 655,
+        "b0": 779,
+        "b1": 871,
+        "b2": 1007,
+        "b3": 1133,
+        "note": 1264
+      }
+    },
+    {
+      "index": 7,
+      "kind": "scores",
+      "frames": 1224,
+      "cues": {
+        "title": 9,
+        "sub": 92,
+        "r0": 259,
+        "r1": 493,
+        "r2": 677,
+        "r3": 843,
+        "note": 991
+      }
+    },
+    {
+      "index": 8,
+      "kind": "tlp",
+      "frames": 1548,
+      "cues": {
+        "title": 9,
+        "card": 158,
+        "reason": 306,
+        "approve": 487,
+        "gate": 573,
+        "l0": 650,
+        "l1": 851,
+        "l2": 990,
+        "l3": 1154,
+        "l4": 1306
+      }
+    },
+    {
+      "index": 9,
+      "kind": "integrity",
+      "frames": 1879,
+      "cues": {
+        "title": 9,
+        "b0": 88,
+        "b1": 340,
+        "b2": 489,
+        "b3": 720,
+        "b4": 905,
+        "b5": 1108,
+        "ok": 1285,
+        "tamper": 1385,
+        "restore": 1552
+      }
+    },
+    {
+      "index": 10,
+      "kind": "architecture",
+      "frames": 1890,
+      "cues": {
+        "title": 9,
+        "lane1": 82,
+        "a0": 259,
+        "a1": 341,
+        "a2": 424,
+        "a3": 601,
+        "lane2": 753,
+        "b0": 881,
+        "b1": 982,
+        "b2": 1167,
+        "b3": 1291,
+        "storage": 1498,
+        "note": 1663
+      }
+    },
+    {
+      "index": 11,
+      "kind": "proof",
+      "frames": 1559,
+      "cues": {
+        "title": 9,
+        "m0": 131,
+        "m1": 342,
+        "m2": 581,
+        "m3": 836,
+        "b0": 1003,
+        "b1": 1180,
+        "b2": 1276
+      }
+    },
+    {
+      "index": 12,
+      "kind": "feasible",
+      "frames": 1158,
+      "cues": {
+        "title": 9,
+        "b0": 67,
+        "b1": 263,
+        "b2": 530,
+        "b3": 715,
+        "close": 922
+      }
+    },
+    {
+      "index": 13,
+      "kind": "closing",
+      "frames": 958,
+      "cues": {
+        "h0": 9,
+        "h1": 99,
+        "body": 189,
+        "links": 462,
+        "attr": 669
+      }
+    }
+  ]
+}

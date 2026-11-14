@@ -1,5 +1,3 @@
-import { loadFont } from "@remotion/google-fonts/Archivo";
-
 export const BRAND = {
   navy: "#2c3644",
   navyDeep: "#222b36",

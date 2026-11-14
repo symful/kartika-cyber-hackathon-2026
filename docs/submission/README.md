@@ -8,7 +8,7 @@ Batas akhir: **15 November 2026, 23:59 WIB**. Semua yang ada di sini sudah siap 
 |---|---|
 | **Link Karya / Project** | `https://rantai.careday17.workers.dev` |
 | **Link Video Demo di YouTube** | _(tempel URL YouTube setelah upload `video/out/rantai-demo.mp4`)_ |
-| **Link Slide Penjelasan** | _(tempel URL artifact `docs/rantai-slides.html` setelah dipublikasikan)_ |
+| **Link Slide Penjelasan** | `https://artifacts.commandcode.ai/05jogva6nkovfhb2` |
 | **Thumbnail Karya** | `docs/thumbnail.png` — 1200×630, 53 KB |
 | **Screenshot Karya** (maks 5) | lihat tabel di bawah |
 
