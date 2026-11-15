@@ -1,1 +1,0 @@
-Halaman ringkasan memberi gambaran satu kampanye: jumlah insiden, indikator, temuan terbuka, dan prioritas. Severity dibagi per tingkat, tren laporan mengikuti waktu kejadian, dan matriks severity kali status memperlihatkan mana yang masih terbuka dan mana yang sudah ditangani.

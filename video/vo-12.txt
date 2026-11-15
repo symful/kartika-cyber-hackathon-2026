@@ -1,1 +1,0 @@
-Rantai audit memakai pola yang sederhana: setiap entri adalah hash dari entri sebelumnya ditambah isi entri itu sendiri. Checkpoint Ed25519 menandatangani kepala rantai, sehingga penyuntingan ulang seluruh rantai tetap terdeteksi. Jujur soal batasnya: rantai membuktikan konsistensi catatan, bukan keaslian berkas sebelum diunggah.

@@ -3,10 +3,10 @@ audio/
 deck-preview/
 ab/
 models/
-diagram-png/
 frames/
 frames-test/
 public/vo/
+**/.png-cache/
 out/*.wav
 out/*.png
 out/*.mp4

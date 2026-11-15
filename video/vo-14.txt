@@ -1,1 +1,0 @@
-Semuanya berjalan pada satu Worker dan satu basis data. Tidak ada layanan eksternal dan tidak ada panggilan keluar saat runtime. Untuk lingkungan terisolasi, aplikasi yang sama bisa dijalankan di Node dengan SQLite lokal dan penyimpanan bukti di filesystem.

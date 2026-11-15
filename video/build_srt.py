@@ -10,7 +10,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 VIDEO = ROOT / "video"
 
-spec = json.loads((VIDEO / "narration-short.json").read_text(encoding="utf-8"))
+# Use the same script the narration was built from, so cues always exist.
+spec = json.loads((VIDEO / "narration-final.json").read_text(encoding="utf-8"))
 timing = json.loads((VIDEO / "timing.json").read_text(encoding="utf-8"))
 cues_all = json.loads((VIDEO / "cues.json").read_text(encoding="utf-8"))
 FPS = timing["fps"]

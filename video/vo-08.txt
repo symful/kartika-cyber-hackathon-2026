@@ -1,1 +1,0 @@
-Korelasi bekerja deterministik. Berkas diparse, indikator diekstrak, lalu dinormalisasi terhadap defang, homoglyph Kiril, dan label IDN. Setiap indikator diberi bobot yang menurun jika muncul di banyak insiden. Hasilnya dipetakan ke band: kuat, sedang, lemah, atau dibuang di bawah dua puluh lima.

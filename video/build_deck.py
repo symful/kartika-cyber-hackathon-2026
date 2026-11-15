@@ -252,14 +252,43 @@ def layout_shots(s, d):
          size=13, color=MUTED)
 
 
+def svg_to_png(svg_path: Path) -> Path:
+    """Rasterise an SVG with headless Chrome, cached beside the source.
+
+    python-pptx cannot embed SVG, and keeping a separate cache directory meant a
+    cleaned build tree broke the deck. Caching next to the source keeps the
+    dependency self-contained.
+    """
+    cache = svg_path.parent / ".png-cache"
+    cache.mkdir(exist_ok=True)
+    out = cache / (svg_path.stem + ".png")
+    if out.exists() and out.stat().st_mtime >= svg_path.stat().st_mtime:
+        return out
+
+    import re
+    import subprocess
+
+    chrome = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
+    text = svg_path.read_text(encoding="utf-8")
+    m = re.search(r'viewBox="0 0 (\d+) (\d+)"', text)
+    w, h = (int(m.group(1)), int(m.group(2))) if m else (1040, 520)
+
+    subprocess.run(
+        [chrome, "--headless=new", "--disable-gpu", "--hide-scrollbars",
+         "--force-device-scale-factor=2", f"--window-size={w},{h}",
+         f"--screenshot={out}", svg_path.as_uri()],
+        check=True, capture_output=True,
+    )
+    return out
+
+
 def layout_diagram(s, d):
     chrome(s, d["eyebrow"])
     text(s, Inches(0.62), Inches(1.28), Inches(11.9), Inches(0.6), d["headline"][0], size=30,
          color=INK, bold=True)
     img_path = ROOT / d["image"]
     if img_path.suffix.lower() == ".svg":
-        png = ROOT / "video" / "diagram-png" / (img_path.stem + ".png")
-        img_path = png if png.exists() else img_path
+        img_path = svg_to_png(img_path)
     picture_fit(s, img_path, Inches(0.62), Inches(2.0), Inches(7.6), Inches(3.5))
     text(s, Inches(0.62), Inches(5.62), Inches(7.6), Inches(0.5), d["caption"], size=11,
          color=MUTED, line_spacing=1.4)
