@@ -6,3 +6,6 @@ dist/
 data/
 *.log
 .DS_Store
+
+# Rasterised SVG cache used by the deck builders
+.png-cache/

@@ -47,6 +47,15 @@
         "Respons dicatat",
         "Laporan diekspor"
       ],
+      "stepNotes": [
+        "Formulir insiden lintas satuan, dicatat pada rantai audit.",
+        "SHA-256 per berkas, diverifikasi ulang dari isi tersimpan.",
+        "Email, domain, IP, URL, hash — bersama baris asalnya.",
+        "Bobot spesifisitas, band kuat/sedang/lemah, dengan alasan.",
+        "Peristiwa dari berkas dan laporan disatukan per waktu.",
+        "Playbook menjadi tugas dengan PIC dan status.",
+        "HTML siap PDF, Markdown, JSON, STIX 2.1, bundle bertanda tangan."
+      ],
       "notes": "Satu alur dari laporan sampai ekspor. Tidak ada langkah yang melewati pencatatan audit."
     },
     {
@@ -156,12 +165,12 @@
       "headline": ["Bisa dipakai besok, bukan tahun depan"],
       "body": [
         "Satu perintah deploy. Berjalan sepenuhnya offline bila diperlukan.",
-        "Batas 900 KB per berkas pada D1; 50 MB pada filesystem. Produksi memakai object storage.",
-        "Sudah berjalan di rantai.careday17.workers.dev dengan data demo."
+        "Batas 900 KB per berkas pada D1; 50 MB pada filesystem. Produksi memakai object storage."
       ],
-      "bullets": [
-        "Peta jalan: parser EVTX/pcap, notifikasi approval, rate limiter terdistribusi.",
-        "Sengaja di luar cakupan: sandbox dinamis, impor aturan YARA eksternal, STIX import."
+      "panels": [
+        {"title": "HARI INI", "tone": "ok", "items": ["Deploy satu perintah", "Offline / air-gap", "Data demo aktif"]},
+        {"title": "PETA JALAN", "tone": "warn", "items": ["Parser EVTX & pcap", "Notifikasi approval", "Rate limiter terdistribusi"]},
+        {"title": "DI LUAR CAKUPAN", "tone": "no", "items": ["Sandbox dinamis", "Impor YARA eksternal", "STIX import"]}
       ],
       "notes": "Jujur soal batas D1 dan apa yang belum ada. Roadmap harus terlihat realistis."
     },

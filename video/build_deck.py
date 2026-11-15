@@ -208,24 +208,25 @@ def layout_flow(s, d):
     text(s, Inches(0.62), Inches(1.32), Inches(11.9), Inches(0.7), d["headline"][0], size=34,
          color=INK, bold=True)
     steps = d["steps"]
+    notes = d.get("stepNotes", [""] * len(steps))
     n = len(steps)
     gap = Inches(0.18)
     total_w = W - Inches(1.24)
     bw = int((total_w - gap * (n - 1)) / n)
-    y = Inches(2.9)
+    y = Inches(2.72)
     for i, step in enumerate(steps):
         x = Inches(0.62) + i * (bw + gap)
         fill = ACCENT_WASH if i in (1, 3) else PAPER
         edge = ACCENT if i in (1, 3) else RULE2
-        rect(s, x, y, bw, Inches(1.42), fill=fill, line=edge)
-        text(s, x + Inches(0.18), y + Inches(0.16), bw - Inches(0.36), Inches(0.3),
+        rect(s, x, y, bw, Inches(2.55), fill=fill, line=edge)
+        text(s, x + Inches(0.18), y + Inches(0.18), bw - Inches(0.36), Inches(0.3),
              f"0{i+1}", size=9.5, color=ACCENT, font=MONO, bold=True)
-        text(s, x + Inches(0.18), y + Inches(0.5), bw - Inches(0.36), Inches(0.8), step, size=13,
+        text(s, x + Inches(0.18), y + Inches(0.52), bw - Inches(0.36), Inches(0.9), step, size=13,
              color=INK, bold=True, line_spacing=1.25)
-        if i < n - 1:
-            text(s, x + bw + Emu(2000), y + Inches(0.56), Inches(0.2), Inches(0.3), "›",
-                 size=17, color=ACCENT, bold=True)
-    text(s, Inches(0.62), Inches(4.75), Inches(11.6), Inches(0.8),
+        if i < len(notes) and notes[i]:
+            text(s, x + Inches(0.18), y + Inches(1.5), bw - Inches(0.36), Inches(0.95),
+                 notes[i], size=10, color=MUTED, line_spacing=1.4)
+    text(s, Inches(0.62), Inches(5.62), Inches(11.6), Inches(0.8),
          "Tidak ada langkah yang melewati pencatatan audit. Setiap mutasi tercatat pada rantai hash-linked.",
          size=14, color=MUTED, line_spacing=1.5)
 
