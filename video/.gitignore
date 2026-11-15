@@ -5,7 +5,7 @@ ab/
 models/
 frames/
 frames-test/
-public/vo/
+remotion/public/vo/
 **/.png-cache/
 out/*.wav
 out/*.png
