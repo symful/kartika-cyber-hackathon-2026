@@ -1,97 +1,110 @@
 {
   "fps": 30,
-  "totalFrames": 12236,
+  "totalFrames": 11620,
   "scenes": [
     {
       "index": 1,
       "kind": "coldopen",
-      "frames": 820,
-      "seconds": 27.333,
-      "audio": "vo-01.wav"
+      "frames": 533,
+      "seconds": 17.767,
+      "audio": "vo-01.wav",
+      "title": ""
     },
     {
       "index": 2,
-      "kind": "problem",
-      "frames": 735,
-      "seconds": 24.5,
-      "audio": "vo-02.wav"
+      "kind": "shot",
+      "frames": 985,
+      "seconds": 32.833,
+      "audio": "vo-02.wav",
+      "title": "Ringkasan operasi"
     },
     {
       "index": 3,
-      "kind": "shot",
-      "frames": 569,
-      "seconds": 18.967,
-      "audio": "vo-03.wav"
+      "kind": "problem",
+      "frames": 705,
+      "seconds": 23.5,
+      "audio": "vo-03.wav",
+      "title": ""
     },
     {
       "index": 4,
       "kind": "shot",
-      "frames": 995,
-      "seconds": 33.167,
-      "audio": "vo-04.wav"
+      "frames": 558,
+      "seconds": 18.6,
+      "audio": "vo-04.wav",
+      "title": "Masuk ke ruang kerja"
     },
     {
       "index": 5,
       "kind": "shot",
-      "frames": 913,
-      "seconds": 30.433,
-      "audio": "vo-05.wav"
+      "frames": 892,
+      "seconds": 29.733,
+      "audio": "vo-05.wav",
+      "title": "Bukti dan integritasnya"
     },
     {
       "index": 6,
       "kind": "pipeline",
-      "frames": 1089,
-      "seconds": 36.3,
-      "audio": "vo-06.wav"
+      "frames": 1048,
+      "seconds": 34.933,
+      "audio": "vo-06.wav",
+      "title": ""
     },
     {
       "index": 7,
       "kind": "scores",
-      "frames": 787,
-      "seconds": 26.233,
-      "audio": "vo-07.wav"
+      "frames": 767,
+      "seconds": 25.567,
+      "audio": "vo-07.wav",
+      "title": ""
     },
     {
       "index": 8,
       "kind": "tlp",
-      "frames": 1134,
-      "seconds": 37.8,
-      "audio": "vo-08.wav"
+      "frames": 1082,
+      "seconds": 36.067,
+      "audio": "vo-08.wav",
+      "title": ""
     },
     {
       "index": 9,
       "kind": "integrity",
-      "frames": 1347,
-      "seconds": 44.9,
-      "audio": "vo-09.wav"
+      "frames": 1316,
+      "seconds": 43.867,
+      "audio": "vo-09.wav",
+      "title": ""
     },
     {
       "index": 10,
       "kind": "architecture",
-      "frames": 1303,
-      "seconds": 43.433,
-      "audio": "vo-10.wav"
+      "frames": 1241,
+      "seconds": 41.367,
+      "audio": "vo-10.wav",
+      "title": ""
     },
     {
       "index": 11,
       "kind": "proof",
-      "frames": 1098,
-      "seconds": 36.6,
-      "audio": "vo-11.wav"
+      "frames": 1077,
+      "seconds": 35.9,
+      "audio": "vo-11.wav",
+      "title": ""
     },
     {
       "index": 12,
       "kind": "feasible",
-      "frames": 726,
-      "seconds": 24.2,
-      "audio": "vo-12.wav"
+      "frames": 706,
+      "seconds": 23.533,
+      "audio": "vo-12.wav",
+      "title": ""
     },
     {
       "index": 13,
       "kind": "closing",
-      "frames": 720,
-      "seconds": 24.0,
-      "audio": "vo-13.wav"
+      "frames": 710,
+      "seconds": 23.667,
+      "audio": "vo-13.wav",
+      "title": ""
     }
   ]
 }

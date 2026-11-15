@@ -4,194 +4,171 @@
     {
       "index": 1,
       "kind": "coldopen",
-      "frames": 820,
+      "frames": 533,
       "cues": {
         "card0": 16,
-        "card1": 97,
-        "card2": 183,
-        "lines": 367,
-        "score": 531,
-        "label": 700,
-        "cta": 761
-      }
+        "lines": 173,
+        "score": 337
+      },
+      "title": ""
     },
     {
       "index": 2,
-      "kind": "problem",
-      "frames": 735,
-      "cues": {
-        "h1": 16,
-        "body1": 103,
-        "h2": 274,
-        "body2": 358,
-        "body3": 476,
-        "rule": 640
-      }
-    },
-    {
-      "index": 3,
       "kind": "shot",
-      "frames": 569,
-      "cues": {
-        "title": 16,
-        "frame": 83,
-        "accounts": 164,
-        "session": 322,
-        "audit": 434
-      }
-    },
-    {
-      "index": 4,
-      "kind": "shot",
-      "frames": 995,
+      "frames": 985,
       "cues": {
         "title": 16,
         "metrics": 140,
         "severity": 279,
-        "trend": 387,
-        "matrix": 549,
-        "bands": 727,
-        "chain": 851
-      }
+        "matrix": 538,
+        "bands": 717,
+        "chain": 841
+      },
+      "title": "Ringkasan operasi"
+    },
+    {
+      "index": 3,
+      "kind": "problem",
+      "frames": 705,
+      "cues": {
+        "h1": 16,
+        "h2": 263,
+        "body3": 456
+      },
+      "title": ""
+    },
+    {
+      "index": 4,
+      "kind": "shot",
+      "frames": 558,
+      "cues": {
+        "title": 16,
+        "accounts": 153,
+        "session": 312,
+        "audit": 423
+      },
+      "title": "Masuk ke ruang kerja"
     },
     {
       "index": 5,
       "kind": "shot",
-      "frames": 913,
+      "frames": 892,
       "cues": {
         "title": 16,
-        "upload": 108,
-        "hash": 257,
-        "verify": 425,
-        "dupe": 525,
-        "analysis": 687
-      }
+        "hash": 247,
+        "verify": 415,
+        "analysis": 667
+      },
+      "title": "Bukti dan integritasnya"
     },
     {
       "index": 6,
       "kind": "pipeline",
-      "frames": 1089,
+      "frames": 1048,
       "cues": {
         "title": 16,
-        "s0": 77,
-        "s1": 175,
-        "s2": 272,
-        "s3": 432,
-        "s4": 549,
-        "b0": 646,
-        "b1": 705,
-        "b2": 811,
-        "b3": 908,
-        "note": 978
-      }
+        "s1": 164,
+        "s3": 411,
+        "s4": 528,
+        "b1": 674,
+        "b2": 780,
+        "b3": 877
+      },
+      "title": ""
     },
     {
       "index": 7,
       "kind": "scores",
-      "frames": 787,
+      "frames": 767,
       "cues": {
         "title": 16,
-        "sub": 95,
-        "r0": 192,
-        "r1": 356,
-        "r2": 457,
-        "r3": 554,
-        "note": 656
-      }
+        "r0": 182,
+        "r1": 346,
+        "r2": 446,
+        "r3": 543
+      },
+      "title": ""
     },
     {
       "index": 8,
       "kind": "tlp",
-      "frames": 1134,
+      "frames": 1082,
       "cues": {
         "title": 16,
         "card": 151,
-        "reason": 248,
-        "approve": 349,
-        "gate": 403,
-        "l0": 476,
-        "l1": 609,
-        "l2": 708,
-        "l3": 856,
-        "l4": 963
-      }
+        "approve": 339,
+        "l1": 578,
+        "l3": 814
+      },
+      "title": ""
     },
     {
       "index": 9,
       "kind": "integrity",
-      "frames": 1347,
+      "frames": 1316,
       "cues": {
         "title": 16,
-        "b0": 92,
-        "b1": 232,
-        "b2": 333,
-        "b3": 442,
-        "b4": 590,
-        "b5": 716,
-        "ok": 867,
-        "tamper": 960,
-        "restore": 1099
-      }
+        "b1": 222,
+        "b2": 322,
+        "b4": 569,
+        "b5": 695,
+        "ok": 846,
+        "restore": 1068
+      },
+      "title": ""
     },
     {
       "index": 10,
       "kind": "architecture",
-      "frames": 1303,
+      "frames": 1241,
       "cues": {
         "title": 16,
-        "lane1": 86,
-        "a0": 229,
-        "a1": 306,
-        "a2": 385,
-        "a3": 505,
-        "lane2": 577,
-        "b0": 694,
-        "b1": 787,
-        "b2": 895,
-        "b3": 959,
-        "storage": 1037,
-        "note": 1145
-      }
+        "a0": 218,
+        "a2": 364,
+        "a3": 484,
+        "b0": 663,
+        "b2": 854,
+        "storage": 985
+      },
+      "title": ""
     },
     {
       "index": 11,
       "kind": "proof",
-      "frames": 1098,
+      "frames": 1077,
       "cues": {
         "title": 16,
-        "m0": 84,
-        "m1": 272,
-        "m2": 414,
-        "m3": 551,
-        "b0": 662,
-        "b1": 788,
-        "b2": 878
-      }
+        "m1": 261,
+        "m2": 404,
+        "m3": 540,
+        "b0": 652,
+        "b1": 778
+      },
+      "title": ""
     },
     {
       "index": 12,
       "kind": "feasible",
-      "frames": 726,
+      "frames": 706,
       "cues": {
         "title": 16,
-        "b0": 74,
-        "b1": 203,
-        "b2": 313,
-        "b3": 448,
-        "close": 621
-      }
+        "b1": 193,
+        "b2": 302,
+        "b3": 437
+      },
+      "title": ""
     },
     {
       "index": 13,
       "kind": "closing",
-      "frames": 720,
+      "frames": 710,
       "cues": {
         "h0": 16,
-        "h1": 101,
-        "body": 185,
-        "links": 425,
-        "attr": 558
-      }
+        "body": 175,
+        "links": 415,
+        "attr": 548
+      },
+      "title": ""
     }
   ]
 }

@@ -14,58 +14,46 @@ import {
   Problem,
   Proof,
   ScoreBands,
-  ShotScene,
   TlpGate,
   Values,
   Weights,
 } from "./scenes";
+import { SurfaceScene } from "./surfaces";
 
-type Timing = { index: number; kind: string; frames: number; audio: string };
+type Timing = { index: number; kind: string; title?: string; frames: number; audio: string };
 const T = timing as { fps: number; totalFrames: number; scenes: Timing[] };
-const C = cues as { fps: number; scenes: { index: number; kind: string; frames: number; cues: Record<string, number> }[] };
+const C = cues as unknown as { fps: number; scenes: { index: number; kind: string; frames: number; cues: Record<string, number> }[] };
 
 type Cues = Record<string, number>;
 
-const SHOT_PROPS: Record<number, { src: string; title: string; caption: string; highlight?: number[] }> = {
-  4: { src: "shots/01-login.png", title: "Masuk ke ruang kerja", caption: "Tiga akun satuan: Alpha, Bravo, dan koordinator." },
-  5: {
-    src: "shots/02-dashboard.png",
+/**
+ * Screenshot scenes are replaced by recreated surfaces.
+ *
+ * Looked up by scene *title*, not by index: the scene order changed once already
+ * and an index-keyed map silently produced blank frames.
+ */
+const SURFACES: Record<string, { kind: "login" | "dashboard" | "evidence"; title: string; caption: string }> = {
+  "Masuk ke ruang kerja": {
+    kind: "login",
+    title: "Masuk ke ruang kerja",
+    caption: "Tiga akun satuan · sesi 8 jam · cookie HttpOnly",
+  },
+  "Ringkasan operasi": {
+    kind: "dashboard",
     title: "Ringkasan operasi",
-    caption: "Empat metrik, distribusi severity, tren laporan, matriks severity × status, dan sebaran band korelasi.",
-    highlight: [0.675, 0.405, 0.315, 0.275],
+    caption: "Metrik, severity, tren, dan band korelasi dalam satu pandangan",
   },
-  6: {
-    src: "shots/03-incident-list.png",
-    title: "Daftar laporan",
-    caption: "Pencarian dan filter severity dikerjakan di sisi server, sesuai hak akses satuan.",
-    highlight: [0.165, 0.215, 0.815, 0.285],
-  },
-  7: {
-    src: "shots/04-incident-detail.png",
-    title: "Detail insiden",
-    caption: "Profil kampanye, pemetaan ATT&CK dengan artefak pendukung, dan komposisi indikator.",
-    highlight: [0.165, 0.395, 0.665, 0.175],
-  },
-  8: {
-    src: "shots/05-evidence-vault.png",
+  "Bukti dan integritasnya": {
+    kind: "evidence",
     title: "Bukti dan integritasnya",
-    caption: "Hash dihitung saat diterima, dihitung ulang dari isi tersimpan, lalu ditandai bila cocok.",
-  },
-  9: {
-    src: "shots/06-evidence-passport.png",
-    title: "Passport artefak",
-    caption: "Static analysis, aturan yang cocok, verdict, dan chain of custody per artefak.",
-  },
-  15: {
-    src: "shots/10-audit-integrity.png",
-    title: "Verifikasi dan uji manipulasi",
-    caption: "Status rantai, checkpoint Ed25519, uji manipulasi, dan catatan audit terbaru.",
-    highlight: [0.175, 0.175, 0.32, 0.255],
+    caption: "Hash saat diterima, dihitung ulang, lalu ditandai bila cocok",
   },
 };
 
-const renderScene = (index: number, kind: string, sceneCues: Cues): React.ReactNode => {
-  const shot = SHOT_PROPS[index];
+const renderScene = (title: string, kind: string, sceneCues: Cues): React.ReactNode => {
+  const surface = SURFACES[title];
+  if (surface) return <SurfaceScene {...surface} />;
+
   switch (kind) {
     case "coldopen":
       return <ColdOpen cues={sceneCues} />;
@@ -95,8 +83,6 @@ const renderScene = (index: number, kind: string, sceneCues: Cues): React.ReactN
       return <Feasible cues={sceneCues} />;
     case "closing":
       return <Closing cues={sceneCues} />;
-    case "shot":
-      return shot ? <ShotScene cues={sceneCues} {...shot} /> : null;
     default:
       return null;
   }
@@ -110,10 +96,9 @@ export const Rantai: React.FC = () => {
         const from = cursor;
         cursor += s.frames;
         const cueEntry = C.scenes.find((c) => c.index === s.index);
-        const sceneCues: Cues = cueEntry?.cues ?? {};
         return (
           <Sequence key={s.index} from={from} durationInFrames={s.frames} name={`${s.index}-${s.kind}`}>
-            {renderScene(s.index, s.kind, sceneCues)}
+            {renderScene(s.title ?? "", s.kind, cueEntry?.cues ?? {})}
             <Audio src={staticFile(`vo/${s.audio}`)} />
           </Sequence>
         );

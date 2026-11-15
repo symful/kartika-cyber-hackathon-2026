@@ -7,24 +7,51 @@
     {
       "kind": "coldopen",
       "sentences": [
-        { "cue": "card0", "text": "Laporan insiden jarang datang lengkap." },
-        { "cue": "card1", "text": "Dan hampir tidak pernah datang sendirian." },
-        { "cue": "card2", "text": "Satu satuan melaporkan email phishing. Satuan lain melaporkan koneksi keluar yang mencurigakan." },
-        { "cue": "lines", "text": "Tanpa cara membandingkan bukti, keduanya tetap dua berkas yang tidak pernah bertemu." },
-        { "cue": "score", "text": "RANTAI mencocokkan indikator antar laporan, dan menemukan bahwa keduanya satu kampanye." },
-        { "cue": "label", "text": "Skornya nol sampai seratus." },
-        { "cue": "cta", "text": "Ini RANTAI." }
+        {
+          "cue": "card0",
+          "text": "Laporan insiden jarang datang lengkap."
+        },
+        {
+          "cue": "card1",
+          "text": "Dan hampir tidak pernah datang sendirian."
+        },
+        {
+          "cue": "lines",
+          "text": "Tanpa cara membandingkan bukti, keduanya tetap dua berkas yang tidak pernah bertemu."
+        },
+        {
+          "cue": "score",
+          "text": "RANTAI mencocokkan indikator antar laporan, dan menemukan bahwa keduanya satu kampanye."
+        }
       ]
     },
     {
       "kind": "problem",
       "sentences": [
-        { "cue": "h1", "text": "Masalahnya bukan kekurangan alat deteksi." },
-        { "cue": "body1", "text": "Setiap satuan punya laporan sendiri, dan jarang dibandingkan dengan laporan satuan lain." },
-        { "cue": "h2", "text": "Yang hilang adalah benang penghubungnya." },
-        { "cue": "body2", "text": "Bukti sulit dibuktikan tetap utuh setelah berpindah tangan." },
-        { "cue": "body3", "text": "Koordinasi berjalan lewat pesan, sehingga keputusan analis tidak meninggalkan jejak." },
-        { "cue": "rule", "text": "Tiga hal itu yang RANTAI jawab." }
+        {
+          "cue": "h1",
+          "text": "Masalahnya bukan kekurangan alat deteksi."
+        },
+        {
+          "cue": "body1",
+          "text": "Setiap satuan punya laporan sendiri, dan jarang dibandingkan dengan laporan satuan lain."
+        },
+        {
+          "cue": "h2",
+          "text": "Yang hilang adalah benang penghubungnya."
+        },
+        {
+          "cue": "body2",
+          "text": "Bukti sulit dibuktikan tetap utuh setelah berpindah tangan."
+        },
+        {
+          "cue": "body3",
+          "text": "Koordinasi berjalan lewat pesan, sehingga keputusan analis tidak meninggalkan jejak."
+        },
+        {
+          "cue": "rule",
+          "text": "Tiga hal itu yang RANTAI jawab."
+        }
       ]
     },
     {
@@ -32,11 +59,26 @@
       "image": "docs/screenshots/01-login.png",
       "title": "Masuk ke ruang kerja",
       "sentences": [
-        { "cue": "title", "text": "Kita mulai dari halaman masuk." },
-        { "cue": "frame", "text": "Setiap satuan memakai akunnya sendiri." },
-        { "cue": "accounts", "text": "Peran akun menentukan tombol yang muncul, tetapi keputusan akhir tetap di server." },
-        { "cue": "session", "text": "Sesi berlaku delapan jam, dan cookie bersifat HttpOnly." },
-        { "cue": "audit", "text": "Setiap login menjadi entri pertama pada rantai audit." }
+        {
+          "cue": "title",
+          "text": "Kita mulai dari halaman masuk."
+        },
+        {
+          "cue": "frame",
+          "text": "Setiap satuan memakai akunnya sendiri."
+        },
+        {
+          "cue": "accounts",
+          "text": "Peran akun menentukan tombol yang muncul, tetapi keputusan akhir tetap di server."
+        },
+        {
+          "cue": "session",
+          "text": "Sesi berlaku delapan jam, dan cookie bersifat HttpOnly."
+        },
+        {
+          "cue": "audit",
+          "text": "Setiap login menjadi entri pertama pada rantai audit."
+        }
       ]
     },
     {
@@ -44,13 +86,34 @@
       "image": "docs/screenshots/02-dashboard.png",
       "title": "Ringkasan operasi",
       "sentences": [
-        { "cue": "title", "text": "Ringkasan memberi gambaran satu kampanye dalam satu pandangan." },
-        { "cue": "metrics", "text": "Empat metrik utama: laporan, indikator, temuan terbuka, dan prioritas." },
-        { "cue": "severity", "text": "Distribusi severity memperlihatkan komposisi ancaman." },
-        { "cue": "trend", "text": "Tren laporan mengikuti waktu kejadian, sehingga lonjakan terlihat sebagai lonjakan." },
-        { "cue": "matrix", "text": "Matriks severity kali status menjawab: apa yang masih terbuka, dan apa yang sudah ditangani." },
-        { "cue": "bands", "text": "Sebaran band korelasi memperlihatkan seberapa kuat bukti kita." },
-        { "cue": "chain", "text": "Dan status rantai audit selalu tampil di ringkasan harian." }
+        {
+          "cue": "title",
+          "text": "Ringkasan memberi gambaran satu kampanye dalam satu pandangan."
+        },
+        {
+          "cue": "metrics",
+          "text": "Empat metrik utama: laporan, indikator, temuan terbuka, dan prioritas."
+        },
+        {
+          "cue": "severity",
+          "text": "Distribusi severity memperlihatkan komposisi ancaman."
+        },
+        {
+          "cue": "trend",
+          "text": "Tren laporan mengikuti waktu kejadian, sehingga lonjakan terlihat sebagai lonjakan."
+        },
+        {
+          "cue": "matrix",
+          "text": "Matriks severity kali status menjawab: apa yang masih terbuka, dan apa yang sudah ditangani."
+        },
+        {
+          "cue": "bands",
+          "text": "Sebaran band korelasi memperlihatkan seberapa kuat bukti kita."
+        },
+        {
+          "cue": "chain",
+          "text": "Dan status rantai audit selalu tampil di ringkasan harian."
+        }
       ]
     },
     {
@@ -58,122 +121,350 @@
       "image": "docs/screenshots/05-evidence-vault.png",
       "title": "Bukti dan integritasnya",
       "sentences": [
-        { "cue": "title", "text": "Ini bagian paling penting: penanganan bukti." },
-        { "cue": "upload", "text": "Berkas diunggah sekaligus banyak, dengan cakupan berbagi dan catatan analis." },
-        { "cue": "hash", "text": "Setiap berkas dihitung hash-nya saat diterima, lalu dihitung ulang dari isi tersimpan." },
-        { "cue": "verify", "text": "Kalau kedua nilai cocok, statusnya terverifikasi." },
-        { "cue": "dupe", "text": "Kalau berkas yang sama muncul di kasus lain, sistem menandai duplikat lintas kasus." },
-        { "cue": "analysis", "text": "Analisis statis berjalan tanpa mengeksekusi berkas: magic bytes, entropi, aturan YARA, dan batas arsip." }
+        {
+          "cue": "title",
+          "text": "Ini bagian paling penting: penanganan bukti."
+        },
+        {
+          "cue": "upload",
+          "text": "Berkas diunggah sekaligus banyak, dengan cakupan berbagi dan catatan analis."
+        },
+        {
+          "cue": "hash",
+          "text": "Setiap berkas dihitung hash-nya saat diterima, lalu dihitung ulang dari isi tersimpan."
+        },
+        {
+          "cue": "verify",
+          "text": "Kalau kedua nilai cocok, statusnya terverifikasi."
+        },
+        {
+          "cue": "dupe",
+          "text": "Kalau berkas yang sama muncul di kasus lain, sistem menandai duplikat lintas kasus."
+        },
+        {
+          "cue": "analysis",
+          "text": "Analisis statis berjalan tanpa mengeksekusi berkas: magic bytes, entropi, aturan YARA, dan batas arsip."
+        }
       ]
     },
     {
       "kind": "pipeline",
       "sentences": [
-        { "cue": "title", "text": "Sekarang mesin korelasinya." },
-        { "cue": "s0", "text": "Berkas masuk: email, CSV, log, teks, dan arsip." },
-        { "cue": "s1", "text": "Berkas diparse: header, baris, dan entri arsip." },
-        { "cue": "s2", "text": "Indikator diekstrak lalu dinormalisasi, termasuk defang, homoglyph, dan label IDN." },
-        { "cue": "s3", "text": "Bobotnya menurun kalau indikator muncul di banyak insiden." },
-        { "cue": "s4", "text": "Hasil akhirnya satu skor beserta daftar alasan." },
-        { "cue": "b0", "text": "Di atas tujuh puluh, kuat." },
-        { "cue": "b1", "text": "Empat puluh lima sampai enam puluh sembilan, sedang." },
-        { "cue": "b2", "text": "Dua puluh lima sampai empat puluh empat, lemah." },
-        { "cue": "b3", "text": "Di bawah dua puluh lima dibuang." },
-        { "cue": "note", "text": "Setiap angka bisa dipertanggungjawabkan." }
+        {
+          "cue": "title",
+          "text": "Sekarang mesin korelasinya."
+        },
+        {
+          "cue": "s0",
+          "text": "Berkas masuk: email, CSV, log, teks, dan arsip."
+        },
+        {
+          "cue": "s1",
+          "text": "Berkas diparse: header, baris, dan entri arsip."
+        },
+        {
+          "cue": "s2",
+          "text": "Indikator diekstrak lalu dinormalisasi, termasuk defang, homoglyph, dan label IDN."
+        },
+        {
+          "cue": "s3",
+          "text": "Bobotnya menurun kalau indikator muncul di banyak insiden."
+        },
+        {
+          "cue": "s4",
+          "text": "Hasil akhirnya satu skor beserta daftar alasan."
+        },
+        {
+          "cue": "b0",
+          "text": "Di atas tujuh puluh, kuat."
+        },
+        {
+          "cue": "b1",
+          "text": "Empat puluh lima sampai enam puluh sembilan, sedang."
+        },
+        {
+          "cue": "b2",
+          "text": "Dua puluh lima sampai empat puluh empat, lemah."
+        },
+        {
+          "cue": "b3",
+          "text": "Di bawah dua puluh lima dibuang."
+        },
+        {
+          "cue": "note",
+          "text": "Setiap angka bisa dipertanggungjawabkan."
+        }
       ]
     },
     {
       "kind": "scores",
       "sentences": [
-        { "cue": "title", "text": "Pada data demo, hasilnya seperti ini." },
-        { "cue": "sub", "text": "Skor adalah kekuatan bukti, bukan probabilitas." },
-        { "cue": "r0", "text": "Laporan satu dan dua berskor seratus, karena berbagi hash lampiran, domain, dan URL." },
-        { "cue": "r1", "text": "Laporan satu dan tiga berskor lima puluh delapan." },
-        { "cue": "r2", "text": "Laporan dua dan tiga berskor dua puluh delapan." },
-        { "cue": "r3", "text": "Dan laporan keempat berskor nol terhadap semuanya." },
-        { "cue": "note", "text": "Angka nol itu sama pentingnya dengan angka seratus." }
+        {
+          "cue": "title",
+          "text": "Pada data demo, hasilnya seperti ini."
+        },
+        {
+          "cue": "sub",
+          "text": "Skor adalah kekuatan bukti, bukan probabilitas."
+        },
+        {
+          "cue": "r0",
+          "text": "Laporan satu dan dua berskor seratus, karena berbagi hash lampiran, domain, dan URL."
+        },
+        {
+          "cue": "r1",
+          "text": "Laporan satu dan tiga berskor lima puluh delapan."
+        },
+        {
+          "cue": "r2",
+          "text": "Laporan dua dan tiga berskor dua puluh delapan."
+        },
+        {
+          "cue": "r3",
+          "text": "Dan laporan keempat berskor nol terhadap semuanya."
+        },
+        {
+          "cue": "note",
+          "text": "Angka nol itu sama pentingnya dengan angka seratus."
+        }
       ]
     },
     {
       "kind": "tlp",
       "sentences": [
-        { "cue": "title", "text": "Sekarang bagian yang paling sering disalahpahami: persetujuan akses." },
-        { "cue": "card", "text": "Bravo meminta membuka bukti mentah milik Alpha." },
-        { "cue": "reason", "text": "Alasannya dicatat, dengan masa berlaku tiga hari." },
-        { "cue": "approve", "text": "Koordinator menyetujui." },
-        { "cue": "gate", "text": "Tetapi approval bukan izin mutlak." },
-        { "cue": "l0", "text": "Pemilik atau koordinator selalu boleh, dan tetap tercatat di audit." },
-        { "cue": "l1", "text": "Cakupan restricted selalu ditolak lintas satuan." },
-        { "cue": "l2", "text": "TLP merah dan amber plus strict juga selalu ditolak, meskipun ada approval." },
-        { "cue": "l3", "text": "TLP amber memerlukan approval yang belum kedaluwarsa." },
-        { "cue": "l4", "text": "TLP hijau atau clear boleh dibuka, tetapi tetap tunduk aturan restricted." }
+        {
+          "cue": "title",
+          "text": "Sekarang bagian yang paling sering disalahpahami: persetujuan akses."
+        },
+        {
+          "cue": "card",
+          "text": "Bravo meminta membuka bukti mentah milik Alpha."
+        },
+        {
+          "cue": "reason",
+          "text": "Alasannya dicatat, dengan masa berlaku tiga hari."
+        },
+        {
+          "cue": "approve",
+          "text": "Koordinator menyetujui."
+        },
+        {
+          "cue": "gate",
+          "text": "Tetapi approval bukan izin mutlak."
+        },
+        {
+          "cue": "l0",
+          "text": "Pemilik atau koordinator selalu boleh, dan tetap tercatat di audit."
+        },
+        {
+          "cue": "l1",
+          "text": "Cakupan restricted selalu ditolak lintas satuan."
+        },
+        {
+          "cue": "l2",
+          "text": "TLP merah dan amber plus strict juga selalu ditolak, meskipun ada approval."
+        },
+        {
+          "cue": "l3",
+          "text": "TLP amber memerlukan approval yang belum kedaluwarsa."
+        },
+        {
+          "cue": "l4",
+          "text": "TLP hijau atau clear boleh dibuka, tetapi tetap tunduk aturan restricted."
+        }
       ]
     },
     {
       "kind": "integrity",
       "sentences": [
-        { "cue": "title", "text": "Lapisan terakhir adalah integritas." },
-        { "cue": "b0", "text": "Setiap entri adalah hash dari entri sebelumnya, ditambah isi entri itu." },
-        { "cue": "b1", "text": "Entri pertama memakai enam puluh empat digit nol." },
-        { "cue": "b2", "text": "Mengubah satu entri memutus seluruh rantai setelahnya." },
-        { "cue": "b3", "text": "Verifikasi menghitung ulang, dan melaporkan nomor entri pertama yang rusak." },
-        { "cue": "b4", "text": "Pemeriksaan itu bekerja meskipun basis data disunting langsung." },
-        { "cue": "b5", "text": "Checkpoint Ed25519 membandingkan kepala rantai dengan tanda tangan perangkat." },
-        { "cue": "ok", "text": "Pada kondisi normal, statusnya terverifikasi." },
-        { "cue": "tamper", "text": "Sekarang kita ubah satu entri. Verifikasi menunjuk entri yang berubah." },
-        { "cue": "restore", "text": "Kita pulihkan, dan rantai kembali hijau. Jujur soal batasnya: rantai membuktikan konsistensi, bukan keaslian berkas." }
+        {
+          "cue": "title",
+          "text": "Lapisan terakhir adalah integritas."
+        },
+        {
+          "cue": "b0",
+          "text": "Setiap entri adalah hash dari entri sebelumnya, ditambah isi entri itu."
+        },
+        {
+          "cue": "b1",
+          "text": "Entri pertama memakai enam puluh empat digit nol."
+        },
+        {
+          "cue": "b2",
+          "text": "Mengubah satu entri memutus seluruh rantai setelahnya."
+        },
+        {
+          "cue": "b3",
+          "text": "Verifikasi menghitung ulang, dan melaporkan nomor entri pertama yang rusak."
+        },
+        {
+          "cue": "b4",
+          "text": "Pemeriksaan itu bekerja meskipun basis data disunting langsung."
+        },
+        {
+          "cue": "b5",
+          "text": "Checkpoint Ed25519 membandingkan kepala rantai dengan tanda tangan perangkat."
+        },
+        {
+          "cue": "ok",
+          "text": "Pada kondisi normal, statusnya terverifikasi."
+        },
+        {
+          "cue": "tamper",
+          "text": "Sekarang kita ubah satu entri. Verifikasi menunjuk entri yang berubah."
+        },
+        {
+          "cue": "restore",
+          "text": "Kita pulihkan, dan rantai kembali hijau. Jujur soal batasnya: rantai membuktikan konsistensi, bukan keaslian berkas."
+        }
       ]
     },
     {
       "kind": "architecture",
       "sentences": [
-        { "cue": "title", "text": "Arsitekturnya sengaja sederhana." },
-        { "cue": "lane1", "text": "Jalur pertama memakai Cloudflare: React di depan, Worker Hono di tengah." },
-        { "cue": "a0", "text": "Bundel statis dilayani sebagai aset." },
-        { "cue": "a1", "text": "Worker menangani API dan autentikasi." },
-        { "cue": "a2", "text": "Basis datanya D1, yang menyimpan artefak dan mencatat audit." },
-        { "cue": "a3", "text": "Kriptografinya memakai WebCrypto." },
-        { "cue": "lane2", "text": "Jalur kedua untuk lingkungan terisolasi: Node dengan Hono." },
-        { "cue": "b0", "text": "Frontend yang sama dilayani dari proses Node." },
-        { "cue": "b1", "text": "Basis datanya SQLite lokal, dengan shim antarmuka D1." },
-        { "cue": "b2", "text": "Bukti disimpan di filesystem." },
-        { "cue": "b3", "text": "Batas unggahnya lima puluh megabita." },
-        { "cue": "storage", "text": "Keduanya memakai antarmuka EvidenceStorage yang sama." },
-        { "cue": "note", "text": "Satu Worker, satu basis data, tanpa panggilan keluar saat runtime." }
+        {
+          "cue": "title",
+          "text": "Arsitekturnya sengaja sederhana."
+        },
+        {
+          "cue": "lane1",
+          "text": "Jalur pertama memakai Cloudflare: React di depan, Worker Hono di tengah."
+        },
+        {
+          "cue": "a0",
+          "text": "Bundel statis dilayani sebagai aset."
+        },
+        {
+          "cue": "a1",
+          "text": "Worker menangani API dan autentikasi."
+        },
+        {
+          "cue": "a2",
+          "text": "Basis datanya D1, yang menyimpan artefak dan mencatat audit."
+        },
+        {
+          "cue": "a3",
+          "text": "Kriptografinya memakai WebCrypto."
+        },
+        {
+          "cue": "lane2",
+          "text": "Jalur kedua untuk lingkungan terisolasi: Node dengan Hono."
+        },
+        {
+          "cue": "b0",
+          "text": "Frontend yang sama dilayani dari proses Node."
+        },
+        {
+          "cue": "b1",
+          "text": "Basis datanya SQLite lokal, dengan shim antarmuka D1."
+        },
+        {
+          "cue": "b2",
+          "text": "Bukti disimpan di filesystem."
+        },
+        {
+          "cue": "b3",
+          "text": "Batas unggahnya lima puluh megabita."
+        },
+        {
+          "cue": "storage",
+          "text": "Keduanya memakai antarmuka EvidenceStorage yang sama."
+        },
+        {
+          "cue": "note",
+          "text": "Satu Worker, satu basis data, tanpa panggilan keluar saat runtime."
+        }
       ]
     },
     {
       "kind": "proof",
       "sentences": [
-        { "cue": "title", "text": "Semua klaim itu bisa diperiksa." },
-        { "cue": "m0", "text": "Dua puluh empat pemeriksaan keamanan dijalankan terhadap server yang hidup, dan seluruhnya lulus." },
-        { "cue": "m1", "text": "Empat puluh delapan butir uji frontend, tanpa pelanggaran aksesibilitas." },
-        { "cue": "m2", "text": "Benchmark memakai empat ratus insiden, sembilan ratus pasangan benar." },
-        { "cue": "m3", "text": "Precision dan recall satu koma nol, false positive nol." },
-        { "cue": "b0", "text": "Uji manipulasi rantai menunjukkan entri yang diubah terdeteksi." },
-        { "cue": "b1", "text": "ZIP bomb ditolak oleh batas keamanan arsip." },
-        { "cue": "b2", "text": "Dan satu kasus kami laporkan apa adanya: hash yang sama pada kampanye tidak terkait masih terhubung." }
+        {
+          "cue": "title",
+          "text": "Semua klaim itu bisa diperiksa."
+        },
+        {
+          "cue": "m0",
+          "text": "Dua puluh empat pemeriksaan keamanan dijalankan terhadap server yang hidup, dan seluruhnya lulus."
+        },
+        {
+          "cue": "m1",
+          "text": "Empat puluh delapan butir uji frontend, tanpa pelanggaran aksesibilitas."
+        },
+        {
+          "cue": "m2",
+          "text": "Benchmark memakai empat ratus insiden, sembilan ratus pasangan benar."
+        },
+        {
+          "cue": "m3",
+          "text": "Precision dan recall satu koma nol, false positive nol."
+        },
+        {
+          "cue": "b0",
+          "text": "Uji manipulasi rantai menunjukkan entri yang diubah terdeteksi."
+        },
+        {
+          "cue": "b1",
+          "text": "ZIP bomb ditolak oleh batas keamanan arsip."
+        },
+        {
+          "cue": "b2",
+          "text": "Dan satu kasus kami laporkan apa adanya: hash yang sama pada kampanye tidak terkait masih terhubung."
+        }
       ]
     },
     {
       "kind": "feasible",
       "sentences": [
-        { "cue": "title", "text": "Soal kelayakan penerapan." },
-        { "cue": "b0", "text": "Deploy cukup satu perintah, dan bisa berjalan sepenuhnya offline." },
-        { "cue": "b1", "text": "Untuk volume besar, BLOB di D1 diganti object storage." },
-        { "cue": "b2", "text": "Yang sengaja belum ada: sandbox dinamis, impor YARA, dan impor STIX." },
-        { "cue": "b3", "text": "Peta jalannya: parser EVTX dan pcap, notifikasi approval, dan rate limiter terdistribusi." },
-        { "cue": "close", "text": "Semua itu tidak mengubah kontrak API." }
+        {
+          "cue": "title",
+          "text": "Soal kelayakan penerapan."
+        },
+        {
+          "cue": "b0",
+          "text": "Deploy cukup satu perintah, dan bisa berjalan sepenuhnya offline."
+        },
+        {
+          "cue": "b1",
+          "text": "Untuk volume besar, BLOB di D1 diganti object storage."
+        },
+        {
+          "cue": "b2",
+          "text": "Yang sengaja belum ada: sandbox dinamis, impor YARA, dan impor STIX."
+        },
+        {
+          "cue": "b3",
+          "text": "Peta jalannya: parser EVTX dan pcap, notifikasi approval, dan rate limiter terdistribusi."
+        },
+        {
+          "cue": "close",
+          "text": "Semua itu tidak mengubah kontrak API."
+        }
       ]
     },
     {
       "kind": "closing",
       "sentences": [
-        { "cue": "h0", "text": "RANTAI tidak menggantikan Kartika CSIRT." },
-        { "cue": "h1", "text": "Ia menambahkan kemampuan yang belum ada." },
-        { "cue": "body", "text": "Menyatukan laporan lintas satuan, menjaga bukti tetap bisa dipercaya, dan membuat keputusan analis bisa dipertanggungjawabkan." },
-        { "cue": "links", "text": "Prototipe dapat dicoba di rantai dot careday17 dot workers dot dev." },
-        { "cue": "attr", "text": "Seluruh data pada demo adalah data pelatihan sintetis. Terima kasih." }
+        {
+          "cue": "h0",
+          "text": "RANTAI tidak menggantikan Kartika CSIRT."
+        },
+        {
+          "cue": "h1",
+          "text": "Ia menambahkan kemampuan yang belum ada."
+        },
+        {
+          "cue": "body",
+          "text": "Menyatukan laporan lintas satuan, menjaga bukti tetap bisa dipercaya, dan membuat keputusan analis bisa dipertanggungjawabkan."
+        },
+        {
+          "cue": "links",
+          "text": "Prototipe dapat dicoba di rantai dot careday17 dot workers dot dev."
+        },
+        {
+          "cue": "attr",
+          "text": "Seluruh data pada demo adalah data pelatihan sintetis. Terima kasih."
+        }
       ]
     }
   ]

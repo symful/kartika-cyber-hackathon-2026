@@ -40,6 +40,9 @@ D = VIDEO / "models" / "f5-indo"
 MODEL = D / "f5_tts_indo_v2.pt"
 VOCAB = D / "vocab.txt"
 
+# Must be the untouched clip: F5 aligns ref_text to ref_audio, and a processed
+# (denoised/resampled) reference breaks that alignment, which makes the model
+# leak the reference sentence into the output ("...video YouTube").
 REF = D / "ref_windah.wav"
 REF_TEXT = (
     "Eh, guys, gua udah sampai nih di hotel di hari kedua lagi ngerjain beberapa hal, "
@@ -66,7 +69,11 @@ NFE = 40              # more sampling steps, fewer artefacts at joins
 
 MASTER = ",".join([
     f"aresample={SR}",
-    "highpass=f=85",
+    "highpass=f=95",
+    # Denoise the generated speech: the windah reference carries audible room
+    # tone (13 dB SNR) which F5 reproduces as background wash under the voice.
+    "afftdn=nf=-28:nr=14:tn=1",
+    "anlmdn=s=5:p=0.0015",
     "equalizer=f=180:t=q:w=1.0:g=1.2",
     "equalizer=f=2900:t=q:w=1.3:g=2.0",
     "deesser=i=0.3",
@@ -77,10 +84,9 @@ MASTER = ",".join([
 
 
 def ff(args, desc):
-    r = subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-y", *args],
-                       capture_output=True, text=True)
+    r = subprocess.run(["ffmpeg", "-hide_banner", "-y", *args], capture_output=True, text=True)
     if r.returncode != 0:
-        raise SystemExit(f"ffmpeg failed ({desc}):\n{r.stderr}")
+        raise SystemExit(f"ffmpeg failed ({desc}):\nCMD: ffmpeg {' '.join(args)}\n{r.stderr[-3000:]}")
 
 
 def dur(p):
@@ -126,9 +132,14 @@ def trim(src: Path, dst: Path):
 
 
 def main():
-    spec = json.loads((VIDEO / "narration-short.json").read_text(encoding="utf-8"))
+    spec = json.loads((VIDEO / "narration-final.json").read_text(encoding="utf-8"))
     scenes = spec["scenes"]
     speed = float(spec.get("speed", 1.0))
+
+    # Clear intermediates so a stale list file can never point at a deleted clip.
+    for pattern in ("list*.txt", "joined*.wav", "_gap*.wav", "_tail*.wav", "s*_lead.wav"):
+        for f in TRIM.glob(pattern):
+            f.unlink(missing_ok=True)
 
     from f5_tts.api import F5TTS
 
@@ -164,7 +175,7 @@ def main():
             parts.append(clipped)
             t += d
 
-            gap = TRIM / "_gap.wav"
+            gap = TRIM / f"_gap{si:02d}_{k:02d}.wav"
             ff(["-f", "lavfi", "-i", f"anullsrc=r={SR}:cl=mono", "-t", f"{SENT_GAP}", str(gap)], "gap")
             parts.append(gap)
             t += SENT_GAP
@@ -176,22 +187,41 @@ def main():
         joined = TRIM / f"joined{si:02d}.wav"
         ff(["-f", "concat", "-safe", "0", "-i", str(lst), "-ar", str(SR), "-ac", "1", str(joined)], "concat")
 
-        tail = TRIM / "_tail.wav"
+        # Per-scene tail file: a shared name races with the concat demuxer.
+        tail = TRIM / f"_tail{si:02d}.wav"
         ff(["-f", "lavfi", "-i", f"anullsrc=r={SR}:cl=mono", "-t", f"{TAIL}", str(tail)], "tail")
         lst2 = TRIM / f"list2-{si:02d}.txt"
         lst2.write_text(f"file '{joined.as_posix()}'\nfile '{tail.as_posix()}'", encoding="utf-8")
-
+        withtail = TRIM / f"withtail{si:02d}.wav"
+        ff(["-f", "concat", "-safe", "0", "-i", str(lst2),
+            "-ar", str(SR), "-ac", "1", str(withtail)], "addtail")
         mastered = OUT / f"vo-{si:02d}.wav"
-        ff(["-f", "concat", "-safe", "0", "-i", str(lst2), "-af", MASTER,
-            "-ar", str(SR), "-ac", "1", str(mastered)], "master")
-        ff(["-i", str(mastered), "-af",
-            f"apad=whole_dur={frames/FPS:.6f},atrim=0:{frames/FPS:.6f}",
-            "-ar", str(SR), "-ac", "1", str(mastered.with_suffix(".fit.wav"))], "fit")
-        mastered.with_suffix(".fit.wav").replace(mastered)
+        # afftdn alone. Chaining anlmdn after it aborts mid-stream on this ffmpeg
+        # build (filter buffer overrun), and one denoiser is enough for a 13 dB
+        # noise floor.
+        denoised = TRIM / f"denoised{si:02d}.wav"
+        ff(["-i", str(withtail), "-af",
+            f"aresample={SR},highpass=f=95,afftdn=nf=-28:nr=14:tn=1",
+            "-ar", str(SR), "-ac", "1", str(denoised)], "denoise")
 
-        timing.append({"index": si, "kind": sc["kind"], "frames": frames,
-                       "seconds": round(frames / FPS, 3), "audio": f"vo-{si:02d}.wav"})
-        cues_out.append({"index": si, "kind": sc["kind"], "frames": frames, "cues": cue_frames})
+        ff(["-i", str(denoised), "-af",
+            "equalizer=f=180:t=q:w=1.0:g=1.2,"
+            "equalizer=f=2900:t=q:w=1.3:g=2.0,"
+            "deesser=i=0.3,"
+            "acompressor=threshold=-20dB:ratio=2.2:attack=15:release=260:makeup=1.8,"
+            "alimiter=limit=0.94,"
+            "loudnorm=I=-16:TP=-1.5:LRA=11",
+            "-ar", str(SR), "-ac", "1", str(mastered.with_suffix(".m.wav"))], "master")
+
+        ff(["-i", str(mastered.with_suffix(".m.wav")), "-af",
+            f"apad=whole_dur={frames/FPS:.6f},atrim=0:{frames/FPS:.6f}",
+            "-ar", str(SR), "-ac", "1", str(mastered)], "fit")
+
+        timing.append({"index": si, "kind": sc["kind"], "title": sc.get("title", ""),
+                       "frames": frames, "seconds": round(frames / FPS, 3),
+                       "audio": f"vo-{si:02d}.wav"})
+        cues_out.append({"index": si, "kind": sc["kind"], "title": sc.get("title", ""),
+                         "frames": frames, "cues": cue_frames})
         print(f"[{si:02d}] {sc['kind']:<12} {frames:5d}f {frames/FPS:6.1f}s", flush=True)
 
     total = sum(x["frames"] for x in timing)

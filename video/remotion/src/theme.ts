@@ -6,6 +6,7 @@ export const BRAND = {
   muted: "#55647a",
   faint: "#637286",
   rule: "#e1e5ea",
+  rule2: "#cfd6df",
   paper: "#ffffff",
   sunk: "#f7f9fc",
   accent: "#1866db",
