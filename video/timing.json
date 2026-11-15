@@ -1,96 +1,96 @@
 {
   "fps": 30,
-  "totalFrames": 17646,
+  "totalFrames": 12236,
   "scenes": [
     {
       "index": 1,
       "kind": "coldopen",
-      "frames": 1184,
-      "seconds": 39.467,
+      "frames": 820,
+      "seconds": 27.333,
       "audio": "vo-01.wav"
     },
     {
       "index": 2,
       "kind": "problem",
-      "frames": 1177,
-      "seconds": 39.233,
+      "frames": 735,
+      "seconds": 24.5,
       "audio": "vo-02.wav"
     },
     {
       "index": 3,
       "kind": "shot",
-      "frames": 815,
-      "seconds": 27.167,
+      "frames": 569,
+      "seconds": 18.967,
       "audio": "vo-03.wav"
     },
     {
       "index": 4,
       "kind": "shot",
-      "frames": 1620,
-      "seconds": 54.0,
+      "frames": 995,
+      "seconds": 33.167,
       "audio": "vo-04.wav"
     },
     {
       "index": 5,
       "kind": "shot",
-      "frames": 1143,
-      "seconds": 38.1,
+      "frames": 913,
+      "seconds": 30.433,
       "audio": "vo-05.wav"
     },
     {
       "index": 6,
       "kind": "pipeline",
-      "frames": 1491,
-      "seconds": 49.7,
+      "frames": 1089,
+      "seconds": 36.3,
       "audio": "vo-06.wav"
     },
     {
       "index": 7,
       "kind": "scores",
-      "frames": 1224,
-      "seconds": 40.8,
+      "frames": 787,
+      "seconds": 26.233,
       "audio": "vo-07.wav"
     },
     {
       "index": 8,
       "kind": "tlp",
-      "frames": 1548,
-      "seconds": 51.6,
+      "frames": 1134,
+      "seconds": 37.8,
       "audio": "vo-08.wav"
     },
     {
       "index": 9,
       "kind": "integrity",
-      "frames": 1879,
-      "seconds": 62.633,
+      "frames": 1347,
+      "seconds": 44.9,
       "audio": "vo-09.wav"
     },
     {
       "index": 10,
       "kind": "architecture",
-      "frames": 1890,
-      "seconds": 63.0,
+      "frames": 1303,
+      "seconds": 43.433,
       "audio": "vo-10.wav"
     },
     {
       "index": 11,
       "kind": "proof",
-      "frames": 1559,
-      "seconds": 51.967,
+      "frames": 1098,
+      "seconds": 36.6,
       "audio": "vo-11.wav"
     },
     {
       "index": 12,
       "kind": "feasible",
-      "frames": 1158,
-      "seconds": 38.6,
+      "frames": 726,
+      "seconds": 24.2,
       "audio": "vo-12.wav"
     },
     {
       "index": 13,
       "kind": "closing",
-      "frames": 958,
-      "seconds": 31.933,
+      "frames": 720,
+      "seconds": 24.0,
       "audio": "vo-13.wav"
     }
   ]

@@ -4,193 +4,193 @@
     {
       "index": 1,
       "kind": "coldopen",
-      "frames": 1184,
+      "frames": 820,
       "cues": {
-        "card0": 9,
-        "card1": 122,
-        "card2": 214,
-        "lines": 421,
-        "score": 605,
-        "label": 831,
-        "cta": 976
+        "card0": 16,
+        "card1": 97,
+        "card2": 183,
+        "lines": 367,
+        "score": 531,
+        "label": 700,
+        "cta": 761
       }
     },
     {
       "index": 2,
       "kind": "problem",
-      "frames": 1177,
+      "frames": 735,
       "cues": {
-        "h1": 9,
-        "body1": 101,
-        "h2": 372,
-        "body2": 462,
-        "body3": 707,
-        "rule": 980
+        "h1": 16,
+        "body1": 103,
+        "h2": 274,
+        "body2": 358,
+        "body3": 476,
+        "rule": 640
       }
     },
     {
       "index": 3,
       "kind": "shot",
-      "frames": 815,
+      "frames": 569,
       "cues": {
-        "title": 9,
-        "frame": 78,
-        "accounts": 242,
-        "session": 428,
-        "audit": 624
+        "title": 16,
+        "frame": 83,
+        "accounts": 164,
+        "session": 322,
+        "audit": 434
       }
     },
     {
       "index": 4,
       "kind": "shot",
-      "frames": 1620,
+      "frames": 995,
       "cues": {
-        "title": 9,
-        "metrics": 163,
-        "severity": 442,
-        "trend": 623,
-        "matrix": 879,
-        "bands": 1184,
-        "chain": 1343
+        "title": 16,
+        "metrics": 140,
+        "severity": 279,
+        "trend": 387,
+        "matrix": 549,
+        "bands": 727,
+        "chain": 851
       }
     },
     {
       "index": 5,
       "kind": "shot",
-      "frames": 1143,
+      "frames": 913,
       "cues": {
-        "title": 9,
-        "upload": 133,
-        "hash": 317,
-        "verify": 515,
-        "dupe": 641,
-        "analysis": 861
+        "title": 16,
+        "upload": 108,
+        "hash": 257,
+        "verify": 425,
+        "dupe": 525,
+        "analysis": 687
       }
     },
     {
       "index": 6,
       "kind": "pipeline",
-      "frames": 1491,
+      "frames": 1089,
       "cues": {
-        "title": 9,
-        "s0": 71,
-        "s1": 195,
-        "s2": 300,
-        "s3": 492,
-        "s4": 655,
-        "b0": 779,
-        "b1": 871,
-        "b2": 1007,
-        "b3": 1133,
-        "note": 1264
+        "title": 16,
+        "s0": 77,
+        "s1": 175,
+        "s2": 272,
+        "s3": 432,
+        "s4": 549,
+        "b0": 646,
+        "b1": 705,
+        "b2": 811,
+        "b3": 908,
+        "note": 978
       }
     },
     {
       "index": 7,
       "kind": "scores",
-      "frames": 1224,
+      "frames": 787,
       "cues": {
-        "title": 9,
-        "sub": 92,
-        "r0": 259,
-        "r1": 493,
-        "r2": 677,
-        "r3": 843,
-        "note": 991
+        "title": 16,
+        "sub": 95,
+        "r0": 192,
+        "r1": 356,
+        "r2": 457,
+        "r3": 554,
+        "note": 656
       }
     },
     {
       "index": 8,
       "kind": "tlp",
-      "frames": 1548,
+      "frames": 1134,
       "cues": {
-        "title": 9,
-        "card": 158,
-        "reason": 306,
-        "approve": 487,
-        "gate": 573,
-        "l0": 650,
-        "l1": 851,
-        "l2": 990,
-        "l3": 1154,
-        "l4": 1306
+        "title": 16,
+        "card": 151,
+        "reason": 248,
+        "approve": 349,
+        "gate": 403,
+        "l0": 476,
+        "l1": 609,
+        "l2": 708,
+        "l3": 856,
+        "l4": 963
       }
     },
     {
       "index": 9,
       "kind": "integrity",
-      "frames": 1879,
+      "frames": 1347,
       "cues": {
-        "title": 9,
-        "b0": 88,
-        "b1": 340,
-        "b2": 489,
-        "b3": 720,
-        "b4": 905,
-        "b5": 1108,
-        "ok": 1285,
-        "tamper": 1385,
-        "restore": 1552
+        "title": 16,
+        "b0": 92,
+        "b1": 232,
+        "b2": 333,
+        "b3": 442,
+        "b4": 590,
+        "b5": 716,
+        "ok": 867,
+        "tamper": 960,
+        "restore": 1099
       }
     },
     {
       "index": 10,
       "kind": "architecture",
-      "frames": 1890,
+      "frames": 1303,
       "cues": {
-        "title": 9,
-        "lane1": 82,
-        "a0": 259,
-        "a1": 341,
-        "a2": 424,
-        "a3": 601,
-        "lane2": 753,
-        "b0": 881,
-        "b1": 982,
-        "b2": 1167,
-        "b3": 1291,
-        "storage": 1498,
-        "note": 1663
+        "title": 16,
+        "lane1": 86,
+        "a0": 229,
+        "a1": 306,
+        "a2": 385,
+        "a3": 505,
+        "lane2": 577,
+        "b0": 694,
+        "b1": 787,
+        "b2": 895,
+        "b3": 959,
+        "storage": 1037,
+        "note": 1145
       }
     },
     {
       "index": 11,
       "kind": "proof",
-      "frames": 1559,
+      "frames": 1098,
       "cues": {
-        "title": 9,
-        "m0": 131,
-        "m1": 342,
-        "m2": 581,
-        "m3": 836,
-        "b0": 1003,
-        "b1": 1180,
-        "b2": 1276
+        "title": 16,
+        "m0": 84,
+        "m1": 272,
+        "m2": 414,
+        "m3": 551,
+        "b0": 662,
+        "b1": 788,
+        "b2": 878
       }
     },
     {
       "index": 12,
       "kind": "feasible",
-      "frames": 1158,
+      "frames": 726,
       "cues": {
-        "title": 9,
-        "b0": 67,
-        "b1": 263,
-        "b2": 530,
-        "b3": 715,
-        "close": 922
+        "title": 16,
+        "b0": 74,
+        "b1": 203,
+        "b2": 313,
+        "b3": 448,
+        "close": 621
       }
     },
     {
       "index": 13,
       "kind": "closing",
-      "frames": 958,
+      "frames": 720,
       "cues": {
-        "h0": 9,
-        "h1": 99,
-        "body": 189,
-        "links": 462,
-        "attr": 669
+        "h0": 16,
+        "h1": 101,
+        "body": 185,
+        "links": 425,
+        "attr": 558
       }
     }
   ]
